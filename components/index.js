@@ -1,3 +1,4 @@
 import Chessground from './Chessground';
+import ChessgroundWrapper from './ChessgroundWrapper';
 
-export { Chessground };
+export { Chessground, ChessgroundWrapper };
