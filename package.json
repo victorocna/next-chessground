@@ -2,7 +2,8 @@
   "name": "next-chessground",
   "version": "0.1.0",
   "description": "React and Next wrapper for Chessground with chessboard and pieces out of the box",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "author": "victorocna <victor@chesscoders.com>",
   "license": "GPL-3.0",
   "homepage": "https://github.com/chesscoders/next-chessground",
@@ -16,7 +17,12 @@
     "chessground",
     "react"
   ],
+  "files": [
+    "index.js",
+    "dist"
+  ],
   "scripts": {
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -27,10 +33,20 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "@rollup/plugin-babel": "^5.2.1",
+    "@rollup/plugin-commonjs": "^15.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "eslint": "^7.11.0",
     "eslint-plugin-react": "^7.21.4",
     "prettier": "^2.1.2",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react-dom": "^16.14.0",
+    "rollup": "^2.32.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^3.1.8"
   }
 }
