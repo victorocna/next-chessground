@@ -1,0 +1,56 @@
+coords {
+  position: absolute;
+  display: flex;
+  pointer-events: none;
+  user-select: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.5rem;
+  opacity: 0.8;
+}
+.coords-no coords {
+  display: none;
+}
+@media (min-width: 640px) {
+  coords {
+    font-size: 0.75rem;
+  }
+}
+coords.ranks {
+  flex-flow: column-reverse;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 0.8em;
+}
+coords.ranks.black {
+  flex-flow: column;
+}
+coords.files {
+  bottom: 0;
+  left: 0;
+  flex-flow: row;
+  width: 100%;
+}
+coords.files.black {
+  flex-flow: row-reverse;
+}
+coords.files coord {
+  padding-left: 4px;
+}
+coords coord {
+  flex: 1 1 auto;
+}
+
+.orientation-white .files coord:nth-child(2n + 1),
+.orientation-white .ranks coord:nth-child(2n),
+.orientation-black .files coord:nth-child(2n),
+.orientation-black .ranks coord:nth-child(2n + 1) {
+  color: #fff;
+}
+.orientation-white .files coord:nth-child(2n),
+.orientation-white .ranks coord:nth-child(2n + 1),
+.orientation-black .files coord:nth-child(2n + 1),
+.orientation-black .ranks coord:nth-child(2n) {
+  color: #779556;
+}
