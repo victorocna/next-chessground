@@ -1,0 +1,36 @@
+{
+  "name": "next-chessground",
+  "version": "0.1.0",
+  "description": "React and Next wrapper for Chessground with chessboard and pieces out of the box",
+  "main": "index.js",
+  "author": "victorocna <victor@chesscoders.com>",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/chesscoders/next-chessground",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chesscoders/next-chessground.git"
+  },
+  "keywords": [
+    "chess",
+    "chessboard",
+    "chessground",
+    "react"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "chessground": "^7.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-plugin-react": "^7.21.4",
+    "prettier": "^2.1.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  }
+}
