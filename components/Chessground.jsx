@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ChessgroundWrapper } from '.';
+import ChessgroundWrapper from './ChessgroundWrapper';
 
-const Chessground = ({ board, pieces, ...props }) => {
+const Chessground = ({ board = 'green', pieces = 'cburnett', ...props }) => {
   const classes = ['chessground', board, pieces];
   const [key, setKey] = useState(Math.random());
 
