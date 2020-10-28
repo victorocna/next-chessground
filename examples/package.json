@@ -1,0 +1,17 @@
+{
+  "name": "next-chessground-examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^10.0.0",
+    "next-chessground": "file:../next-chessground-0.2.2.tgz"
+  }
+}
