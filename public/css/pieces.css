@@ -1,0 +1,23 @@
+.spare-pieces {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-square {
+  display: table;
+  position: relative;
+  width: 12.5%;
+  padding-bottom: 12.5%;
+}
+
+.spare-piece {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-size: contain;
+  background-position: 0% -100%;
+  cursor: pointer;
+}
