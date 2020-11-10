@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ChessgroundWrapper from './ChessgroundWrapper';
 
 const Chessground = ({ board = 'green', pieces = 'cburnett', ...props }) => {
   const classes = ['chessground', board, pieces];
-  const [key, setKey] = useState(Math.random());
 
-  let timeout;
-  // debounce window resize event
-  if (typeof window !== 'undefined') {
-    window.addEventListener('resize', function () {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => setKey(Math.random()), 100);
-    });
-  }
+  // render pieces to correct squares on window resize
+  const [key, setKey] = useState(Math.random());
+  useEffect(() => {
+    const resize = () => setKey(Math.random());
+    window.addEventListener('resize', resize);
+
+    return () => window.removeEventListener('resize', resize);
+  });
 
   return (
     <div key={key} className={classes.join(' ')}>
