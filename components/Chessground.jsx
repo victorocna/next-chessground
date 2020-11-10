@@ -1,5 +1,5 @@
 import React, { useState, useEffect, forwardRef } from 'react';
-import ChessgroundWrapper from './Wrapper';
+import Wrapper from './Wrapper';
 
 const Chessground = (props, ref) => {
   const { board = 'green', pieces = 'cburnett' } = props;
@@ -16,7 +16,7 @@ const Chessground = (props, ref) => {
 
   return (
     <div key={key} className={classes.join(' ')}>
-      <ChessgroundWrapper ref={ref} {...props} />
+      <Wrapper ref={ref} {...props} />
     </div>
   );
 };
