@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import ChessgroundWrapper from './ChessgroundWrapper';
+import React, { useState, useEffect, forwardRef } from 'react';
+import ChessgroundWrapper from './Wrapper';
 
-const Chessground = ({ board = 'green', pieces = 'cburnett', ...props }) => {
+const Chessground = (props, ref) => {
+  const { board = 'green', pieces = 'cburnett' } = props;
   const classes = ['chessground', board, pieces];
 
   // render pieces to correct squares on window resize
@@ -15,9 +16,9 @@ const Chessground = ({ board = 'green', pieces = 'cburnett', ...props }) => {
 
   return (
     <div key={key} className={classes.join(' ')}>
-      <ChessgroundWrapper {...props} />
+      <ChessgroundWrapper ref={ref} {...props} />
     </div>
   );
 };
 
-export default Chessground;
+export default forwardRef(Chessground);
