@@ -1,24 +1,30 @@
-import React, { useState, useEffect, forwardRef } from 'react';
+import React from 'react';
+import classnames from 'merge-class-names';
 import Wrapper from './Wrapper';
+import useWindowResize from '../hooks/use-window-resize';
+import audio from '../lib/audio';
 
-const Chessground = (props, ref) => {
-  const { board = 'green', pieces = 'cburnett' } = props;
-  const classes = ['chessground', board, pieces];
-
-  // render pieces to correct squares on window resize
-  const [key, setKey] = useState(Math.random());
-  useEffect(() => {
-    const resize = () => setKey(Math.random());
-    window.addEventListener('resize', resize);
-
-    return () => window.removeEventListener('resize', resize);
-  });
+const Chessground = ({
+  board = 'green',
+  pieces = 'cburnett',
+  sound = 'silent',
+  ...props
+}) => {
+  const key = useWindowResize();
+  const handleMove = () => {
+    audio(sound);
+  };
 
   return (
-    <div key={key} className={classes.join(' ')}>
-      <Wrapper ref={ref} {...props} />
+    <div key={key} className={classnames('chessground', board, pieces)}>
+      <Wrapper onMove={handleMove} {...props} />
+      <div className="flex">
+        <i className="fas fa-cog"></i>
+        <i className="fas fa-exchange-alt"></i>
+        <i className="fas fa-expand-alt"></i>
+      </div>
     </div>
   );
 };
 
-export default forwardRef(Chessground);
+export default Chessground;

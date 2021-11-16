@@ -1,5 +1,7 @@
 # User
 dist
+NOTES.txt
+.env.production
 
 # Logs
 logs

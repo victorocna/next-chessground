@@ -1,7 +1,9 @@
 import { Chessground } from './components';
-import './public/css/chess.css';
-import './public/css/coordinates.css';
-import './public/css/pieces.css';
+import './assets/css/board.css';
+import './assets/css/chess.css';
+import './assets/css/coords.css';
+import './assets/css/layout.css';
+import './assets/css/pieces.css';
 
 export default Chessground;
 export { Chessground };
