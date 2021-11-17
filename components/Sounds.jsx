@@ -1,24 +1,25 @@
 import React from 'react';
 import useChessground from '../hooks/use-chessground';
 
-const Pieces = () => {
+const Sounds = () => {
   const { theme, handleChange } = useChessground();
 
   return (
     <>
-      <div>Pieces</div>
+      <div>Sounds</div>
       <select
-        name="pieces"
+        name="sounds"
         className="bg-white border border-gray-300 px-2 py-1.5 w-full text-gray-800 rounded"
-        defaultValue={theme.pieces}
+        defaultValue={theme.sounds}
         onChange={handleChange}
       >
-        <option value="cburnett">Classic</option>
-        <option value="alpha">Alpha</option>
-        <option value="neo">Neo</option>
+        <option value="robot">Robot</option>
+        <option value="piano">Piano</option>
+        <option value="lisp">Lisp</option>
+        <option value="sfx">SFX</option>
       </select>
     </>
   );
 };
 
-export default Pieces;
+export default Sounds;

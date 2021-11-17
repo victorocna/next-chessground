@@ -1,33 +1,33 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { local } from 'store2';
+import ThemeContext from '../components/ThemeContext';
 
 const useChessground = () => {
-  const defaults = {
-    board: 'green',
-    pieces: 'cburnett',
-    playSounds: true,
-    sounds: 'robot',
-    highlight: true,
-    coordinates: true,
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  const handleChecked = (event) => {
+    const name = event.target.name;
+    const checked = event.target.checked;
+
+    local.set(`chessground.${name}`, checked);
+    setTheme((state) => ({
+      ...state,
+      [name]: checked,
+    }));
   };
 
-  const cache = {
-    board: local.get('chessground.board'),
-    pieces: local.get('chessground.pieces'),
-    playSounds: local.get('chessground.playSounds'),
-    sounds: local.get('chessground.sounds'),
-    highlight: local.get('chessground.highlight'),
-    coordinates: local.get('chessground.coordinates'),
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    local.set(`chessground.${name}`, value);
+    setTheme((state) => ({
+      ...state,
+      [name]: value,
+    }));
   };
 
-  for (const key of Object.keys(cache)) {
-    if (cache[key]) {
-      defaults[key] = cache[key];
-    }
-  }
-  const [config, setConfig] = useState(defaults);
-
-  return [config, setConfig];
+  return { theme, setTheme, handleChecked, handleChange };
 };
 
 export default useChessground;

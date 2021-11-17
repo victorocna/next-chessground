@@ -54,14 +54,14 @@ cg-board square {
   height: 12.5%;
   pointer-events: none;
 }
-cg-board square.last-move {
+.highlight cg-board square.last-move {
   will-change: transform;
   background-color: rgba(246, 246, 130, 0.5);
 }
-.correct cg-board square.last-move {
+.highlight .correct cg-board square.last-move {
   background-color: rgba(155, 240, 0, 0.4);
 }
-.incorrect cg-board square.last-move {
+.highlight .incorrect cg-board square.last-move {
   background-color: rgba(240, 0, 0, 0.4);
 }
 

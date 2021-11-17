@@ -1,4 +1,4 @@
-import { Chessground } from './components';
+import Chessground from './components/Chessground';
 import './assets/css/board.css';
 import './assets/css/chess.css';
 import './assets/css/coords.css';

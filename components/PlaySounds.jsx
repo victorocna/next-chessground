@@ -1,18 +1,18 @@
 import React from 'react';
 import useChessground from '../hooks/use-chessground';
 
-const Coordinates = () => {
+const PlaySounds = () => {
   const { theme, handleChecked } = useChessground();
 
   return (
     <>
-      <div>Coordinates</div>
+      <div>Play sounds</div>
       <div className="flex justify-end">
         <input
-          name="coordinates"
+          name="playSounds"
           type="checkbox"
           className="checkbox rounded border border-gray-300"
-          defaultChecked={theme.coordinates}
+          defaultChecked={theme.playSounds}
           onChange={handleChecked}
         />
       </div>
@@ -20,4 +20,4 @@ const Coordinates = () => {
   );
 };
 
-export default Coordinates;
+export default PlaySounds;
