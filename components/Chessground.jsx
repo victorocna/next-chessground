@@ -13,7 +13,7 @@ const Chessground = (props) => {
   return (
     <ThemeContext.Provider value={value}>
       <div className="flex relative">
-        <NextChessground board={theme.board} {...props} />
+        <NextChessground {...props} />
         <div className="text-gray-400 flex flex-col gap-2 px-1">
           <div className="flex-grow">
             <Resize />

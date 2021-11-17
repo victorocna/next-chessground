@@ -1,10 +1,19 @@
 import React from 'react';
 import classnames from 'merge-class-names';
 import Chessground from '../lib/Chessground';
+import audio from '../lib/audio';
 import useChessground from '../hooks/use-chessground';
 
 const NextChessground = (props) => {
   const { theme } = useChessground();
+  const handleMove = () => {
+    if (typeof props.onMove === 'function') {
+      props.onMove();
+    }
+    if (theme.playSounds) {
+      audio(theme.sounds);
+    }
+  };
 
   return (
     <div
@@ -15,7 +24,11 @@ const NextChessground = (props) => {
         theme.pieces
       )}
     >
-      <Chessground {...props} coordinates={theme.coordinates} />
+      <Chessground
+        {...props}
+        coordinates={theme.coordinates}
+        onMove={handleMove}
+      />
     </div>
   );
 };
