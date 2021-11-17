@@ -1,3 +1,35 @@
 .flex {
   display: flex;
 }
+.cursor-resize {
+  cursor: nesw-resize;
+}
+button:focus {
+  outline: none;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  padding-left: 0.25rem;
+  width: 2.75rem;
+  height: 1.75rem;
+  outline: none;
+  appearance: none;
+  transition: 0.2s ease-in-out;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  cursor: pointer;
+}
+.checkbox:before {
+  background-color: rgba(156, 163, 175);
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  content: '';
+  transition: 0.2s ease-in-out;
+}
+.checkbox:checked:before {
+  background-color: rgba(4, 120, 87);
+  transform: translate(1rem, 0);
+}

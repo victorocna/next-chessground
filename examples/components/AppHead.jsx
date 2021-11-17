@@ -2,14 +2,22 @@ import React from 'react';
 import Head from 'next/head';
 import * as config from '../site.config';
 
-const AppHead = () => (
-  <Head>
-    <title>{config.sitename}</title>
-    <meta name="description" content={config.description} />
-    {config.googleFonts && <link rel="stylesheet" href={config.googleFonts} />}
-    {config.fontAwesome && <link rel="stylesheet" href={config.fontAwesome} />}
-    {config.tailwindcss && <link rel="stylesheet" href={config.tailwindcss} />}
-  </Head>
-);
+const AppHead = () => {
+  const showStylesheets = (href) => {
+    return <link key={href} rel="stylesheet" href={href} />;
+  };
+  const showScripts = (src) => {
+    return <script key={src} type="text/javascript" src={src}></script>;
+  };
+
+  return (
+    <Head>
+      <title>{config.sitename}</title>
+      <meta name="description" content={config.description} />
+      {config.stylesheets.map(showStylesheets)}
+      {config.scripts.map(showScripts)}
+    </Head>
+  );
+};
 
 export default AppHead;

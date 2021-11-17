@@ -12,6 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "next": "^10.0.0",
-    "next-chessground": "file:../next-chessground-0.3.1.tgz"
+    "next-chessground": "file:../next-chessground-0.4.1.tgz"
   }
 }
