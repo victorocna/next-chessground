@@ -13,9 +13,10 @@ const Pieces = () => {
         defaultValue={theme.pieces}
         onChange={handleChange}
       >
-        <option value="cburnett">Classic</option>
-        <option value="alpha">Alpha</option>
         <option value="neo">Neo</option>
+        <option value="alpha">Alpha</option>
+        <option value="bases">Bases</option>
+        <option value="classic">Classic</option>
       </select>
     </>
   );

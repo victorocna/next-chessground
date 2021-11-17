@@ -3,7 +3,7 @@ import { createContext } from 'react';
 const ThemeContext = createContext({
   theme: {
     board: 'green',
-    pieces: 'cburnett',
+    pieces: 'neo',
     playSounds: true,
     sounds: 'robot',
     highlight: true,
