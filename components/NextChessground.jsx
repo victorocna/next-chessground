@@ -50,7 +50,7 @@ const NextChessground = (props) => {
         fen={fen}
         turnColor={turnColor}
         lastMove={lastMove}
-        orientation={orientation}
+        orientation={props.orientation || orientation}
         movable={toDests(chess)}
       />
       <Promote

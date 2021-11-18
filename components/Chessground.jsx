@@ -5,19 +5,21 @@ import Resize from './Resize';
 import ThemeContext from './ThemeContext';
 import themable from '../lib/theme';
 import NextChessground from './NextChessground';
+import useOrientation from '../hooks/use-orientation';
 
 const Chessground = (props) => {
   const [theme, setTheme] = useState(themable());
+  const [orientation, flip] = useOrientation(props);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className="flex relative">
-        <NextChessground {...props} />
+        <NextChessground {...props} orientation={orientation} />
         <div className="text-gray-400 flex flex-col gap-2 px-1">
           <div className="flex-grow">
             <Resize />
           </div>
-          <Flip />
+          <Flip onClick={flip} />
           <Settings />
         </div>
       </div>
