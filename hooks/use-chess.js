@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Chess } from 'chess.js';
+import { initial } from '../utils/fen';
 
 const useChess = (props) => {
-  const [fen, setFen] = useState(props.fen || '');
+  const [fen, setFen] = useState(props.fen || initial);
   const [chess] = useState(new Chess(fen));
   const [lastMove, setLastMove] = useState([]);
 
