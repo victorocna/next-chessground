@@ -12,7 +12,7 @@ const NextChessground = (props) => {
   const { theme } = useChessground();
   const { isOpen, show, hide } = useDisclosure();
 
-  const { chess, fen, turnColor, onMove, onPromote } = useChess();
+  const { chess, fen, turnColor, lastMove, onMove, onPromote } = useChess();
   const handleMove = (from, to) => {
     const move = onMove(from, to);
     if (!move) {
@@ -42,6 +42,7 @@ const NextChessground = (props) => {
         onMove={handleMove}
         fen={fen}
         turnColor={turnColor}
+        lastMove={lastMove}
         movable={toDests(chess)}
       />
       <Promote
