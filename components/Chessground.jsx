@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Settings from './Settings';
 import Flip from './Flip';
-import Resize from './Resize';
 import ThemeContext from './ThemeContext';
 import themable from '../lib/theme';
 import NextChessground from './NextChessground';
@@ -16,11 +15,8 @@ const Chessground = (props) => {
       <div className="flex relative">
         <NextChessground {...props} orientation={orientation} />
         <div className="text-gray-400 flex flex-col gap-2 px-1">
-          <div className="flex-grow">
-            <Resize />
-          </div>
-          <Flip onClick={flip} />
           <Settings />
+          <Flip onClick={flip} />
         </div>
       </div>
     </ThemeContext.Provider>
