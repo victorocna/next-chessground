@@ -8,10 +8,9 @@ import NextChessground from './NextChessground';
 
 const Chessground = (props) => {
   const [theme, setTheme] = useState(themable());
-  const value = { theme, setTheme };
 
   return (
-    <ThemeContext.Provider value={value}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className="flex relative">
         <NextChessground {...props} />
         <div className="text-gray-400 flex flex-col gap-2 px-1">

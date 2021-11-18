@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Chess } from 'chess.js';
 
-const useChess = () => {
-  const [fen, setFen] = useState('');
+const useChess = (props) => {
+  const [fen, setFen] = useState(props.fen || '');
+  const [chess] = useState(new Chess(fen));
   const [lastMove, setLastMove] = useState([]);
-  const [chess] = useState(new Chess());
 
   const turnColor = chess.turn() === 'w' ? 'white' : 'black';
+  const [orientation] = useState(props.orientation || turnColor);
 
   const onMove = (from, to, promotion) => {
     const move = chess.move({ from, to, promotion });
@@ -15,6 +16,7 @@ const useChess = () => {
 
     return move;
   };
+
   const onPromote = (promotion) => {
     return onMove(lastMove[0], lastMove[1], promotion);
   };
@@ -24,6 +26,7 @@ const useChess = () => {
     fen,
     turnColor,
     lastMove,
+    orientation,
     onMove,
     onPromote,
   };
