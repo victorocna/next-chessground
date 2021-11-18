@@ -6,7 +6,7 @@ Built by chess players in React and Next.js
 
 ## Live Demo
 
-Work in progress
+[https://next-chessground.vercel.app](https://next-chessground.vercel.app)
 
 ## Features
 
