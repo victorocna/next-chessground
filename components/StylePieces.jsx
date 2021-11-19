@@ -13,6 +13,7 @@ const StylePieces = () => {
         defaultValue={theme.pieces}
         onChange={handleChange}
       >
+        <option value="cburnett">Cburnett</option>
         <option value="neo">Neo</option>
         <option value="alpha">Alpha</option>
         <option value="bases">Bases</option>
