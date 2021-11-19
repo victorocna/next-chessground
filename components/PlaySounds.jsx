@@ -7,7 +7,7 @@ const PlaySounds = () => {
   return (
     <>
       <div>Play sounds</div>
-      <div className="flex justify-end">
+      <div className="flex">
         <input
           name="playSounds"
           type="checkbox"

@@ -7,7 +7,7 @@ const Coordinates = () => {
   return (
     <>
       <div>Coordinates</div>
-      <div className="flex justify-end">
+      <div className="flex">
         <input
           name="coordinates"
           type="checkbox"

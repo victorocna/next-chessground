@@ -15,11 +15,11 @@ const Settings = () => {
     <>
       <button
         type="button"
-        className="cursor-pointer flex outline-none"
+        className="next-button next-settings"
         title="Settings"
         onClick={show}
       >
-        <i className="fas fa-cog"></i>
+        <i className="next-cog"></i>
       </button>
 
       <Modal header="Settings" isOpen={isOpen} onClose={hide}>

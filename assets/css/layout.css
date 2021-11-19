@@ -1,15 +1,18 @@
-.flex {
-  display: flex;
-}
-.cursor-resize {
-  cursor: nesw-resize;
-}
-button:focus {
-  outline: none;
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
 }
 
-.checkbox {
+.next-chessground {
   display: flex;
+  position: relative;
+}
+.next-chessground .checkbox {
+  display: flex;
+  margin: 0;
   align-items: center;
   padding-left: 0.25rem;
   width: 2.75rem;
@@ -21,7 +24,7 @@ button:focus {
   padding-right: 0.25rem;
   cursor: pointer;
 }
-.checkbox:before {
+.next-chessground .checkbox:before {
   background-color: rgba(156, 163, 175);
   width: 1rem;
   height: 1rem;
@@ -29,7 +32,22 @@ button:focus {
   content: '';
   transition: 0.2s ease-in-out;
 }
-.checkbox:checked:before {
+.next-chessground .checkbox:checked:before {
   background-color: rgba(4, 120, 87);
   transform: translate(1rem, 0);
+}
+.next-chessground .next-button {
+  background-color: transparent;
+  background-image: none;
+  cursor: pointer;
+  display: flex;
+  outline: none;
+
+  padding: 0;
+  line-height: inherit;
+  color: inherit;
+  font-size: 100%;
+}
+.next-chessground .next-button:focus {
+  outline: none;
 }

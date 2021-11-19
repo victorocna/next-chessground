@@ -12,7 +12,7 @@ const Chessground = (props) => {
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className="flex relative">
+      <div className="next-chessground">
         <NextChessground {...props} orientation={orientation} />
         <div className="text-gray-400 flex flex-col gap-2 px-1">
           <Settings />

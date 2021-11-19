@@ -7,7 +7,7 @@ const HighlightMove = () => {
   return (
     <>
       <div>Highlight moves</div>
-      <div className="flex justify-end">
+      <div className="flex">
         <input
           name="highlight"
           type="checkbox"

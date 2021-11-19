@@ -4,11 +4,11 @@ const Flip = (props) => {
   return (
     <button
       type="button"
-      className="cursor-pointer flex outline-none"
+      className="next-button next-flip"
       title="Flip board"
       {...props}
     >
-      <i className="fas fa-sync-alt"></i>
+      <i className="next-sync"></i>
     </button>
   );
 };
