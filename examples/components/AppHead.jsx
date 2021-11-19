@@ -12,7 +12,7 @@ const AppHead = () => {
 
   return (
     <Head>
-      <title>{config.sitename}</title>
+      <title>{config.title}</title>
       <meta name="description" content={config.description} />
       {config.stylesheets.map(showStylesheets)}
       {config.scripts.map(showScripts)}
