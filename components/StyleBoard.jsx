@@ -16,6 +16,7 @@ const StyleBoard = () => {
         <option value="green">Green</option>
         <option value="brown">Brown</option>
         <option value="ruby">Ruby</option>
+        <option value="purple">Purple</option>
         <option value="teal">Teal</option>
       </select>
     </>
