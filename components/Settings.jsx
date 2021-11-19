@@ -1,10 +1,10 @@
 import React from 'react';
 import Modal from 'react-pure-modal';
 import useDisclosure from '../hooks/use-disclosure';
-import Board from './Board';
+import StyleBoard from './StyleBoard';
 import Coordinates from './Coordinates';
 import HighlightMove from './HighlightMove';
-import Pieces from './Pieces';
+import StylePieces from './StylePieces';
 import PlaySounds from './PlaySounds';
 import Sounds from './Sounds';
 
@@ -24,8 +24,8 @@ const Settings = () => {
 
       <Modal header="Settings" isOpen={isOpen} onClose={hide}>
         <div className="grid grid-cols-2 gap-3 items-center text-sm">
-          <Pieces />
-          <Board />
+          <StylePieces />
+          <StyleBoard />
           <HighlightMove />
           <PlaySounds />
           <Sounds />

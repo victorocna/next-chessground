@@ -1,7 +1,7 @@
 import React from 'react';
 import useChessground from '../hooks/use-chessground';
 
-const Board = () => {
+const StyleBoard = () => {
   const { theme, handleChange } = useChessground();
 
   return (
@@ -22,4 +22,4 @@ const Board = () => {
   );
 };
 
-export default Board;
+export default StyleBoard;

@@ -1,7 +1,7 @@
 import React from 'react';
 import useChessground from '../hooks/use-chessground';
 
-const Pieces = () => {
+const StylePieces = () => {
   const { theme, handleChange } = useChessground();
 
   return (
@@ -22,4 +22,4 @@ const Pieces = () => {
   );
 };
 
-export default Pieces;
+export default StylePieces;
