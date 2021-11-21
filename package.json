@@ -6,10 +6,10 @@
   "module": "dist/index.es.js",
   "author": "victorocna <victor@chesscoders.com>",
   "license": "GPL-3.0",
-  "homepage": "https://github.com/chesscoders/next-chessground",
+  "homepage": "https://github.com/victorocna/next-chessground",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chesscoders/next-chessground.git"
+    "url": "https://github.com/victorocna/next-chessground.git"
   },
   "keywords": [
     "chess",
