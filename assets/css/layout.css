@@ -8,7 +8,9 @@
 
 .next-chessground {
   display: flex;
+  flex-direction: column;
   position: relative;
+  width: 100%;
 }
 .next-chessground .checkbox {
   display: flex;

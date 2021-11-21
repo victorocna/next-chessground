@@ -1,4 +1,4 @@
-.chessground {
+.next-chessground .chessground {
   grid-area: board;
   position: relative;
   display: block;
@@ -6,16 +6,18 @@
   padding-bottom: 100%;
   padding-right: 100%;
   width: 100%;
+  border-radius: 0.25rem;
+  overflow: hidden;
 }
 
-.cg-wrap {
+.next-chessground .cg-wrap {
   display: table;
   position: absolute;
   width: 100%;
   height: 100%;
 }
 
-cg-helper {
+.next-chessground cg-helper {
   position: absolute;
   width: 12.5%;
   padding-bottom: 12.5%;
@@ -23,7 +25,7 @@ cg-helper {
   bottom: 0;
 }
 
-cg-container {
+.next-chessground cg-container {
   position: absolute;
   width: 800%;
   height: 800%;
@@ -31,7 +33,7 @@ cg-container {
   bottom: 0;
 }
 
-cg-board {
+.next-chessground cg-board {
   position: absolute;
   top: 0;
   left: 0;
@@ -46,7 +48,7 @@ cg-board {
   cursor: pointer;
 }
 
-cg-board square {
+.next-chessground cg-board square {
   position: absolute;
   top: 0;
   left: 0;
@@ -54,18 +56,18 @@ cg-board square {
   height: 12.5%;
   pointer-events: none;
 }
-.highlight cg-board square.last-move {
+.next-chessground .highlight cg-board square.last-move {
   will-change: transform;
   background-color: rgba(246, 246, 130, 0.5);
 }
-.highlight .correct cg-board square.last-move {
+.next-chessground .highlight .correct cg-board square.last-move {
   background-color: rgba(155, 240, 0, 0.4);
 }
-.highlight .incorrect cg-board square.last-move {
+.next-chessground .highlight .incorrect cg-board square.last-move {
   background-color: rgba(240, 0, 0, 0.4);
 }
 
-cg-board square.check {
+.next-chessground cg-board square.check {
   background: radial-gradient(
     ellipse at center,
     rgba(255, 0, 0, 1) 0%,
@@ -74,10 +76,10 @@ cg-board square.check {
     rgba(158, 0, 0, 0) 100%
   );
 }
-cg-board square.current-premove {
+.next-chessground cg-board square.current-premove {
   background-color: rgba(20, 30, 85, 0.5);
 }
-cg-board piece {
+.next-chessground cg-board piece {
   position: absolute;
   top: 0;
   left: 0;
@@ -88,21 +90,21 @@ cg-board piece {
   will-change: transform;
   pointer-events: none;
 }
-cg-board piece.dragging {
+.next-chessground cg-board piece.dragging {
   cursor: move;
   z-index: 9;
 }
-cg-board piece.anim {
+.next-chessground cg-board piece.anim {
   z-index: 8;
 }
-cg-board piece.fading {
+.next-chessground cg-board piece.fading {
   z-index: 1;
   opacity: 0.5;
 }
-cg-board piece.ghost {
+.next-chessground cg-board piece.ghost {
   opacity: 0.3;
 }
-.cg-wrap svg {
+.next-chessground .cg-wrap svg {
   overflow: hidden;
   position: relative;
   top: 0px;
@@ -113,24 +115,16 @@ cg-board piece.ghost {
   z-index: 2;
   opacity: 0.6;
 }
-.cg-wrap svg image {
+.next-chessground .cg-wrap svg image {
   opacity: 0.5;
 }
 
-.spare-pieces {
+.next-chessground .spare-pieces {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-
-.edit-square {
-  display: table;
-  position: relative;
-  width: 3.25rem;
-  padding-bottom: 3.25rem;
-}
-
-.spare-piece {
+.next-chessground .spare-piece {
   top: 0;
   left: 0;
   padding-bottom: 100%;
@@ -139,4 +133,10 @@ cg-board piece.ghost {
   background-size: contain;
   background-position: 0% -100%;
   cursor: pointer;
+}
+.next-chessground .edit-square {
+  display: table;
+  position: relative;
+  width: 3.25rem;
+  padding-bottom: 3.25rem;
 }

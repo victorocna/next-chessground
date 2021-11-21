@@ -4,6 +4,9 @@
 .flex-col {
   flex-direction: column;
 }
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
 .grid {
   display: grid;
 }
@@ -24,10 +27,6 @@
 }
 .justify-center {
   justify-content: center;
-}
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
 }
 .py-1\.5 {
   padding-top: 0.375rem;

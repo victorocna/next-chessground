@@ -14,7 +14,7 @@ const NextChessground = (props) => {
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className="next-chessground">
         <Chessboard {...props} orientation={orientation} />
-        <div className="text-gray-400 flex flex-col gap-2 px-1">
+        <div className="text-gray-400 flex flex-row-reverse gap-2 py-1.5">
           <Settings />
           <Flip onClick={flip} />
         </div>
