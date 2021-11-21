@@ -40,6 +40,16 @@ const Chessboard = (props) => {
     cgProps.draggable = false;
     cgProps.movable = { free: false };
   }
+  // normalize orientation for Chessground
+  if (props.orientation) {
+    cgProps.orientation = props.orientation;
+    if (cgProps.orientation === 'w') {
+      cgProps.orientation = 'white';
+    }
+    if (cgProps.orientation === 'b') {
+      cgProps.orientation = 'black';
+    }
+  }
 
   return (
     <div
