@@ -20,6 +20,7 @@ const Menu = () => {
           <MenuItem href="/rook">With rook</MenuItem>
           <MenuItem href="/queen">With queen</MenuItem>
           <MenuItem href="/pawn">Pawn promotion</MenuItem>
+          <MenuItem href="/play">Play computer</MenuItem>
         </div>
       </nav>
     </>
