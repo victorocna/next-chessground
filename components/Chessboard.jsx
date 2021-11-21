@@ -35,6 +35,12 @@ const Chessboard = (props) => {
     }
   };
 
+  const cgProps = {};
+  if (props.viewOnly) {
+    cgProps.draggable = false;
+    cgProps.movable = { free: false };
+  }
+
   return (
     <div
       className={classnames(
@@ -50,8 +56,9 @@ const Chessboard = (props) => {
         fen={fen}
         turnColor={turnColor}
         lastMove={lastMove}
-        orientation={props.orientation || orientation}
+        orientation={orientation}
         movable={toDests(chess)}
+        {...cgProps}
       />
       <Promote
         isOpen={isOpen}
