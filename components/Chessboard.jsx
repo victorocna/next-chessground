@@ -40,6 +40,11 @@ const Chessboard = (props) => {
     cgProps.draggable = false;
     cgProps.movable = { free: false };
   }
+  if (props.readOnly) {
+    cgProps.draggable = false;
+    cgProps.movable = { free: false };
+    cgProps.coordinates = false;
+  }
   // normalize orientation for Chessground
   if (props.orientation) {
     cgProps.orientation = props.orientation;

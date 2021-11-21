@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Settings from './Settings';
 import Flip from './Flip';
 import ThemeContext from './ThemeContext';
@@ -9,15 +9,18 @@ import useOrientation from '../hooks/use-orientation';
 const NextChessground = (props) => {
   const [theme, setTheme] = useState(themable());
   const [orientation, flip] = useOrientation(props);
+  const showSettings = useMemo(() => !(props.readOnly === true), []);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className="next-chessground">
         <Chessboard {...props} orientation={orientation} />
-        <div className="text-gray-400 flex flex-row-reverse gap-2 py-1.5">
-          <Settings />
-          <Flip onClick={flip} />
-        </div>
+        {showSettings && (
+          <div className="text-gray-400 flex flex-row-reverse gap-2 py-1.5">
+            <Settings />
+            <Flip onClick={flip} />
+          </div>
+        )}
       </div>
     </ThemeContext.Provider>
   );
