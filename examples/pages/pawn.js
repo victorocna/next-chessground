@@ -1,9 +1,5 @@
-import dynamic from 'next/dynamic';
+import NextChessground from '../dynamic/NextChessground';
 import Layout from '../components/Layout';
-
-const NextChessground = dynamic(() => import('next-chessground'), {
-  ssr: false,
-});
 
 const Page = () => (
   <Layout title="Pawn promotion">
