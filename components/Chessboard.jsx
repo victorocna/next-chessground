@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import classnames from 'merge-class-names';
 import Chessground from '../lib/Chessground';
 import audio from '../lib/audio';
@@ -7,6 +7,7 @@ import toDests from '../utils/to-dests';
 import useChess from '../hooks/use-chess';
 import Promote from './Promote';
 import useDisclosure from '../hooks/use-disclosure';
+import cgProps from '../examples/lib/cg-props';
 
 const Chessboard = (props) => {
   const { theme } = useChessground();
@@ -18,42 +19,30 @@ const Chessboard = (props) => {
     turnColor,
     lastMove,
     orientation,
+    promotion,
     onMove,
     onPromote,
   } = useChess(props);
-  const handleMove = (from, to) => {
-    const move = onMove(from, to);
+
+  const handleMove = async (from, to) => {
+    const move = onMove(from, to, promotion);
     if (!move) {
       show();
     }
 
+    // pass the chess object to callback function
     if (typeof props.onMove === 'function') {
-      props.onMove(from, to);
+      await props.onMove(chess);
     }
     if (theme.playSounds) {
       audio(theme.sounds);
     }
   };
 
-  const cgProps = {};
-  if (props.viewOnly) {
-    cgProps.draggable = false;
-    cgProps.movable = { free: false };
-  }
-  if (props.readOnly) {
-    cgProps.draggable = false;
-    cgProps.movable = { free: false };
-    cgProps.coordinates = false;
-  }
-  // normalize orientation for Chessground
-  if (props.orientation) {
-    cgProps.orientation = props.orientation;
-    if (cgProps.orientation === 'w') {
-      cgProps.orientation = 'white';
-    }
-    if (cgProps.orientation === 'b') {
-      cgProps.orientation = 'black';
-    }
+  const ref = useRef();
+  if (props.reply && props.reply.from && props.reply.to) {
+    const cg = ref.current.board;
+    cg.move(props.reply.from, props.reply.to);
   }
 
   return (
@@ -66,6 +55,7 @@ const Chessboard = (props) => {
       )}
     >
       <Chessground
+        ref={ref}
         coordinates={theme.coordinates}
         onMove={handleMove}
         fen={fen}
@@ -73,7 +63,7 @@ const Chessboard = (props) => {
         lastMove={lastMove}
         orientation={orientation}
         movable={toDests(chess)}
-        {...cgProps}
+        {...cgProps(props)}
       />
       <Promote
         isOpen={isOpen}

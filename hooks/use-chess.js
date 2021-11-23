@@ -10,6 +10,10 @@ const useChess = (props) => {
   const turnColor = chess.turn() === 'w' ? 'white' : 'black';
   const [orientation] = useState(props.orientation || turnColor);
 
+  const [sideToMove] = useState(turnColor);
+  const autoQueen = props.options && props.options.autoQueen;
+  const promotion = autoQueen && turnColor !== sideToMove ? 'q' : '';
+
   const onMove = (from, to, promotion) => {
     const move = chess.move({ from, to, promotion });
     setLastMove([from, to]);
@@ -18,8 +22,13 @@ const useChess = (props) => {
     return move;
   };
 
-  const onPromote = (promotion) => {
-    return onMove(lastMove[0], lastMove[1], promotion);
+  const onPromote = async (promotion) => {
+    const move = onMove(lastMove[0], lastMove[1], promotion);
+    if (typeof props.onMove === 'function') {
+      await props.onMove(chess);
+    }
+
+    return move;
   };
 
   return {
@@ -28,6 +37,7 @@ const useChess = (props) => {
     turnColor,
     lastMove,
     orientation,
+    promotion,
     onMove,
     onPromote,
   };
