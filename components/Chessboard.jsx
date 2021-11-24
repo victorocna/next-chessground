@@ -7,7 +7,7 @@ import toDests from '../utils/to-dests';
 import useChess from '../hooks/use-chess';
 import Promote from './Promote';
 import useDisclosure from '../hooks/use-disclosure';
-import cgProps from '../examples/lib/cg-props';
+import cgProps from '../lib/cg-props';
 
 const Chessboard = (props) => {
   const { theme } = useChessground();
