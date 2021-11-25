@@ -2,11 +2,13 @@
  * Legal chess moves for chessground
  * @param {*} chess
  */
- const toDests = (chess) => {
-  const dests = {};
+const toDests = (chess) => {
+  const dests = new Map();
   chess.SQUARES.forEach((s) => {
     const ms = chess.moves({ square: s, verbose: true });
-    if (ms.length) dests[s] = ms.map((m) => m.to);
+    if (ms.length) {
+      dests.set(s, ms.map((m) => m.to));
+    }
   });
   const color = chess.turn() === 'w' ? 'white' : 'black';
 
