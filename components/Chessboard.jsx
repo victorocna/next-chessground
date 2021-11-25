@@ -39,11 +39,6 @@ const Chessboard = (props, ref) => {
     }
   };
 
-  if (props.reply && props.reply.from && props.reply.to) {
-    const cg = ref.current.board;
-    cg.move(props.reply.from, props.reply.to);
-  }
-
   return (
     <div
       className={classnames(

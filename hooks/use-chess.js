@@ -6,13 +6,10 @@ const useChess = (props) => {
   const [fen, setFen] = useState(props.fen || initial);
   const [chess] = useState(new Chess(fen));
   const [lastMove, setLastMove] = useState([]);
+  const promotion = props.lastMove && props.lastMove.promotion;
 
   const turnColor = chess.turn() === 'w' ? 'white' : 'black';
   const [orientation] = useState(props.orientation || turnColor);
-
-  const [sideToMove] = useState(turnColor);
-  const autoQueen = props.options && props.options.autoQueen;
-  const promotion = autoQueen && turnColor !== sideToMove ? 'q' : '';
 
   const onMove = (from, to, promotion) => {
     const move = chess.move({ from, to, promotion });
