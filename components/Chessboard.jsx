@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { forwardRef } from 'react';
 import classnames from 'merge-class-names';
 import Chessground from '../lib/Chessground';
 import audio from '../lib/audio';
@@ -9,7 +9,7 @@ import Promote from './Promote';
 import useDisclosure from '../hooks/use-disclosure';
 import cgProps from '../lib/cg-props';
 
-const Chessboard = (props) => {
+const Chessboard = (props, ref) => {
   const { theme } = useChessground();
   const { isOpen, show, hide } = useDisclosure();
 
@@ -39,7 +39,6 @@ const Chessboard = (props) => {
     }
   };
 
-  const ref = useRef();
   if (props.reply && props.reply.from && props.reply.to) {
     const cg = ref.current.board;
     cg.move(props.reply.from, props.reply.to);
@@ -75,4 +74,4 @@ const Chessboard = (props) => {
   );
 };
 
-export default Chessboard;
+export default forwardRef(Chessboard);

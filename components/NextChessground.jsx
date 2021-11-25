@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { forwardRef, useMemo, useState } from 'react';
 import Settings from './Settings';
 import Flip from './Flip';
 import ThemeContext from './ThemeContext';
@@ -6,7 +6,7 @@ import themable from '../lib/theme';
 import Chessboard from './Chessboard';
 import useOrientation from '../hooks/use-orientation';
 
-const NextChessground = (props) => {
+const NextChessground = (props, ref) => {
   const [theme, setTheme] = useState(themable());
   const [orientation, flip] = useOrientation(props);
   const showSettings = useMemo(() => !(props.readOnly === true), []);
@@ -14,7 +14,7 @@ const NextChessground = (props) => {
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className="next-chessground">
-        <Chessboard {...props} orientation={orientation} />
+        <Chessboard {...props} ref={ref} orientation={orientation} />
         {showSettings && (
           <div className="text-gray-400 flex flex-row-reverse gap-2 py-1.5">
             <Settings />
@@ -26,4 +26,4 @@ const NextChessground = (props) => {
   );
 };
 
-export default NextChessground;
+export default forwardRef(NextChessground);
