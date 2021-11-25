@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "chess.js": "^0.12.0",
-    "chessground": "^8.1.7",
+    "chessground": "^7.12.0",
     "merge-class-names": "^1.4.2",
     "react-pure-modal": "^2.1.0",
     "store2": "^2.12.0"
