@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Chess } from 'chess.js';
 import { initial } from '../utils/fen';
 
 const useChess = (props) => {
   const [fen, setFen] = useState(props.fen || initial);
   const [chess] = useState(new Chess(fen));
+
+  // reinitialize when FEN changes from props
+  useEffect(() => {
+    setFen(props.fen);
+  }, [props.fen]);
+
   const [lastMove, setLastMove] = useState([]);
   const promotion = props.lastMove && props.lastMove.promotion;
 
