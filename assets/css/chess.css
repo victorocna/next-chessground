@@ -137,6 +137,6 @@
 .next-chessground .edit-square {
   display: table;
   position: relative;
-  width: 3.25rem;
-  padding-bottom: 3.25rem;
+  width: 14.285%;
+  padding-bottom: 13.285%;
 }
