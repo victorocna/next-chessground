@@ -9,8 +9,8 @@ const Promote = ({ isOpen, hide, onPromote, color = 'white' }) => {
   };
 
   return (
-    <Modal header="Pawn promotion" isOpen={isOpen} onClose={hide}>
-      <div className="flex gap-2 justify-center">
+    <Modal closeButton="" isOpen={isOpen} onClose={hide}>
+      <div className="promote flex gap-2 py-1.5 justify-center">
         <SparePiece
           color={color}
           role="queen"
