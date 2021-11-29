@@ -59,6 +59,9 @@
 .bg-white {
   background-color: #fff;
 }
+.bg-orange-300 {
+  background-color: #fbd38d;
+}
 .border {
   border-width: 1px;
   border-style: solid;

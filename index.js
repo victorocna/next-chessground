@@ -1,4 +1,5 @@
 import NextChessground from './components/NextChessground';
+import NextEditor from './components/NextEditor';
 import useChess from './hooks/use-chess';
 import useChessground from './hooks/use-chessground';
 import fen from './utils/fen';
@@ -14,4 +15,4 @@ import './assets/css/tailwind.css';
 
 export default NextChessground;
 
-export { NextChessground, useChess, useChessground, fen };
+export { NextChessground, NextEditor, useChess, useChessground, fen };
