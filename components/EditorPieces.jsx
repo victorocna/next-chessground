@@ -24,7 +24,7 @@ const EditorPieces = (props) => {
 
   return (
     <div className="next-chessground">
-      <div className={classnames('spare-pieces', theme.pieces)}>
+      <div className={classnames('spare-pieces flex gap-2', theme.pieces)}>
         {roles.map((role) => showPiece(role, props))}
       </div>
     </div>
