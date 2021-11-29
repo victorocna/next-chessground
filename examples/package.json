@@ -16,6 +16,6 @@
   "dependencies": {
     "merge-class-names": "^1.4.2",
     "next": "^12.0.4",
-    "next-chessground": "^0.7.0"
+    "next-chessground": "^0.10.0"
   }
 }
