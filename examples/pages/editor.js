@@ -7,7 +7,7 @@ const Page = () => {
   const [value, setValue] = useState('');
   useEffect(() => {
     if (ref.current.board) {
-      setValue(ref.current.board.getFen());
+      setValue(`${ref.current.board.getFen()} w - - 0 1`);
     }
   }, [ref]);
 
