@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import getCastles from '../utils/get-castles';
 
-const FenDetails = ({ onChange }) => {
+const FenOptions = ({ onChange }) => {
   const [side, setSide] = useState('w');
   const [castles, setCastles] = useState('-');
 
@@ -104,4 +104,4 @@ const FenDetails = ({ onChange }) => {
   );
 };
 
-export default FenDetails;
+export default FenOptions;

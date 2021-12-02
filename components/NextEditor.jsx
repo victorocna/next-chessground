@@ -4,7 +4,7 @@ import Chessboard from './Chessboard';
 import EditorPieces from './EditorPieces';
 import FEN from '../utils/fen';
 import dropPiece from '../utils/drop-piece';
-import FenDetails from './FenDetails';
+import FenOptions from './FenOptions';
 
 const NextEditor = (props, ref) => {
   const [fen, setFen] = useState(props.fen || FEN.empty);
@@ -27,7 +27,7 @@ const NextEditor = (props, ref) => {
     setFen(withOptions);
   };
 
-  const onOptions = (options) => {
+  const handleChange = (options) => {
     const position = fen.split(' ')[0];
 
     const withOptions = [position, options, '- 0 1'].join(' ');
@@ -48,7 +48,7 @@ const NextEditor = (props, ref) => {
           selectPiece={setSelected}
           color="white"
         />
-        <FenDetails onChange={onOptions} />
+        <FenOptions onChange={handleChange} />
       </div>
     </Theme>
   );
