@@ -17,6 +17,6 @@
     "highlight.js": "^11.3.1",
     "merge-class-names": "^1.4.2",
     "next": "^12.0.4",
-    "next-chessground": "^0.10.1"
+    "next-chessground": "^0.10.5"
   }
 }
