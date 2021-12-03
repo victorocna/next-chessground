@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Chess } from 'chess.js';
-import { initial } from '../utils/fen';
+import { initialFen } from '../utils/constants';
 
 const useChess = (props) => {
-  const [fen, setFen] = useState(props.fen || initial);
+  const [fen, setFen] = useState(props.fen || initialFen);
   const [chess, setChess] = useState(new Chess(fen));
 
   // reinitialize when FEN changes from props

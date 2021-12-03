@@ -2,12 +2,12 @@ import React, { forwardRef, useEffect, useState } from 'react';
 import Theme from './Theme';
 import Chessboard from './Chessboard';
 import EditorPieces from './EditorPieces';
-import FEN from '../utils/fen';
+import constants from '../utils/constants';
 import dropPiece from '../utils/drop-piece';
 import FenOptions from './FenOptions';
 
 const NextEditor = (props, ref) => {
-  const [fen, setFen] = useState(props.fen || FEN.empty);
+  const [fen, setFen] = useState(props.fen || constants.emptyFen);
   const [selected, setSelected] = useState({ role: null, color: null });
 
   useEffect(() => {
