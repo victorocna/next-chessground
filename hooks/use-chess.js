@@ -11,6 +11,7 @@ const useChess = (props) => {
     if (props.fen) {
       setFen(props.fen);
       setChess(new Chess(props.fen));
+      setLastMove([]);
     }
   }, [props.fen]);
 
