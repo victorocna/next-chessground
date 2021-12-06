@@ -5,16 +5,19 @@ class Stockfish {
     if (typeof window === 'undefined') {
       return false;
     }
-    if (!window.chessEngineWorker) {
-      const worker = process.env.STOCKFISH_PATH;
-      window.chessEngineWorker = new Worker(worker);
-    }
 
     this.skillLevel = 20;
     this.maxDepth = 40;
     this.resolveTimeout = null;
     this.isAnalyzing = false;
     this.fen = constants.initialFen;
+  }
+  async load() {
+    if (!window.chessEngineWorker) {
+      const worker = process.env.STOCKFISH_PATH;
+      const blob = await fetch(worker).then((r) => r.blob());
+      window.chessEngineWorker = new Worker(window.URL.createObjectURL(blob));
+    }
   }
   getTurnFromFen(fen) {
     return fen.split(' ')[1];
@@ -53,6 +56,7 @@ class Stockfish {
     );
   }
   async init() {
+    await this.load();
     await this.use_uci();
     await this.is_ready();
     this.setSkillLevel();
