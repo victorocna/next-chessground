@@ -4,5 +4,6 @@ import pawn from './pawn';
 import play from './play';
 import queen from './queen';
 import rook from './rook';
+import watch from './watch';
 
-export { basic, editor, pawn, play, queen, rook };
+export { basic, editor, pawn, play, queen, rook, watch };
