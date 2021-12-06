@@ -11,6 +11,7 @@ class Stockfish {
     }
 
     this.skillLevel = 20;
+    this.maxDepth = 40;
     this.resolveTimeout = null;
     this.isAnalyzing = false;
     this.fen = constants.initialFen;
@@ -175,6 +176,19 @@ class Stockfish {
         }
       };
     });
+  }
+  go_infinite(callback) {
+    window.chessEngineWorker.postMessage('go infinite');
+    this.isAnalyzing = true;
+    window.chessEngineWorker.onmessage = (message) => {
+      if (this.isInfoMessage(message) && typeof callback === 'function') {
+        const msgData = this.parseData(message.data);
+        if (msgData.depth > this.maxDepth) {
+          this.stop();
+        }
+        callback(msgData);
+      }
+    };
   }
   stop() {
     return new Promise((resolve) => {
