@@ -30,12 +30,12 @@ const Chessboard = (props, ref) => {
       show();
     }
 
+    if (theme.playSounds) {
+      audio(theme.sounds);
+    }
     // pass the chess object to callback function
     if (typeof props.onMove === 'function') {
       await props.onMove(chess);
-    }
-    if (theme.playSounds) {
-      audio(theme.sounds);
     }
   };
 

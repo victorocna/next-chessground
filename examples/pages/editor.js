@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { NextEditor } from 'next-chessground';
-import Layout from '../components/Layout';
+import { editor } from '../utils/code-samples';
+import { Highlight, Layout } from '../components';
 
 const Page = () => {
   const ref = useRef();
@@ -16,7 +17,7 @@ const Page = () => {
   };
 
   return (
-    <Layout title="Chess Editor">
+    <Layout title="Chess editor">
       <div className="grid md:grid-cols-2 gap-12">
         <div>
           <NextEditor ref={ref} onSelect={handleSelect} />
@@ -33,8 +34,8 @@ const Page = () => {
           </div>
         </div>
         <div>
-          <h2 className="text-xl">Code sample</h2>
-          <p className="text-gray-700">Coming soon...</p>
+          <h2 className="text-xl mb-2">Code sample</h2>
+          <Highlight>{editor}</Highlight>
         </div>
       </div>
     </Layout>

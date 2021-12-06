@@ -1,7 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import { NextChessground, Stockfish } from 'next-chessground';
-import { Highlight, Layout } from '../components';
-import { play } from '../utils/code-samples';
+const play = `import { NextChessground, Stockfish } from 'next-chessground';
 import engineMove from '../../utils/engine-move';
 
 const Page = () => {
@@ -33,17 +30,9 @@ const Page = () => {
     }
   };
 
-  return (
-    <Layout title="Play computer">
-      <div className="grid md:grid-cols-2 gap-12">
-        <NextChessground ref={ref} lastMove={lastMove} onMove={onMove} />
-        <div>
-          <h2 className="text-xl mb-2">Code sample</h2>
-          <Highlight>{play}</Highlight>
-        </div>
-      </div>
-    </Layout>
-  );
+  return <NextChessground ref={ref} lastMove={lastMove} onMove={onMove} />;
 };
 
-export default Page;
+export default Page;`;
+
+export default play;

@@ -3,6 +3,7 @@ import NextEditor from './components/NextEditor';
 import useChess from './hooks/use-chess';
 import useChessground from './hooks/use-chessground';
 import constants from './utils/constants';
+import Stockfish from './utils/stockfish';
 
 import './assets/css/board.css';
 import './assets/css/chess.css';
@@ -15,4 +16,11 @@ import './assets/css/tailwind.css';
 
 export default NextChessground;
 
-export { NextChessground, NextEditor, useChess, useChessground, constants };
+export {
+  NextChessground,
+  NextEditor,
+  Stockfish,
+  useChess,
+  useChessground,
+  constants,
+};
