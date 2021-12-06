@@ -1,4 +1,4 @@
-const watch = `import { NextChessground, Stockfish } from 'next-chessground';
+const watch = `import { NextChessground, Stockfish, constants } from 'next-chessground';
 import { engineMove } from '../../lib';
 
 const Page = () => {
@@ -7,7 +7,7 @@ const Page = () => {
   const [engine] = useState(new Stockfish());
   useEffect(async () => {
     engine.init();
-    await getMove('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
+    await getMove(constants.fen.initial);
   }, []);
 
   const [lastMove, setLastMove] = useState();

@@ -22,7 +22,7 @@ const Menu = () => {
           <MenuItem href="/pawn">Pawn promotion</MenuItem>
           <MenuItem href="/play">Play computer</MenuItem>
           <MenuItem href="/watch">Watch computers play</MenuItem>
-          <MenuItem href="/editor">Chess Editor</MenuItem>
+          <MenuItem href="/editor">Chess editor</MenuItem>
         </div>
       </nav>
     </>

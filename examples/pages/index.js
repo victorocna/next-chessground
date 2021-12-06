@@ -1,6 +1,5 @@
-import NextChessground from '../dynamic/NextChessground';
-import Layout from '../components/Layout';
-import { Highlight } from '../components';
+import { NextChessground } from 'next-chessground';
+import { Highlight, Layout } from '../components';
 import { basic } from '../utils/code-samples';
 
 const Page = () => (

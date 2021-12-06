@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { NextChessground, Stockfish } from 'next-chessground';
-import Layout from '../components/Layout';
-import { Highlight } from '../components';
+import { Highlight, Layout } from '../components';
 import { play } from '../utils/code-samples';
 import engineMove from '../../utils/engine-move';
 
