@@ -5,9 +5,8 @@ class Stockfish {
     if (typeof window === 'undefined') {
       return false;
     }
-
     if (!window.chessEngineWorker) {
-      const worker = 'https://next-chessground.vercel.app/stockfish.asm.js';
+      const worker = process.env.STOCKFISH_PATH;
       window.chessEngineWorker = new Worker(worker);
     }
 
