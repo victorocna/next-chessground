@@ -1,4 +1,4 @@
-const queen = `import NextChessground from 'next-chessground';
+const queen = `import { NextChessground } from 'next-chessground';
 
 const Page = () => {
   return (

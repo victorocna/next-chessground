@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { NextChessground } from 'next-chessground';
+import { NextChessground, Stockfish, constants } from 'next-chessground';
 import Layout from '../components/Layout';
 import { Highlight } from '../components';
 import { watch } from '../utils/code-samples';
-
-import Stockfish from '../../utils/stockfish';
 import engineMove from '../../utils/engine-move';
 
 const Page = () => {
@@ -13,7 +11,7 @@ const Page = () => {
   const [engine] = useState(new Stockfish());
   useEffect(async () => {
     engine.init();
-    await getMove('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
+    await getMove(constants.fen.initial);
   }, []);
 
   const [lastMove, setLastMove] = useState();

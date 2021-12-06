@@ -1,4 +1,4 @@
-const basic = `import NextChessground from 'next-chessground';
+const basic = `import { NextChessground } from 'next-chessground';
 
 const Page = () => {
   return (

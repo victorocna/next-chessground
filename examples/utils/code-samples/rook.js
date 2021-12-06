@@ -1,4 +1,4 @@
-const rook = `import NextChessground from 'next-chessground';
+const rook = `import { NextChessground } from 'next-chessground';
 
 const Page = () => {
   return (

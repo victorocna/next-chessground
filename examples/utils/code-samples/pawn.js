@@ -1,4 +1,4 @@
-const pawn = `import NextChessground from 'next-chessground';
+const pawn = `import { NextChessground } from 'next-chessground';
 
 const Page = () => {
   return (

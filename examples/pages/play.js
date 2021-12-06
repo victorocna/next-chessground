@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { NextChessground } from 'next-chessground';
+import { NextChessground, Stockfish } from 'next-chessground';
 import Layout from '../components/Layout';
 import { Highlight } from '../components';
 import { play } from '../utils/code-samples';
-
-import Stockfish from '../../utils/stockfish';
 import engineMove from '../../utils/engine-move';
 
 const Page = () => {

@@ -1,6 +1,4 @@
-const play = `import NextChessground from 'next-chessground';
-
-import Stockfish from '../../utils/stockfish';
+const play = `import { NextChessground, Stockfish } from 'next-chessground';
 import engineMove from '../../utils/engine-move';
 
 const Page = () => {

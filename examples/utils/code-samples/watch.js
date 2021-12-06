@@ -1,7 +1,5 @@
-const watch = `import NextChessground from 'next-chessground';
-
-import Stockfish from '../../utils/stockfish';
-import engineMove from '../../utils/engine-move';
+const watch = `import { NextChessground, Stockfish } from 'next-chessground';
+import { engineMove } from '../../lib';
 
 const Page = () => {
   const ref = useRef();
