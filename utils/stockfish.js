@@ -2,13 +2,16 @@
  * Constructor requires a path to stockfish to run correctly in a web browser
  */
 
-const DEFAULT_PATH = 'https://next-chessground.vercel.app/stockfish.asm.js';
+const DEFAULT_PATH = 'http://localhost:3000/stockfish.asm.js';
 const DEFAULT_SKILL = 20;
 const DEFAULT_CP_TOLERANCE = 25;
 const DEFAULT_MATE_TOLERANCE = 0;
 
 class Engine {
   constructor(props) {
+    if (typeof window === 'undefined') {
+      return false;
+    }
     const { path = DEFAULT_PATH, skill = DEFAULT_SKILL, onInfoMessage } =
       props || {};
     if (!window.chessEngineWorker) {
