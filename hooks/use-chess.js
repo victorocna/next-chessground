@@ -13,7 +13,7 @@ const useChess = (props) => {
       setChess(new Chess(props.fen));
       setLastMove([]);
     }
-  }, [props.fen]);
+  }, [props.fen, props.reset]);
 
   const [lastMove, setLastMove] = useState([]);
   const promotion = props.lastMove && props.lastMove.promotion;
