@@ -4,6 +4,7 @@ import useChess from './hooks/use-chess';
 import useChessground from './hooks/use-chessground';
 import constants from './utils/constants';
 import Stockfish from './utils/stockfish';
+import isValidFen from './utils/is-valid-fen';
 
 import './assets/css/board.css';
 import './assets/css/chess.css';
@@ -20,6 +21,7 @@ export {
   NextChessground,
   NextEditor,
   Stockfish,
+  isValidFen,
   useChess,
   useChessground,
   constants,

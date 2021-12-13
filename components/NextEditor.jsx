@@ -42,7 +42,13 @@ const NextEditor = (props, ref) => {
           selectPiece={setSelected}
           color="black"
         />
-        <Chessboard {...props} ref={ref} onSelect={onSelect} fen={fen} />
+        <Chessboard
+          {...props}
+          ref={ref}
+          fen={fen}
+          onSelect={onSelect}
+          editing={true}
+        />
         <EditorPieces
           selected={selected}
           selectPiece={setSelected}
