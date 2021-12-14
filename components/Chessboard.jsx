@@ -27,7 +27,22 @@ const Chessboard = (props, ref) => {
   const handleMove = async (from, to) => {
     const move = onMove(from, to, promotion);
     if (!move) {
-      show();
+      return show();
+    }
+
+    if (theme.playSounds) {
+      audio(theme.sounds);
+    }
+    // pass the chess object to callback function
+    if (typeof props.onMove === 'function') {
+      await props.onMove(chess);
+    }
+  };
+
+  const handlePromotion = async (promotion) => {
+    const move = onPromote(promotion);
+    if (!move) {
+      return false;
     }
 
     if (theme.playSounds) {
@@ -63,7 +78,7 @@ const Chessboard = (props, ref) => {
         isOpen={isOpen}
         hide={hide}
         color={turnColor}
-        onPromote={onPromote}
+        onPromote={handlePromotion}
       />
     </div>
   );

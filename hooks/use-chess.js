@@ -29,12 +29,8 @@ const useChess = (props) => {
     return move;
   };
 
-  const onPromote = async (promotion) => {
+  const onPromote = (promotion) => {
     const move = onMove(lastMove[0], lastMove[1], promotion);
-    if (typeof props.onMove === 'function') {
-      await props.onMove(chess);
-    }
-
     return move;
   };
 
