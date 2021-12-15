@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 
 const sideToMove = (fen) => {
-  const fenOrientation = fen.split(' ')[1];
-  return fenOrientation === 'w' ? 'white' : 'black';
+  try {
+    const fenOrientation = fen.split(' ')[1];
+    return fenOrientation === 'w' ? 'white' : 'black';
+  } catch {
+    return 'white';
+  }
 };
 
 const getOrientation = (props) => {
