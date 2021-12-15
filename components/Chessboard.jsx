@@ -27,7 +27,11 @@ const Chessboard = (props, ref) => {
   const handleMove = async (from, to) => {
     const move = onMove(from, to, promotion);
     if (!move) {
-      return show();
+      if (typeof props.setPromoting === 'function') {
+        await props.setPromoting(true);
+      }
+      show();
+      return false;
     }
 
     if (theme.playSounds) {
@@ -40,6 +44,10 @@ const Chessboard = (props, ref) => {
   };
 
   const handlePromotion = async (promotion) => {
+    if (typeof props.setPromoting === 'function') {
+      await props.setPromoting(false);
+    }
+
     const move = onPromote(promotion);
     if (!move) {
       return false;
