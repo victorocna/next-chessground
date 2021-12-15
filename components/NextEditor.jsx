@@ -11,6 +11,10 @@ const NextEditor = (props, ref) => {
   const [selected, setSelected] = useState({ role: null, color: null });
 
   useEffect(() => {
+    setFen(props.fen);
+  }, [props.fen]);
+
+  useEffect(() => {
     if (typeof props.onSelect === 'function') {
       props.onSelect(fen);
     }
