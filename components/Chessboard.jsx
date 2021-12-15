@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import classnames from 'merge-class-names';
 import Chessground from '../lib/Chessground';
 import audio from '../lib/audio';
@@ -27,9 +27,6 @@ const Chessboard = (props, ref) => {
   const handleMove = async (from, to) => {
     const move = onMove(from, to, promotion);
     if (!move) {
-      if (typeof props.setPromoting === 'function') {
-        await props.setPromoting(true);
-      }
       show();
       return false;
     }
@@ -44,10 +41,6 @@ const Chessboard = (props, ref) => {
   };
 
   const handlePromotion = async (promotion) => {
-    if (typeof props.setPromoting === 'function') {
-      await props.setPromoting(false);
-    }
-
     const move = onPromote(promotion);
     if (!move) {
       return false;
@@ -61,6 +54,12 @@ const Chessboard = (props, ref) => {
       await props.onMove(chess);
     }
   };
+
+  useEffect(() => {
+    if (typeof props.setPromoting === 'function') {
+      props.setPromoting(isOpen);
+    }
+  }, [isOpen])
 
   return (
     <div
