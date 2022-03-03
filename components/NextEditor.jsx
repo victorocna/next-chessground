@@ -11,7 +11,9 @@ const NextEditor = (props, ref) => {
   const [selected, setSelected] = useState({ role: null, color: null });
 
   useEffect(() => {
-    setFen(props.fen);
+    if (props.fen) {
+      setFen(props.fen);
+    }
   }, [props.fen]);
 
   useEffect(() => {
