@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import ThemeContext from './ThemeContext';
+import Hydrate from './Hydrate';
 import themable from '../lib/theme';
 
 const Theme = ({ children }) => {
   const [theme, setTheme] = useState(themable());
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <Hydrate>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        {children}
+      </ThemeContext.Provider>
+    </Hydrate>
   );
 };
 
