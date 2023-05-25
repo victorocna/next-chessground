@@ -2,9 +2,9 @@ import React from 'react';
 
 const Hydrate = ({ children }) => {
   return (
-    <div suppressHydrationWarning>
+    <React.Fragment suppressHydrationWarning={true}>
       {typeof window === 'undefined' ? null : children}
-    </div>
+    </React.Fragment>
   );
 };
 
