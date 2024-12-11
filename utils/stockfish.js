@@ -1,12 +1,12 @@
 import constants from './constants';
 
 class Stockfish {
-  constructor() {
+  constructor(path) {
     if (typeof window === 'undefined') {
       return false;
     }
     if (!window.chessEngineWorker) {
-      const worker = process.env.STOCKFISH_PATH;
+      const worker = path ?? process.env.STOCKFISH_PATH;
       window.chessEngineWorker = new Worker(worker);
     }
     this.skillLevel = 20;
