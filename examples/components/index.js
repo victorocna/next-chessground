@@ -1,9 +1,8 @@
-import AppHead from './AppHead';
-import Highlight from './Highlight';
-import Layout from './Layout';
-import Link from './Link';
-import Menu from './Menu';
-import MenuButton from './MenuButton';
-import MenuItem from './MenuItem';
-
-export { AppHead, Highlight, Layout, Link, Menu, MenuButton, MenuItem };
+export { default as AppHead } from './AppHead';
+export { default as Highlight } from './Highlight';
+export { default as Layout } from './Layout';
+export { default as Link } from './Link';
+export { default as Menu } from './Menu';
+export { default as MenuButton } from './MenuButton';
+export { default as MenuItem } from './MenuItem';
+export { default as NoSsr } from './NoSsr';
