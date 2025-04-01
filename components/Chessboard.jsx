@@ -26,7 +26,8 @@ const Chessboard = (props, ref) => {
 
   const handleMove = async (from, to) => {
     const move = onMove(from, to, promotion);
-    if (!move) {
+    // Show promotion modal only when the move is not an undo
+    if (!move && !props.isUndo) {
       show();
       return false;
     }
@@ -59,7 +60,7 @@ const Chessboard = (props, ref) => {
     if (typeof props.setPromoting === 'function') {
       props.setPromoting(isOpen);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   return (
     <div
