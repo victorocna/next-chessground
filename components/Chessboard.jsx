@@ -62,6 +62,13 @@ const Chessboard = (props, ref) => {
     }
   }, [isOpen]);
 
+  // pass the current FEN to the parent component
+  useEffect(() => {
+    if (typeof props.onFenChange === 'function') {
+      props.onFenChange(fen);
+    }
+  }, [fen]);
+
   return (
     <div
       className={classnames(
