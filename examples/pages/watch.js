@@ -8,9 +8,12 @@ const Page = () => {
   const ref = useRef();
 
   const [engine] = useState(new Stockfish());
-  useEffect(async () => {
-    engine.init();
-    await getMove(constants.fen.initial);
+  useEffect(() => {
+    const init = async () => {
+      engine.init();
+      await getMove(constants.fen.initial);
+    };
+    init();
   }, []);
 
   const [lastMove, setLastMove] = useState();
