@@ -32,7 +32,9 @@ const useOrientation = (props) => {
   };
 
   useEffect(() => {
-    setOrientation(sideToMove(props.fen));
+    if (props.reset) {
+      setOrientation(sideToMove(props.fen));
+    }
   }, [props.reset]);
 
   return [orientation, flip];
