@@ -29,7 +29,7 @@ const Page = () => {
   };
 
   const onMove = async (chess) => {
-    if (chess.game_over()) {
+    if (chess.isGameOver()) {
       engine.quit();
     }
 

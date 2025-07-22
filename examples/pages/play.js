@@ -19,7 +19,7 @@ const Page = () => {
     setEngineTurn((prev) => !prev);
 
     if (engineTurn) {
-      if (chess.game_over()) {
+      if (chess.isGameOver()) {
         engine.quit();
       }
 
