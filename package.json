@@ -29,6 +29,7 @@
   "dependencies": {
     "chess.js": "^1.4.0",
     "chessground": "^7.12.0",
+    "lodash": "^4.17.21",
     "merge-class-names": "^1.4.2",
     "react-pure-modal": "^2.2.7",
     "store2": "^2.12.0"
