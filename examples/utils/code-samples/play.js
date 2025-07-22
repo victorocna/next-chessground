@@ -23,7 +23,7 @@ const Page = () => {
       await engine.set_position(chess.fen());
       const move = engineMove(await engine.go_time(1000));
 
-      setLastMove(move);
+      setLastMove([move.from, move.to]);
       if (ref.current) {
         ref.current.board.move(move.from, move.to);
       }
