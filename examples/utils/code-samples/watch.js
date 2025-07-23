@@ -16,14 +16,14 @@ const Page = () => {
     await engine.set_position(fen);
     const move = engineMove(await engine.go_time(1000));
 
-    setLastMove(move);
+    setLastMove([move.from, move.to]);
     if (ref.current) {
       ref.current.board.move(move.from, move.to);
     }
   };
 
   const onMove = async (chess) => {
-    if (chess.game_over()) {
+    if (chess.isGameOver()) {
       engine.quit();
     }
 

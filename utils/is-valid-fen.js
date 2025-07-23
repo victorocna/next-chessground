@@ -1,4 +1,4 @@
-import { Chess } from 'chess.js';
+import { validateFen } from 'chess.js';
 
 const validateKings = (fen) => {
   if (!fen) {
@@ -14,8 +14,7 @@ const validateKings = (fen) => {
 };
 
 const isValidFen = (fen) => {
-  const chess = new Chess(fen);
-  return chess.validate_fen(fen) && validateKings(fen);
+  return validateFen(fen) && validateKings(fen);
 };
 
 export default isValidFen;

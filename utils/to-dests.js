@@ -1,4 +1,5 @@
 import isValidFen from './is-valid-fen';
+import { SQUARES } from 'chess.js';
 
 /**
  * Legal chess moves for chessground
@@ -12,7 +13,7 @@ const toDests = (chess) => {
   const dests = new Map();
   const color = chess.turn() === 'w' ? 'white' : 'black';
 
-  chess.SQUARES.forEach((s) => {
+  SQUARES.forEach((s) => {
     const ms = chess.moves({ square: s, verbose: true });
     if (ms.length) {
       dests.set(
