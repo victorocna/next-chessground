@@ -17,6 +17,7 @@ const Page = () => {
 
   const onMove = async (chess) => {
     setEngineTurn((prev) => !prev);
+    setLastMove(null);
 
     if (engineTurn) {
       if (chess.isGameOver()) {
