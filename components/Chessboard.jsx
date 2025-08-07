@@ -35,6 +35,7 @@ const Chessboard = (props, ref) => {
   useImperativeHandle(ref, () => ({
     board: boardRef.current?.board,
     undo: onUndo,
+    move: onMove,
   }));
 
   const handleMove = async (from, to) => {
