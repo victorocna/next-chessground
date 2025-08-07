@@ -4,13 +4,12 @@ import { initialFen } from '../utils/constants';
 
 const useChess = (props) => {
   const [fen, setFen] = useState(props.fen || initialFen);
-  const [chess, setChess] = useState(new Chess(fen));
+  const [chess] = useState(() => new Chess(props.fen));
 
   // reinitialize when FEN changes from props
   useEffect(() => {
     if (props.fen) {
       setFen(props.fen);
-      setChess(new Chess(props.fen));
       setLastMove([]);
     }
   }, [props.fen, props.reset]);

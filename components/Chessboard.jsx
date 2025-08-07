@@ -26,9 +26,8 @@ const Chessboard = (props, ref) => {
 
   const handleMove = async (from, to) => {
     const move = onMove(from, to, promotion);
-    // Show promotion modal only when the move is not an undo
-    if (!move && !props.isUndo) {
-      show();
+    if (!move) {
+      show(); // move is a promotion, show the promotion modal
       return false;
     }
 
