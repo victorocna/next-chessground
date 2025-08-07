@@ -1,4 +1,9 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import classnames from 'merge-class-names';
 import Chessground from '../lib/Chessground';
 import audio from '../lib/audio';
@@ -22,7 +27,15 @@ const Chessboard = (props, ref) => {
     promotion,
     onMove,
     onPromote,
+    onUndo,
   } = useChess(props);
+
+  // Expose methods through ref
+  const boardRef = useRef();
+  useImperativeHandle(ref, () => ({
+    board: boardRef.current?.board,
+    undo: onUndo,
+  }));
 
   const handleMove = async (from, to) => {
     const move = onMove(from, to, promotion);
@@ -78,7 +91,7 @@ const Chessboard = (props, ref) => {
       )}
     >
       <Chessground
-        ref={ref}
+        ref={boardRef}
         coordinates={theme.coordinates}
         onMove={handleMove}
         fen={fen}

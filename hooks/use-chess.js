@@ -33,6 +33,16 @@ const useChess = (props) => {
     return move;
   };
 
+  const onUndo = () => {
+    const undone = chess.undo();
+    if (undone) {
+      setFen(chess.fen());
+      setLastMove([]);
+      return undone;
+    }
+    return null;
+  };
+
   return {
     chess,
     fen,
@@ -42,6 +52,7 @@ const useChess = (props) => {
     promotion,
     onMove,
     onPromote,
+    onUndo,
   };
 };
 
