@@ -21,11 +21,14 @@ const useChess = (props) => {
   const [orientation] = useState(props.orientation || turnColor);
 
   const onMove = (from, to, promotion) => {
-    const move = chess.move({ from, to, promotion });
     setLastMove([from, to]);
-    setFen(chess.fen());
-
-    return move;
+    try {
+      const move = chess.move({ from, to, promotion });
+      setFen(chess.fen());
+      return move;
+    } catch {
+      return false;
+    }
   };
 
   const onPromote = (promotion) => {
