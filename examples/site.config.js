@@ -8,6 +8,11 @@ module.exports = {
     'https://unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/atom-one-light.min.css',
   ],
   scripts: [
+    // Add public or external scripts here
     'https://unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js',
+  ],
+  fonts: [
+    // Add public or external fonts here
+    '/fonts/noto-chess.woff2',
   ],
 };

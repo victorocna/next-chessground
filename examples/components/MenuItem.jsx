@@ -13,7 +13,7 @@ const MenuItem = ({ href, children, level }) => {
         'menu-item px-8 py-2 hover:bg-gray-100 cursor-pointer',
         'no-underline text-gray-900',
         level === 1 ? 'pl-8' : 'pl-12',
-        pathname === href && 'text-primary font-semibold'
+        pathname === href && 'font-semibold'
       )}
     >
       {children}
