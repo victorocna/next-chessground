@@ -13,7 +13,7 @@ const Page = () => {
   ].join('\n');
 
   return (
-    <Layout title="Puzzles">
+    <Layout title="Chess puzzle">
       <div className="grid md:grid-cols-2 gap-12">
         <PuzzleProvider>
           <PuzzleLayout pgn={pgn} />
