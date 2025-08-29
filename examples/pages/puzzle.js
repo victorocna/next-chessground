@@ -1,4 +1,6 @@
-import { Puzzle } from '../chess';
+import { PuzzleLayout } from '../chess/puzzle';
+import MoveList from '../chess/puzzle/MoveList';
+import { PuzzleProvider } from '../chess/puzzle/PuzzleContext';
 import { Layout } from '../components';
 
 const Page = () => {
@@ -13,7 +15,10 @@ const Page = () => {
   return (
     <Layout title="Puzzles">
       <div className="grid md:grid-cols-2 gap-12">
-        <Puzzle pgn={pgn} />
+        <PuzzleProvider>
+          <PuzzleLayout pgn={pgn} />
+          <MoveList />
+        </PuzzleProvider>
       </div>
     </Layout>
   );
