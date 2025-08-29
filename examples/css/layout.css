@@ -1,0 +1,6 @@
+.top-right {
+  @apply absolute flex justify-end items-start pointer-events-none;
+}
+.z-100 {
+  z-index: 100;
+}
