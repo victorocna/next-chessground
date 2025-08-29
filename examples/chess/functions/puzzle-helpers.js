@@ -1,17 +1,10 @@
 import { isEqual, pick } from 'lodash';
 
+const filterMoveKeys = (moves) => {
+  return moves.map((move) => pick(move, ['from', 'to']));
+};
+
 export const compareMoves = (historyMoves, targetMoves) => {
-  // If targetMoves is an array of strings (SAN notation), convert history to SAN for comparison
-  if (targetMoves.length > 0 && typeof targetMoves[0] === 'string') {
-    const historySan = historyMoves.map((move) => move.san);
-    const targetSan = targetMoves.slice(0, historyMoves.length);
-    return isEqual(historySan, targetSan);
-  }
-
-  const filterMoveKeys = (moves) => {
-    return moves.map((move) => pick(move, ['from', 'to']));
-  };
-
   const history = filterMoveKeys(historyMoves);
   const solution = filterMoveKeys(targetMoves.slice(0, historyMoves.length));
 

@@ -7,8 +7,11 @@ import usePuzzle from './use-puzzle';
 const PuzzleLayout = ({ pgn, onComplete }) => {
   const { moves, alternatives, firstTurn, initialFen } = usePuzzle(pgn);
 
-  const { setSolution } = usePuzzleContext();
-  useEffect(() => setSolution(moves), [moves]);
+  const { setSolution, setAlternatives } = usePuzzleContext();
+  useEffect(() => {
+    setSolution(moves);
+    setAlternatives(alternatives);
+  }, [moves, alternatives]);
 
   return (
     <div className="relative w-full">

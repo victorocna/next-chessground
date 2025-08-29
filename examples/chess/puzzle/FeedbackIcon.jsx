@@ -47,7 +47,7 @@ const FeedbackIcon = ({ firstTurn }) => {
 
   return (
     <div className={classnames('top-right w-[14%] h-[14%]', leftClass, bottomClass)}>
-      <div className="relative w-4 h-4 md:w-5 md:h-5 2xl:w-6 2xl:h-6 animate-feedback-in rounded-full">
+      <div className="relative w-4 h-4 md:w-5 md:h-5 animate-feedback-in rounded-full z-100">
         {feedback === 'success' && (
           <div className="absolute bg-green-500 inset-0 rounded-full flex items-center justify-center">
             <i className="fas fa-check text-white text-xs 2xl:text-sm"></i>

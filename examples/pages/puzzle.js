@@ -3,11 +3,11 @@ import { Layout } from '../components';
 
 const Page = () => {
   const pgn = [
-    '[Event "Alternative moves: Chapter 1"]',
-    '[FEN "7k/5K2/8/8/6Q1/8/8/8 w - - 0 1"]',
+    '[Event "Alternative moves"]',
+    '[FEN "3Q4/5K1k/8/6q1/8/8/8/8 w - - 0 1"]',
     '[SetUp "1"]',
     '',
-    '1. Qg8# (1. Qg7#) *',
+    '1. Qxg5 Kh8 2. Qg8# (2. Qg7#) *',
   ].join('\n');
 
   return (

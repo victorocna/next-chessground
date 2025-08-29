@@ -1,4 +1,4 @@
-import { tree as chessTree, flat } from 'chess-moments';
+import { flat } from 'chess-moments';
 import { useMemo } from 'react';
 
 const usePuzzle = (pgn) => {
@@ -6,44 +6,32 @@ const usePuzzle = (pgn) => {
   const sanitizePgn = (pgn) => {
     return pgn.replace(/\{[^}]+\}/g, '').trim();
   };
-  const sanitizedPgn = sanitizePgn(pgn);
+  const sanitizedPgn = useMemo(() => sanitizePgn(pgn), [pgn]);
+  const moments = useMemo(() => flat(sanitizedPgn), [sanitizedPgn]);
+  const firstMoment = moments[0] || {};
 
-  // get only the main-line moves (depth === 1)
+  // Moves are mainline moments
   const moves = useMemo(() => {
-    const moments = flat(sanitizedPgn);
-    return moments.filter((m) => m.depth === 1 && m.move);
-  }, [sanitizedPgn]);
+    return moments.filter((moment) => moment.depth === 1 && moment.move);
+  }, [moments]);
 
-  // Chess tree from PGN
-  const tree = useMemo(() => chessTree(sanitizedPgn), [sanitizedPgn]);
-
-  const allAlts = useMemo(() => {
-    const lines = [];
-    for (let i = 1; i < tree.length; i++) {
-      const line = tree[i].filter((moment) => moment.move);
-      if (line.length) {
-        lines.push(line);
-      }
-    }
-    return lines;
-  }, [tree]);
-
+  // Alternatives are non-mainline moments
   const alternatives = useMemo(() => {
-    return allAlts.map((path) => path.filter((_, i) => i % 2 === 0));
-  }, [allAlts]);
+    const altMoves = moments.filter((moment) => moment.depth > 1 && moment.move);
+    // TODO: Add all moves before the first alternative
+    return [...altMoves];
+  }, [moments]);
 
   // Determine the first turn from the initial FEN
   const firstTurn = useMemo(() => {
-    const initialFen = tree[0]?.[0]?.fen;
-    return initialFen ? initialFen.split(' ')[1] : 'w'; // Default to 'w' if no FEN
-  }, [tree]);
+    return firstMoment.fen ? firstMoment.fen.split(' ')[1] : 'w'; // Default to 'w' if no FEN
+  }, [firstMoment]);
 
   const initialFen = useMemo(() => {
-    return tree[0]?.[0]?.fen || '';
-  }, [tree]);
+    return firstMoment.fen || '';
+  }, [firstMoment]);
 
   return {
-    tree,
     moves,
     alternatives,
     firstTurn,

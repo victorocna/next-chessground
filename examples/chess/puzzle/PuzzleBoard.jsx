@@ -2,7 +2,7 @@ import delay from 'delay';
 import { isFunction } from 'lodash';
 import { NextChessground } from 'next-chessground';
 import { useEffect, useRef, useState } from 'react';
-import { badMove, replyMove, wasSolved } from './puzzle-helpers';
+import { badMove, replyMove, wasSolved } from '../functions/puzzle-helpers';
 import { usePuzzleContext } from './PuzzleContext';
 
 const PuzzleBoard = ({ fen, moves, alternatives, shapes, onComplete }) => {
@@ -21,7 +21,8 @@ const PuzzleBoard = ({ fen, moves, alternatives, shapes, onComplete }) => {
     await delay(300);
 
     // Check if the user's move is incorrect
-    if (badMove(chess.history({ verbose: true }), moves, alternatives)) {
+    const history = chess.history({ verbose: true });
+    if (badMove(history, moves, alternatives)) {
       await delay(800);
 
       if (isFunction(ref?.current?.undo)) {
@@ -53,7 +54,7 @@ const PuzzleBoard = ({ fen, moves, alternatives, shapes, onComplete }) => {
 
     const history = chess.history({ verbose: true });
     const nextMove = replyMove(history, moves, alternatives);
-    if (isFunction(ref?.current?.move)) {
+    if (nextMove && isFunction(ref?.current?.move)) {
       ref.current.move(nextMove?.from, nextMove?.to);
     }
   };
