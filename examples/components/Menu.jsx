@@ -25,6 +25,7 @@ const Menu = () => {
           <MenuItem href="/watch">Watch computers play</MenuItem>
           <MenuItem href="/undo">Undo last move</MenuItem>
           <MenuItem href="/editor">Chess editor</MenuItem>
+          <MenuItem href="/puzzle">Chess puzzle</MenuItem>
         </div>
       </nav>
     </>
