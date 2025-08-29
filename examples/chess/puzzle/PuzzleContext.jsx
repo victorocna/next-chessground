@@ -7,7 +7,6 @@ const PuzzleContext = createContext();
 export const PuzzleProvider = ({ children, index }) => {
   const [history, setHistory] = useState([]);
   const [solution, setSolution] = useState(null);
-  const [alternatives, setAlternatives] = useState([]);
 
   const [feedback, setFeedback] = useState(null);
   const [lastMove, setLastMove] = useState(null);
@@ -29,7 +28,7 @@ export const PuzzleProvider = ({ children, index }) => {
 
   // Update feedback and lastMove when history changes
   useEffect(() => {
-    const feedback = goodMove(history, solution, alternatives) ? 'success' : 'error';
+    const feedback = goodMove(history, solution) ? 'success' : 'error';
     // Only show feedback for odd moves
     if (history.length % 2 === 1) {
       setFeedback(feedback);
@@ -47,8 +46,6 @@ export const PuzzleProvider = ({ children, index }) => {
     saveHistory,
     solution,
     setSolution,
-    alternatives,
-    setAlternatives,
     feedback,
     lastMove,
     isUserTurn,

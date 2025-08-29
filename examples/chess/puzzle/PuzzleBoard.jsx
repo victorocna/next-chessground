@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { badMove, replyMove, wasSolved } from '../functions/puzzle-helpers';
 import { usePuzzleContext } from './PuzzleContext';
 
-const PuzzleBoard = ({ fen, moves, alternatives, shapes, onComplete }) => {
+const PuzzleBoard = ({ fen, moves, shapes, onComplete }) => {
   const ref = useRef();
   const [viewOnly, setViewOnly] = useState(false);
 
@@ -22,7 +22,7 @@ const PuzzleBoard = ({ fen, moves, alternatives, shapes, onComplete }) => {
 
     // Check if the user's move is incorrect
     const history = chess.history({ verbose: true });
-    if (badMove(history, moves, alternatives)) {
+    if (badMove(history, moves)) {
       await delay(800);
 
       if (isFunction(ref?.current?.undo)) {
@@ -31,7 +31,7 @@ const PuzzleBoard = ({ fen, moves, alternatives, shapes, onComplete }) => {
     }
 
     // Check if the puzzle has been solved with this move
-    if (wasSolved(chess, moves, alternatives)) {
+    if (wasSolved(chess, moves)) {
       setViewOnly(true);
       if (isFunction(onComplete)) {
         return onComplete();
@@ -53,7 +53,7 @@ const PuzzleBoard = ({ fen, moves, alternatives, shapes, onComplete }) => {
     await delay(800);
 
     const history = chess.history({ verbose: true });
-    const nextMove = replyMove(history, moves, alternatives);
+    const nextMove = replyMove(history, moves);
     if (nextMove && isFunction(ref?.current?.move)) {
       ref.current.move(nextMove?.from, nextMove?.to);
     }

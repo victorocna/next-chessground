@@ -7,7 +7,7 @@ const Page = () => {
     '[FEN "3Q4/5K1k/8/6q1/8/8/8/8 w - - 0 1"]',
     '[SetUp "1"]',
     '',
-    '1. Qxg5 Kh8 2. Qg8# (2. Qg7#) *',
+    '1. Qxg5 Kh8 2. Qg8# (2. Qg7#) (2. Qh4#) (2. Qh5#) (2. Qh6#) *',
   ].join('\n');
 
   return (

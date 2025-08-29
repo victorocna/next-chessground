@@ -15,13 +15,6 @@ const usePuzzle = (pgn) => {
     return moments.filter((moment) => moment.depth === 1 && moment.move);
   }, [moments]);
 
-  // Alternatives are non-mainline moments
-  const alternatives = useMemo(() => {
-    const altMoves = moments.filter((moment) => moment.depth > 1 && moment.move);
-    // TODO: Add all moves before the first alternative
-    return [...altMoves];
-  }, [moments]);
-
   // Determine the first turn from the initial FEN
   const firstTurn = useMemo(() => {
     return firstMoment.fen ? firstMoment.fen.split(' ')[1] : 'w'; // Default to 'w' if no FEN
@@ -33,7 +26,6 @@ const usePuzzle = (pgn) => {
 
   return {
     moves,
-    alternatives,
     firstTurn,
     initialFen,
   };
