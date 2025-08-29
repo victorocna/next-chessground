@@ -5,7 +5,6 @@ module.exports = {
   stylesheets: [
     'https://use.fontawesome.com/releases/v5.12.0/css/all.css',
     'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500',
-    'https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css',
     'https://unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/atom-one-light.min.css',
   ],
   scripts: [

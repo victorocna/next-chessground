@@ -1,6 +1,5 @@
-import React from 'react';
 import { AppHead, NoSsr } from '../components';
-import '../css/menu.css';
+import '../css/index.css';
 
 const Root = (props) => {
   const { Component, pageProps } = props;
