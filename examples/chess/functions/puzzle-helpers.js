@@ -8,10 +8,14 @@ const filterMoveKeys = (moves) => {
  * Compare chess history with full possible solution
  */
 export const compareMoves = (historyMoves, targetMoves) => {
-  const history = filterMoveKeys(historyMoves);
-  const solution = filterMoveKeys(targetMoves.slice(0, historyMoves.length));
+  try {
+    const history = filterMoveKeys(historyMoves);
+    const solution = filterMoveKeys(targetMoves.slice(0, historyMoves.length));
 
-  return isEqual(history, solution);
+    return isEqual(history, solution);
+  } catch {
+    return false;
+  }
 };
 
 /**

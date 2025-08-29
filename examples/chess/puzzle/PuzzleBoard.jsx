@@ -26,7 +26,8 @@ const PuzzleBoard = ({ fen, moves, shapes, onComplete }) => {
       await delay(800);
 
       if (isFunction(ref?.current?.undo)) {
-        return ref.current.undo();
+        ref.current.undo();
+        return saveHistory(chess);
       }
     }
 
@@ -56,6 +57,7 @@ const PuzzleBoard = ({ fen, moves, shapes, onComplete }) => {
     const nextMove = replyMove(history, moves);
     if (nextMove && isFunction(ref?.current?.move)) {
       ref.current.move(nextMove?.from, nextMove?.to);
+      saveHistory(chess);
     }
   };
 
