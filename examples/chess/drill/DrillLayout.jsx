@@ -1,20 +1,20 @@
 import { useEffect } from 'react';
 import FeedbackIcon from '../common/FeedbackIcon';
 import MoveList from '../common/MoveList';
-import PuzzleBoard from './PuzzleBoard';
-import { usePuzzleContext } from './PuzzleContext';
-import usePuzzle from './use-puzzle';
+import { usePuzzle } from '../puzzle';
+import DrillBoard from './DrillBoard';
+import { useDrillContext } from './DrillContext';
 
-const PuzzleLayout = ({ pgn, onComplete, showMoves }) => {
+const DrillLayout = ({ pgn, onComplete, showMoves }) => {
   const { moves, firstTurn, initialFen } = usePuzzle(pgn);
 
-  const { feedback, lastMove, setSolution, history } = usePuzzleContext();
+  const { feedback, lastMove, setSolution, history } = useDrillContext();
   useEffect(() => setSolution(moves), [moves]);
 
   return (
     <>
       <div className="relative w-full">
-        <PuzzleBoard fen={initialFen} moves={moves} onComplete={onComplete} />
+        <DrillBoard fen={initialFen} moves={moves} onComplete={onComplete} />
         <FeedbackIcon firstTurn={firstTurn} feedback={feedback} lastMove={lastMove} />
       </div>
       {showMoves && <MoveList history={history} />}
@@ -22,4 +22,4 @@ const PuzzleLayout = ({ pgn, onComplete, showMoves }) => {
   );
 };
 
-export default PuzzleLayout;
+export default DrillLayout;

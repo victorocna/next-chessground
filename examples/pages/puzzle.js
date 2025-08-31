@@ -1,5 +1,4 @@
 import { PuzzleLayout } from '../chess/puzzle';
-import MoveList from '../chess/puzzle/MoveList';
 import { PuzzleProvider } from '../chess/puzzle/PuzzleContext';
 import { Layout } from '../components';
 
@@ -13,13 +12,12 @@ const Page = () => {
   ].join('\n');
 
   return (
-    <Layout title="Chess puzzle">
-      <div className="grid md:grid-cols-2 gap-12">
-        <PuzzleProvider>
-          <PuzzleLayout pgn={pgn} />
-          <MoveList />
-        </PuzzleProvider>
-      </div>
+    <Layout title="Chess puzzles">
+      <PuzzleProvider>
+        <div className="grid md:grid-cols-2 gap-12">
+          <PuzzleLayout pgn={pgn} showMoves={true} />
+        </div>
+      </PuzzleProvider>
     </Layout>
   );
 };

@@ -1,11 +1,8 @@
 import { isEmpty } from 'lodash';
 import EmptyMoveList from './EmptyMoveList';
 import Move from './Move';
-import { usePuzzleContext } from './PuzzleContext';
 
-const MoveList = () => {
-  const { history } = usePuzzleContext();
-
+const MoveList = ({ history }) => {
   const showMoves = (whiteMove, index) => {
     const moveNumber = index + 1;
     const blackMove = history[index * 2 + 1];

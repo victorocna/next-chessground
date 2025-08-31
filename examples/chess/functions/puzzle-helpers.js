@@ -54,12 +54,3 @@ export const wasSolved = (history, moves) => {
   }
   return false;
 };
-
-const puzzle = {
-  badMove,
-  goodMove,
-  replyMove,
-  wasSolved,
-};
-
-export default puzzle;

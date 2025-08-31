@@ -4,7 +4,7 @@ import { goodMove } from '../functions/puzzle-helpers';
 
 const PuzzleContext = createContext();
 
-export const PuzzleProvider = ({ children, index }) => {
+export const PuzzleProvider = ({ children, key }) => {
   const [history, setHistory] = useState([]);
   const [solution, setSolution] = useState(null);
 
@@ -13,13 +13,13 @@ export const PuzzleProvider = ({ children, index }) => {
 
   const [isUserTurn, setIsUserTurn] = useState(true);
 
-  // Reset all state when index changes
+  // Reset all state when key changes
   useEffect(() => {
     setHistory([]);
     setFeedback(null);
     setLastMove(null);
     setIsUserTurn(true);
-  }, [index]);
+  }, [key]);
 
   // Add a move to history
   const saveHistory = (chess) => {

@@ -1,4 +1,5 @@
 export { default as AppHead } from './AppHead';
+export { default as Button } from './Button';
 export { default as Highlight } from './Highlight';
 export { default as Layout } from './Layout';
 export { default as Link } from './Link';

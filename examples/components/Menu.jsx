@@ -3,12 +3,7 @@ import { MenuItem } from '.';
 const Menu = () => {
   return (
     <>
-      <input
-        type="checkbox"
-        id="menu"
-        className="hidden"
-        aria-label="Menu open/close"
-      />
+      <input type="checkbox" id="menu" className="hidden" aria-label="Menu open/close" />
       <label
         htmlFor="menu"
         aria-label="Menu open/close"
@@ -25,7 +20,8 @@ const Menu = () => {
           <MenuItem href="/watch">Watch computers play</MenuItem>
           <MenuItem href="/undo">Undo last move</MenuItem>
           <MenuItem href="/editor">Chess editor</MenuItem>
-          <MenuItem href="/puzzle">Chess puzzle</MenuItem>
+          <MenuItem href="/puzzle">Chess puzzles</MenuItem>
+          <MenuItem href="/drill">Chess drills</MenuItem>
         </div>
       </nav>
     </>

@@ -1,8 +1,6 @@
 import classnames from 'merge-class-names';
-import { usePuzzleContext } from './PuzzleContext';
 
-const FeedbackIcon = ({ firstTurn }) => {
-  const { feedback, lastMove } = usePuzzleContext();
+const FeedbackIcon = ({ firstTurn, feedback, lastMove }) => {
   if (!feedback || !lastMove) {
     return null;
   }
