@@ -13,6 +13,7 @@ export const DrillProvider = ({ children, mode: initialMode }) => {
   const [solution, setSolution] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [lastMove, setLastMove] = useState(null);
+  const [viewOnly, setViewOnly] = useState(false);
 
   // Mode: arrows, squares, nohint, retry
   const [mode, setMode] = useState(initialMode || '');
@@ -37,6 +38,8 @@ export const DrillProvider = ({ children, mode: initialMode }) => {
     setSolution,
     feedback,
     lastMove,
+    viewOnly,
+    setViewOnly,
   };
 
   return <DrillContext.Provider value={value}>{children}</DrillContext.Provider>;

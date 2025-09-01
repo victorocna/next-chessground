@@ -13,6 +13,7 @@ export const PuzzleProvider = ({ children }) => {
   const [solution, setSolution] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [lastMove, setLastMove] = useState(null);
+  const [viewOnly, setViewOnly] = useState(false);
 
   // Puzzle alternative solutions
   const [alts, setAlts] = useState([]);
@@ -37,6 +38,8 @@ export const PuzzleProvider = ({ children }) => {
     lastMove,
     alts,
     setAlts,
+    viewOnly,
+    setViewOnly,
   };
 
   return <PuzzleContext.Provider value={value}>{children}</PuzzleContext.Provider>;

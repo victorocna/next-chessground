@@ -1,7 +1,7 @@
 import delay from 'delay';
 import { isFunction } from 'lodash';
 import { NextChessground } from 'next-chessground';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
 import { useChessContext } from '../common/ChessContext';
 import { getNextMoment, getNextShape } from '../functions/drill-helpers';
 import { badMove, replyMove, wasSolved } from '../functions/puzzle-helpers';
@@ -9,15 +9,9 @@ import { useDrillContext } from './DrillContext';
 
 const DrillBoard = ({ fen, moves, shapes, onComplete }) => {
   const ref = useRef();
-  const [viewOnly, setViewOnly] = useState(false);
 
   const { currentFen, saveHistory, isUserTurn } = useChessContext();
-  const { mode } = useDrillContext();
-
-  // Reset internal state when the puzzle FEN changes
-  useEffect(() => {
-    setViewOnly(false);
-  }, [fen]);
+  const { mode, viewOnly, setViewOnly } = useDrillContext();
 
   const handleMove = async (chess) => {
     saveHistory(chess);
