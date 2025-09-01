@@ -7,7 +7,7 @@ import { usePuzzleContext } from './PuzzleContext';
 import usePuzzle from './use-puzzle';
 
 const PuzzleLayout = ({ pgn, onComplete, showMoves }) => {
-const { moves } = usePuzzle(pgn);
+  const { moves } = usePuzzle(pgn);
 
   const { history, initialFen, initialTurn } = useChessContext();
   const { feedback, lastMove, setSolution } = usePuzzleContext();
@@ -19,7 +19,7 @@ const { moves } = usePuzzle(pgn);
         <PuzzleBoard fen={initialFen} moves={moves} onComplete={onComplete} />
         <FeedbackIcon firstTurn={initialTurn} feedback={feedback} lastMove={lastMove} />
       </div>
-      {showMoves && <MoveList history={history} />}
+      {showMoves && <MoveList history={history} initialFen={initialFen} />}
     </>
   );
 };

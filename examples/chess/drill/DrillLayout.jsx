@@ -19,7 +19,7 @@ const DrillLayout = ({ pgn, onComplete, showMoves }) => {
         <DrillBoard fen={initialFen} moves={moves} onComplete={onComplete} />
         <FeedbackIcon firstTurn={initialTurn} feedback={feedback} lastMove={lastMove} />
       </div>
-      {showMoves && <MoveList history={history} />}
+      {showMoves && <MoveList history={history} initialFen={initialFen} />}
     </>
   );
 };
