@@ -1,54 +1,42 @@
 import { last } from 'lodash';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useChessContext } from '../common/ChessContext';
 import { goodMove } from '../functions/puzzle-helpers';
 
 const PuzzleContext = createContext();
 
-export const PuzzleProvider = ({ children, key }) => {
-  const [history, setHistory] = useState([]);
-  const [solution, setSolution] = useState(null);
+export const PuzzleProvider = ({ children }) => {
+  // Chess context
+  const { isUserTurn, history } = useChessContext();
 
+  // Puzzle states
+  const [solution, setSolution] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [lastMove, setLastMove] = useState(null);
 
-  const [isUserTurn, setIsUserTurn] = useState(true);
-
-  // Reset all state when key changes
-  useEffect(() => {
-    setHistory([]);
-    setFeedback(null);
-    setLastMove(null);
-    setIsUserTurn(true);
-  }, [key]);
-
-  // Add a move to history
-  const saveHistory = (chess) => {
-    setHistory(chess.history({ verbose: true }));
-  };
+  // Puzzle alternative solutions
+  const [alts, setAlts] = useState([]);
 
   // Update feedback and lastMove when history changes
   useEffect(() => {
-    const feedback = goodMove(history, solution) ? 'success' : 'error';
-    // Only show feedback for odd moves
-    if (history.length % 2 === 1) {
+    if (isUserTurn) {
+      const feedback = goodMove(history, solution) ? 'success' : 'error';
       setFeedback(feedback);
-      setLastMove(last(history)?.to);
-      setIsUserTurn(false);
+      const lastMove = last(history)?.to;
+      setLastMove(lastMove);
     } else {
       setFeedback(null);
       setLastMove(null);
-      setIsUserTurn(true);
     }
   }, [history]);
 
   const value = {
-    history,
-    saveHistory,
     solution,
     setSolution,
     feedback,
     lastMove,
-    isUserTurn,
+    alts,
+    setAlts,
   };
 
   return <PuzzleContext.Provider value={value}>{children}</PuzzleContext.Provider>;

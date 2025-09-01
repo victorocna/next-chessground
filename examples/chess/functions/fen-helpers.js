@@ -1,4 +1,7 @@
-const parseFen = (fen) => {
+/**
+ * Parses a FEN string and returns an object with the relevant information.
+ */
+export const parseFen = (fen) => {
   if (!fen || typeof fen !== 'string') {
     return null;
   }
@@ -19,4 +22,16 @@ const parseFen = (fen) => {
   };
 };
 
-export default parseFen;
+/**
+ * Extracts the FEN string from a PGN string.
+ */
+export const extractFen = (pgn) => {
+  const lines = pgn.split('\n');
+  const fenLine = lines.find((line) => line.startsWith('[FEN'));
+  if (!fenLine) {
+    return null;
+  }
+
+  const fenMatch = fenLine.match(/\[FEN "(.+?)"\]/);
+  return fenMatch ? fenMatch[1] : null;
+};

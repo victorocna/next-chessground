@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useChessContext } from '../common/ChessContext';
 import FeedbackIcon from '../common/FeedbackIcon';
 import MoveList from '../common/MoveList';
 import PuzzleBoard from './PuzzleBoard';
@@ -8,7 +9,8 @@ import usePuzzle from './use-puzzle';
 const PuzzleLayout = ({ pgn, onComplete, showMoves }) => {
   const { moves, firstTurn, initialFen } = usePuzzle(pgn);
 
-  const { feedback, lastMove, setSolution, history } = usePuzzleContext();
+  const { history } = useChessContext();
+  const { feedback, lastMove, setSolution } = usePuzzleContext();
   useEffect(() => setSolution(moves), [moves]);
 
   return (

@@ -1,3 +1,5 @@
+import { ChessProvider } from '../chess/common/ChessContext';
+import { extractFen } from '../chess/functions/fen-helpers';
 import { PuzzleLayout } from '../chess/puzzle';
 import { PuzzleProvider } from '../chess/puzzle/PuzzleContext';
 import { Layout } from '../components';
@@ -13,11 +15,13 @@ const Page = () => {
 
   return (
     <Layout title="Chess puzzles">
-      <PuzzleProvider>
-        <div className="grid md:grid-cols-2 gap-12">
-          <PuzzleLayout pgn={pgn} showMoves={true} />
-        </div>
-      </PuzzleProvider>
+      <ChessProvider fen={extractFen(pgn)}>
+        <PuzzleProvider>
+          <div className="grid md:grid-cols-2 gap-12">
+            <PuzzleLayout pgn={pgn} showMoves={true} />
+          </div>
+        </PuzzleProvider>
+      </ChessProvider>
     </Layout>
   );
 };

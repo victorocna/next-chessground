@@ -2,14 +2,14 @@ import delay from 'delay';
 import { isFunction } from 'lodash';
 import { NextChessground } from 'next-chessground';
 import { useEffect, useRef, useState } from 'react';
+import { useChessContext } from '../common/ChessContext';
 import { badMove, replyMove, wasSolved } from '../functions/puzzle-helpers';
-import { usePuzzleContext } from './PuzzleContext';
 
 const PuzzleBoard = ({ fen, moves, shapes, onComplete }) => {
   const ref = useRef();
   const [viewOnly, setViewOnly] = useState(false);
 
-  const { saveHistory, isUserTurn } = usePuzzleContext();
+  const { saveHistory, isUserTurn } = useChessContext();
 
   // Reset internal state when the puzzle FEN changes
   useEffect(() => {

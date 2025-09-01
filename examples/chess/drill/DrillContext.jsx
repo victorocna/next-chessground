@@ -1,52 +1,42 @@
+import { last } from 'lodash';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useChessContext } from '../common/ChessContext';
+import { goodMove } from '../functions/puzzle-helpers';
 
 const DrillContext = createContext();
 
-export const DrillProvider = ({ children, key, mode: initialMode }) => {
-  // Mode: arrows, squares, nohint, retry
-  const [mode, setMode] = useState(initialMode || '');
+export const DrillProvider = ({ children, mode: initialMode }) => {
+  // Chess context
+  const { isUserTurn, history } = useChessContext();
 
-  // Current chess board FEN
-  const [currentFen, setCurrentFen] = useState('');
-  // Current turn logic
-  const [currentTurn, setCurrentTurn] = useState('');
-  const [isUserTurn, setIsUserTurn] = useState(true);
-  useEffect(() => {
-    setIsUserTurn(() => currentTurn === 'w');
-  }, [currentTurn]);
-
-  const [history, setHistory] = useState([]);
+  // Drill states
   const [solution, setSolution] = useState(null);
-
   const [feedback, setFeedback] = useState(null);
   const [lastMove, setLastMove] = useState(null);
 
-  // Reset all state when key changes
-  useEffect(() => {
-    setHistory([]);
-    setFeedback(null);
-    setLastMove(null);
-    setIsUserTurn(true);
-  }, [key]);
+  // Mode: arrows, squares, nohint, retry
+  const [mode, setMode] = useState(initialMode || '');
 
-  // Add a move to history
-  const saveHistory = (chess) => {
-    setCurrentFen(chess.fen());
-    setCurrentTurn(chess.turn());
-    setHistory(chess.history({ verbose: true }));
-  };
+  // Update feedback and lastMove when history changes
+  useEffect(() => {
+    if (isUserTurn) {
+      const feedback = goodMove(history, solution) ? 'success' : 'error';
+      setFeedback(feedback);
+      const lastMove = last(history)?.to;
+      setLastMove(lastMove);
+    } else {
+      setFeedback(null);
+      setLastMove(null);
+    }
+  }, [history]);
 
   const value = {
     mode,
-    currentFen,
     setMode,
-    history,
-    saveHistory,
     solution,
     setSolution,
     feedback,
     lastMove,
-    isUserTurn,
   };
 
   return <DrillContext.Provider value={value}>{children}</DrillContext.Provider>;

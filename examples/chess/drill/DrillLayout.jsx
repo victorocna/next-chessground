@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useChessContext } from '../common/ChessContext';
 import FeedbackIcon from '../common/FeedbackIcon';
 import MoveList from '../common/MoveList';
 import { usePuzzle } from '../puzzle';
@@ -8,7 +9,8 @@ import { useDrillContext } from './DrillContext';
 const DrillLayout = ({ pgn, onComplete, showMoves }) => {
   const { moves, firstTurn, initialFen } = usePuzzle(pgn);
 
-  const { feedback, lastMove, setSolution, history } = useDrillContext();
+  const { history } = useChessContext();
+  const { feedback, lastMove, setSolution } = useDrillContext();
   useEffect(() => setSolution(moves), [moves]);
 
   return (
