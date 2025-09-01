@@ -12,10 +12,9 @@ import { useEffect, useMemo, useState } from 'react';
 
 const usePgnViewer = (pgn, options) => {
   const {
-    autoSelectMainline = false,
+    autoSelectMainline = false, //
     initialMoveIndex = 0,
     useArrowsToMove = true,
-    onPositionChange,
   } = options || {};
 
   // === PGN state and navigation
@@ -62,13 +61,6 @@ const usePgnViewer = (pgn, options) => {
     setUserMoves(null);
   }, [pgn, initialMoveIndex, moments]);
 
-  // Call onPositionChange whenever currentMoment changes
-  useEffect(() => {
-    if (typeof onPositionChange === 'function') {
-      onPositionChange(currentMoment?.fen);
-    }
-  }, [currentMoment]);
-
   const goPrevMoment = () => {
     const prevMoment = getPrevMoment(moments, currentMoment);
     if (!isEmpty(prevMoment)) {
@@ -102,7 +94,9 @@ const usePgnViewer = (pgn, options) => {
   };
 
   const getMoveIndex = (moment) => {
-    if (!moment || !moments.length) return 0;
+    if (!moment || !moments.length) {
+      return 0;
+    }
     const mainLineMoves = moments.filter((move) => move.depth === 1 && move.move);
     const moveIndex = mainLineMoves.findIndex((move) => move.id === moment.id);
     return moveIndex >= 0 ? moveIndex : 0;
