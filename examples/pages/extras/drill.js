@@ -1,10 +1,10 @@
-import { ChessProvider } from '../chess/common/ChessContext';
-import { DrillProvider } from '../chess/drill/DrillContext';
-import DrillLayout from '../chess/drill/DrillLayout';
-import DrillMode from '../chess/drill/DrillMode';
-import { extractFen } from '../chess/functions/fen-helpers';
-import { Layout, PgnFileLoader } from '../components';
-import { useLocalPgn } from '../hooks';
+import { ChessProvider } from '../../chess/common/ChessContext';
+import { DrillProvider } from '../../chess/drill/DrillContext';
+import DrillLayout from '../../chess/drill/DrillLayout';
+import DrillMode from '../../chess/drill/DrillMode';
+import { extractFen } from '../../chess/functions/fen-helpers';
+import { Layout, PgnFileLoader } from '../../components';
+import { useLocalPgn } from '../../hooks';
 
 const Page = () => {
   const { pgn, setPgn, key, rerender } = useLocalPgn();

@@ -1,9 +1,9 @@
-import { ChessProvider } from '../chess/common/ChessContext';
-import { extractFen } from '../chess/functions/fen-helpers';
-import { PuzzleLayout } from '../chess/puzzle';
-import { PuzzleProvider } from '../chess/puzzle/PuzzleContext';
-import { Layout, PgnFileLoader } from '../components';
-import { useLocalPgn } from '../hooks';
+import { ChessProvider } from '../../chess/common/ChessContext';
+import { extractFen } from '../../chess/functions/fen-helpers';
+import { PuzzleLayout } from '../../chess/puzzle';
+import { PuzzleProvider } from '../../chess/puzzle/PuzzleContext';
+import { Layout, PgnFileLoader } from '../../components';
+import { useLocalPgn } from '../../hooks';
 
 const Page = () => {
   const { pgn, setPgn, key, rerender } = useLocalPgn();
