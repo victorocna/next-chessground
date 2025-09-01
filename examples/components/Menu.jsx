@@ -20,8 +20,9 @@ const Menu = () => {
           <MenuItem href="/watch">Watch computers play</MenuItem>
           <MenuItem href="/undo">Undo last move</MenuItem>
           <MenuItem href="/editor">Chess editor</MenuItem>
-          <MenuItem href="/puzzle">Chess puzzles</MenuItem>
-          <MenuItem href="/drill">Chess drills</MenuItem>
+          <MenuItem href="/extras/puzzle">Chess puzzles</MenuItem>
+          <MenuItem href="/extras/drill">Chess drills</MenuItem>
+          <MenuItem href="/extras/pgn-viewer">Chess PGN viewer</MenuItem>
         </div>
       </nav>
     </>
