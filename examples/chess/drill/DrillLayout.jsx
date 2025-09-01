@@ -7,9 +7,9 @@ import DrillBoard from './DrillBoard';
 import { useDrillContext } from './DrillContext';
 
 const DrillLayout = ({ pgn, onComplete, showMoves }) => {
-  const { moves, firstTurn, initialFen } = usePuzzle(pgn);
+  const { moves } = usePuzzle(pgn);
 
-  const { history } = useChessContext();
+  const { history, initialFen, initialTurn } = useChessContext();
   const { feedback, lastMove, setSolution } = useDrillContext();
   useEffect(() => setSolution(moves), [moves]);
 
@@ -17,7 +17,7 @@ const DrillLayout = ({ pgn, onComplete, showMoves }) => {
     <>
       <div className="relative w-full">
         <DrillBoard fen={initialFen} moves={moves} onComplete={onComplete} />
-        <FeedbackIcon firstTurn={firstTurn} feedback={feedback} lastMove={lastMove} />
+        <FeedbackIcon firstTurn={initialTurn} feedback={feedback} lastMove={lastMove} />
       </div>
       {showMoves && <MoveList history={history} />}
     </>

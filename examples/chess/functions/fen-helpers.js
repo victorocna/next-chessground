@@ -1,3 +1,6 @@
+import { isArray } from 'lodash';
+import { constants } from 'next-chessground';
+
 /**
  * Parses a FEN string and returns an object with the relevant information.
  */
@@ -7,7 +10,6 @@ export const parseFen = (fen) => {
   }
 
   const parts = fen.trim().split(' ');
-
   if (parts.length !== 6) {
     return null;
   }
@@ -26,12 +28,12 @@ export const parseFen = (fen) => {
  * Extracts the FEN string from a PGN string.
  */
 export const extractFen = (pgn) => {
-  const lines = pgn.split('\n');
+  const lines = isArray(pgn) ? pgn : pgn.split('\n');
   const fenLine = lines.find((line) => line.startsWith('[FEN'));
   if (!fenLine) {
-    return null;
+    return constants.initialFen;
   }
 
   const fenMatch = fenLine.match(/\[FEN "(.+?)"\]/);
-  return fenMatch ? fenMatch[1] : null;
+  return fenMatch ? fenMatch[1] : constants.initialFen;
 };

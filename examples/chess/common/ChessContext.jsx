@@ -26,6 +26,8 @@ export const ChessProvider = ({ children, fen }) => {
   };
 
   const value = {
+    initialFen: fen,
+    initialTurn,
     currentFen,
     isUserTurn,
     history,

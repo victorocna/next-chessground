@@ -3,19 +3,15 @@ import { DrillProvider } from '../chess/drill/DrillContext';
 import DrillLayout from '../chess/drill/DrillLayout';
 import DrillMode from '../chess/drill/DrillMode';
 import { extractFen } from '../chess/functions/fen-helpers';
-import { Layout } from '../components';
+import { Layout, PgnFileLoader } from '../components';
+import { useLocalPgn } from '../hooks';
 
 const Page = () => {
-  const pgn = [
-    '[Event "Spanish Opening"]',
-    '[FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"]',
-    '[SetUp "1"]',
-    '',
-    '1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 *',
-  ].join('\n');
+  const { pgn, setPgn, key, rerender } = useLocalPgn();
+  const Button = <PgnFileLoader rerender={rerender} onPgnLoad={setPgn} />;
 
   return (
-    <Layout title="Chess drills">
+    <Layout key={key} title="Chess drills" button={Button}>
       <ChessProvider fen={extractFen(pgn)}>
         <DrillProvider mode="arrows">
           <div className="grid md:grid-cols-2 gap-12">
