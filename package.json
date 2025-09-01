@@ -29,6 +29,7 @@
   "dependencies": {
     "chess.js": "^1.4.0",
     "chessground": "^7.12.0",
+    "lodash-es": "^4.17.21",
     "merge-class-names": "^1.4.2",
     "react-pure-modal": "^2.2.7",
     "store2": "^2.12.0"
@@ -44,6 +45,7 @@
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-url": "^6.1.0",
     "eslint": "^7.11.0",
     "eslint-plugin-react": "^7.21.4",
