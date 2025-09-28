@@ -4,8 +4,12 @@ const usePremove = (handleMove) => {
   const currentPremove = useRef(null);
 
   // Handler for when a premove is set by Chessground
-  const onSetPremove = useCallback((orig, dest) => {
-    currentPremove.current = { orig, dest };
+  const onSetPremove = useCallback((orig, dest, metadata) => {
+    currentPremove.current = {
+      orig,
+      dest,
+      promotion: metadata?.promotion || null,
+    };
   }, []);
 
   // Handler for when a premove is unset by Chessground
@@ -13,17 +17,27 @@ const usePremove = (handleMove) => {
     currentPremove.current = null;
   }, []);
 
+  // Handler for premove promotions - always promote to queen
+  const onPremovePromotion = useCallback(() => {
+    return 'q';
+  }, []);
+
   // Execute the stored premove through game logic
   const onPlayPremove = useCallback(async () => {
     if (currentPremove.current) {
-      const { orig, dest } = currentPremove.current;
+      const { orig, dest, promotion } = currentPremove.current;
 
       // Store the premove data before we clear it
-      const premoveData = { orig, dest };
+      const premoveData = { orig, dest, promotion };
 
       currentPremove.current = null;
 
-      const success = await handleMove(premoveData.orig, premoveData.dest);
+      const movePromotion = premoveData.promotion || 'q';
+      const success = await handleMove(
+        premoveData.orig,
+        premoveData.dest,
+        movePromotion
+      );
       return success;
     }
     return false;
@@ -43,6 +57,7 @@ const usePremove = (handleMove) => {
     onUnsetPremove,
     onPlayPremove,
     onCancelPremove,
+    onPremovePromotion,
   };
 };
 

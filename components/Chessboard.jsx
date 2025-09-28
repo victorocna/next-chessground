@@ -13,7 +13,7 @@ import usePremove from '../hooks/use-premove';
 import Promote from './Promote';
 import useDisclosure from '../hooks/use-disclosure';
 import cgProps from '../lib/cg-props';
-import getMovable from '../utils/get-movable';
+import toDests from '../utils/to-dests';
 
 const Chessboard = (props, ref) => {
   const { theme } = useChessground();
@@ -31,10 +31,13 @@ const Chessboard = (props, ref) => {
     onUndo,
   } = useChess(props);
 
-  const handleMove = async (from, to) => {
-    const move = onMove(from, to, promotion);
+  const handleMove = async (from, to, movePromotion) => {
+    const move = onMove(from, to, movePromotion || promotion);
     if (!move) {
-      show(); // move is a promotion, show the promotion modal
+      if (!movePromotion) {
+        show(); // move is a promotion, show the promotion modal
+        return false;
+      }
       return false;
     }
 
@@ -55,6 +58,7 @@ const Chessboard = (props, ref) => {
     onUnsetPremove,
     onPlayPremove,
     onCancelPremove,
+    onPremovePromotion,
   } = usePremove(handleMove);
 
   const boardRef = useRef();
@@ -111,21 +115,18 @@ const Chessboard = (props, ref) => {
         turnColor={turnColor}
         lastMove={lastMove}
         orientation={orientation}
-        movable={getMovable(chess, orientation, props.premoves)}
+        movable={toDests(chess, orientation, props.premoves)}
         premovable={
           props.premoves
             ? {
                 enabled: true,
                 showDests: true,
                 castle: true,
-                dests: 'always',
-                autoPromote: true,
-                showAfterMove: true,
                 events: {
                   set: onSetPremove,
                   unset: onUnsetPremove,
                 },
-                visible: true,
+                promote: onPremovePromotion,
               }
             : { enabled: false }
         }
