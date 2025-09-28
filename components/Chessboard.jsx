@@ -46,7 +46,7 @@ const Chessboard = (props, ref) => {
       await props.onMove(chess);
     }
 
-    return true; // Return success status
+    return true;
   };
 
   // Initialize premove hook
@@ -119,13 +119,12 @@ const Chessboard = (props, ref) => {
                 showDests: true,
                 castle: true,
                 dests: 'always',
-                autoPromote: false, // Let our promotion logic handle this
+                autoPromote: true,
                 showAfterMove: true,
                 events: {
                   set: onSetPremove,
                   unset: onUnsetPremove,
                 },
-                current: null,
                 visible: true,
               }
             : { enabled: false }

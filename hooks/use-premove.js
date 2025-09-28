@@ -18,10 +18,12 @@ const usePremove = (handleMove) => {
     if (currentPremove.current) {
       const { orig, dest } = currentPremove.current;
 
-      const success = await handleMove(orig, dest);
-      if (success) {
-        currentPremove.current = null;
-      }
+      // Store the premove data before we clear it
+      const premoveData = { orig, dest };
+
+      currentPremove.current = null;
+
+      const success = await handleMove(premoveData.orig, premoveData.dest);
       return success;
     }
     return false;
