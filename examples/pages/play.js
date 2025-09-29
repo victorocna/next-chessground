@@ -7,7 +7,7 @@ import engineMove from '../../utils/engine-move';
 const Page = () => {
   const ref = useRef();
 
-  const [engine] = useState(new Stockfish('./stockfish.asm.js'));
+  const [engine] = useState(new Stockfish());
   useEffect(() => {
     engine.init();
   }, []);
@@ -26,7 +26,7 @@ const Page = () => {
       }
 
       await engine.set_position(chess.fen());
-      const move = engineMove(await engine.go_time(2000));
+      const move = engineMove(await engine.go_time(1000));
 
       setLastMove([move.from, move.to]);
       if (ref.current) {
