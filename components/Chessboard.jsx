@@ -8,11 +8,12 @@ import classnames from 'merge-class-names';
 import Chessground from '../lib/Chessground';
 import audio from '../lib/audio';
 import useChessground from '../hooks/use-chessground';
-import toDests from '../utils/to-dests';
 import useChess from '../hooks/use-chess';
+import usePremove from '../hooks/use-premove';
 import Promote from './Promote';
 import useDisclosure from '../hooks/use-disclosure';
 import cgProps from '../lib/cg-props';
+import toDests from '../utils/to-dests';
 
 const Chessboard = (props, ref) => {
   const { theme } = useChessground();
@@ -30,18 +31,13 @@ const Chessboard = (props, ref) => {
     onUndo,
   } = useChess(props);
 
-  // Expose methods through ref
-  const boardRef = useRef();
-  useImperativeHandle(ref, () => ({
-    board: boardRef.current?.board,
-    undo: onUndo,
-    move: onMove,
-  }));
-
-  const handleMove = async (from, to) => {
-    const move = onMove(from, to, promotion);
+  const handleMove = async (from, to, movePromotion) => {
+    const move = onMove(from, to, movePromotion || promotion);
     if (!move) {
-      show(); // move is a promotion, show the promotion modal
+      if (!movePromotion) {
+        show(); // move is a promotion, show the promotion modal
+        return false;
+      }
       return false;
     }
 
@@ -52,7 +48,27 @@ const Chessboard = (props, ref) => {
     if (typeof props.onMove === 'function') {
       await props.onMove(chess);
     }
+
+    return true;
   };
+
+  // Initialize premove hook
+  const {
+    onSetPremove,
+    onUnsetPremove,
+    onPlayPremove,
+    onCancelPremove,
+    onPremovePromotion,
+  } = usePremove(handleMove);
+
+  const boardRef = useRef();
+  useImperativeHandle(ref, () => ({
+    board: boardRef.current?.board,
+    undo: onUndo,
+    move: onMove,
+    playPremove: onPlayPremove,
+    cancelPremove: onCancelPremove,
+  }));
 
   const handlePromotion = async (promotion) => {
     const move = onPromote(promotion);
@@ -82,6 +98,19 @@ const Chessboard = (props, ref) => {
     }
   }, [fen]);
 
+  const premovable = props.premoves
+    ? {
+        enabled: true,
+        showDests: true,
+        castle: true,
+        events: {
+          set: onSetPremove,
+          unset: onUnsetPremove,
+        },
+        promote: onPremovePromotion,
+      }
+    : { enabled: false };
+
   return (
     <div
       className={classnames(
@@ -99,7 +128,8 @@ const Chessboard = (props, ref) => {
         turnColor={turnColor}
         lastMove={lastMove}
         orientation={orientation}
-        movable={toDests(chess)}
+        movable={toDests(chess, orientation, props.premoves)}
+        premovable={premovable}
         {...cgProps(props)}
       />
       <Promote

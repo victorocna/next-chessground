@@ -28,6 +28,11 @@ const Page = () => {
       if (ref.current) {
         ref.current.board.move(move.from, move.to);
       }
+        
+      if (ref.current && ref.current.playPremove) {
+        await coffee(100);
+        await ref.current.playPremove();
+      }
     }
   };
 
