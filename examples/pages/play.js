@@ -3,6 +3,7 @@ import { NextChessground, Stockfish } from 'next-chessground';
 import { Highlight, Layout } from '../components';
 import { play } from '../utils/code-samples';
 import engineMove from '../../utils/engine-move';
+import coffee from '../lib/coffee';
 
 const Page = () => {
   const ref = useRef();
@@ -33,11 +34,10 @@ const Page = () => {
         ref.current.board.move(move.from, move.to);
       }
 
-      setTimeout(async () => {
-        if (ref.current && ref.current.playPremove) {
-          await ref.current.playPremove();
-        }
-      }, 100);
+      if (ref.current && ref.current.playPremove) {
+        await coffee(100);
+        await ref.current.playPremove();
+      }
     }
   };
 

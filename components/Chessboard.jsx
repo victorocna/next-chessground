@@ -98,6 +98,19 @@ const Chessboard = (props, ref) => {
     }
   }, [fen]);
 
+  const premovable = props.premoves
+    ? {
+        enabled: true,
+        showDests: true,
+        castle: true,
+        events: {
+          set: onSetPremove,
+          unset: onUnsetPremove,
+        },
+        promote: onPremovePromotion,
+      }
+    : { enabled: false };
+
   return (
     <div
       className={classnames(
@@ -116,20 +129,7 @@ const Chessboard = (props, ref) => {
         lastMove={lastMove}
         orientation={orientation}
         movable={toDests(chess, orientation, props.premoves)}
-        premovable={
-          props.premoves
-            ? {
-                enabled: true,
-                showDests: true,
-                castle: true,
-                events: {
-                  set: onSetPremove,
-                  unset: onUnsetPremove,
-                },
-                promote: onPremovePromotion,
-              }
-            : { enabled: false }
-        }
+        premovable={premovable}
         {...cgProps(props)}
       />
       <Promote
