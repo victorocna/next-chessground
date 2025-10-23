@@ -31,11 +31,15 @@ const Chessboard = (props, ref) => {
     onUndo,
   } = useChess(props);
 
-  const handleMove = async (from, to, movePromotion) => {
-    const move = onMove(from, to, movePromotion || promotion);
+  const handleMove = async (from, to, metadata) => {
+    const promotionPiece =
+      metadata?.isPremove === true ? metadata.promotion : promotion;
+
+    const move = onMove(from, to, promotionPiece);
     if (!move) {
-      if (!movePromotion) {
-        show(); // move is a promotion, show the promotion modal
+      // Show promotion modal only for normal user moves, not for premoves
+      if (metadata?.isPremove !== true) {
+        show();
         return false;
       }
       return false;

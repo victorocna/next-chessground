@@ -32,11 +32,15 @@ const usePremove = (handleMove) => {
 
       currentPremove.current = null;
 
-      const movePromotion = premoveData.promotion || 'q';
+      const metadata = {
+        isPremove: true,
+        promotion: premoveData.promotion || 'q',
+      };
+
       const success = await handleMove(
         premoveData.orig,
         premoveData.dest,
-        movePromotion
+        metadata
       );
       return success;
     }
