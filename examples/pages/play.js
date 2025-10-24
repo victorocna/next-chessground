@@ -8,7 +8,7 @@ import coffee from '../lib/coffee';
 const Page = () => {
   const ref = useRef();
 
-  const [engine] = useState(new Stockfish());
+  const [engine] = useState(new Stockfish('./stockfish.asm.js'));
   useEffect(() => {
     engine.init();
   }, []);
@@ -31,7 +31,10 @@ const Page = () => {
 
       setLastMove([move.from, move.to]);
       if (ref.current) {
-        ref.current.move(move.from, move.to, move.promotion);
+        await ref.current.move(move.from, move.to, {
+          autoPromote: true,
+          promotion: move.promotion,
+        });
       }
 
       if (ref.current && ref.current.playPremove) {

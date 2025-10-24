@@ -33,7 +33,7 @@ const usePremove = (handleMove) => {
       currentPremove.current = null;
 
       const metadata = {
-        isPremove: true,
+        autoPromote: true,
         promotion: premoveData.promotion || 'q',
       };
 

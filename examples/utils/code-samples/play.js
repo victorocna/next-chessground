@@ -26,9 +26,12 @@ const Page = () => {
 
       setLastMove([move.from, move.to]);
       if (ref.current) {
-        ref.current.board.move(move.from, move.to);
+        await ref.current.move(move.from, move.to, {
+          autoPromote: true,
+          promotion: move.promotion,
+        });
       }
-        
+
       if (ref.current && ref.current.playPremove) {
         await coffee(100);
         await ref.current.playPremove();
