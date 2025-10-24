@@ -31,7 +31,7 @@ const Page = () => {
 
       setLastMove([move.from, move.to]);
       if (ref.current) {
-        ref.current.board.move(move.from, move.to);
+        ref.current.move(move.from, move.to, move.promotion);
       }
 
       if (ref.current && ref.current.playPremove) {
