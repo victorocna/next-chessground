@@ -8,7 +8,7 @@ import coffee from '../lib/coffee';
 const Page = () => {
   const ref = useRef();
 
-  const [engine] = useState(new Stockfish('./stockfish.asm.js'));
+  const [engine] = useState(new Stockfish());
   useEffect(() => {
     engine.init();
   }, []);
@@ -49,7 +49,6 @@ const Page = () => {
           ref={ref}
           lastMove={lastMove}
           onMove={onMove}
-          fen="4k3/P7/8/8/8/8/P7/3nK3 w - - 0 1"
         />
         <div>
           <h2 className="text-xl mb-2">Code sample</h2>
