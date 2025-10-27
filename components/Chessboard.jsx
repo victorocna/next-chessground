@@ -1,5 +1,10 @@
 import classnames from 'merge-class-names';
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef
+} from 'react';
 import useChess from '../hooks/use-chess';
 import useChessground from '../hooks/use-chessground';
 import useDisclosure from '../hooks/use-disclosure';
