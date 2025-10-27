@@ -26,10 +26,7 @@ const Page = () => {
 
       setLastMove([move.from, move.to]);
       if (ref.current) {
-        await ref.current.move(move.from, move.to, {
-          autoPromote: true,
-          promotion: move.promotion,
-        });
+        await ref.current.move(move.from, move.to, move.promotion);
       }
 
       if (ref.current && ref.current.playPremove) {
