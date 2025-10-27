@@ -1,19 +1,15 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-} from 'react';
 import classnames from 'merge-class-names';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import useChess from '../hooks/use-chess';
+import useChessground from '../hooks/use-chessground';
+import useDisclosure from '../hooks/use-disclosure';
+import usePremove from '../hooks/use-premove';
 import Chessground from '../lib/Chessground';
 import audio from '../lib/audio';
-import useChessground from '../hooks/use-chessground';
-import useChess from '../hooks/use-chess';
-import usePremove from '../hooks/use-premove';
-import Promote from './Promote';
-import useDisclosure from '../hooks/use-disclosure';
 import cgProps from '../lib/cg-props';
+import isPromotion from '../utils/is-promotion';
 import toDests from '../utils/to-dests';
+import Promote from './Promote';
 
 const Chessboard = (props, ref) => {
   const { theme } = useChessground();
@@ -37,20 +33,12 @@ const Chessboard = (props, ref) => {
 
     // Try to make the move with the promotion piece (if any)
     const move = onMove(from, to, promotionPiece);
-
     if (!move) {
-      // Check if this is a promotion move
-      const piece = chess.get(from);
-      const isPromotion =
-        piece?.type === 'p' &&
-        ((piece.color === 'w' && to[1] === '8') ||
-          (piece.color === 'b' && to[1] === '1'));
-
-      if (isPromotion && !promotionPiece) {
+      // Check if this is a promotion move and show the promotion dialog if needed
+      const isPromotionMove = isPromotion(chess, from, to);
+      if (isPromotionMove && !promotionPiece) {
         show();
-        return false;
       }
-
       return false;
     }
 
