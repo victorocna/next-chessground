@@ -31,10 +31,7 @@ const Page = () => {
 
       setLastMove([move.from, move.to]);
       if (ref.current) {
-        await ref.current.move(move.from, move.to, {
-          autoPromote: true,
-          promotion: move.promotion,
-        });
+        await ref.current.move(move.from, move.to, move.promotion);
       }
 
       if (ref.current && ref.current.playPremove) {
@@ -52,6 +49,7 @@ const Page = () => {
           ref={ref}
           lastMove={lastMove}
           onMove={onMove}
+          fen="4k3/P7/8/8/8/8/P7/3nK3 w - - 0 1"
         />
         <div>
           <h2 className="text-xl mb-2">Code sample</h2>

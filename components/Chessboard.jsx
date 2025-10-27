@@ -32,19 +32,25 @@ const Chessboard = (props, ref) => {
   } = useChess(props);
 
   const handleMove = async (from, to, metadata) => {
-    const shouldAutoPromote = metadata?.autoPromote === true;
-    
-    const promotionPiece = shouldAutoPromote
-      ? metadata.promotion || 'q'
-      : promotion;
+    // Check if a promotion piece is explicitly provided
+    const promotionPiece = metadata?.promotion || promotion;
 
+    // Try to make the move with the promotion piece (if any)
     const move = onMove(from, to, promotionPiece);
+
     if (!move) {
-      // Show promotion modal only for normal user moves
-      if (!shouldAutoPromote) {
+      // Check if this is a promotion move
+      const piece = chess.get(from);
+      const isPromotion =
+        piece?.type === 'p' &&
+        ((piece.color === 'w' && to[1] === '8') ||
+          (piece.color === 'b' && to[1] === '1'));
+
+      if (isPromotion && !promotionPiece) {
         show();
         return false;
       }
+
       return false;
     }
 
@@ -70,17 +76,12 @@ const Chessboard = (props, ref) => {
 
   const boardRef = useRef();
 
-  const makeMove = async (from, to, options) => {
-    if (typeof options === 'string') {
-      // Direct promotion piece specified - use as-is without auto-promotion
-      return onMove(from, to, options);
-    } else if (typeof options === 'object') {
-      // Options object provided - pass through to handleMove
-      return await handleMove(from, to, options);
-    } else {
-      // No third parameter - regular move
-      return onMove(from, to);
+  const makeMove = async (from, to, promotionPiece) => {
+    if (promotionPiece) {
+      const metadata = { promotion: promotionPiece };
+      return await handleMove(from, to, metadata);
     }
+    return await handleMove(from, to);
   };
 
   useImperativeHandle(ref, () => ({
