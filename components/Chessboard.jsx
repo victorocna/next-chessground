@@ -1,19 +1,20 @@
+import classnames from 'merge-class-names';
 import React, {
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useRef,
+  useRef
 } from 'react';
-import classnames from 'merge-class-names';
+import useChess from '../hooks/use-chess';
+import useChessground from '../hooks/use-chessground';
+import useDisclosure from '../hooks/use-disclosure';
+import usePremove from '../hooks/use-premove';
 import Chessground from '../lib/Chessground';
 import audio from '../lib/audio';
-import useChessground from '../hooks/use-chessground';
-import useChess from '../hooks/use-chess';
-import usePremove from '../hooks/use-premove';
-import Promote from './Promote';
-import useDisclosure from '../hooks/use-disclosure';
 import cgProps from '../lib/cg-props';
+import isPromotion from '../utils/is-promotion';
 import toDests from '../utils/to-dests';
+import Promote from './Promote';
 
 const Chessboard = (props, ref) => {
   const { theme } = useChessground();
@@ -32,15 +33,16 @@ const Chessboard = (props, ref) => {
   } = useChess(props);
 
   const handleMove = async (from, to, metadata) => {
-    const promotionPiece =
-      metadata?.isPremove === true ? metadata.promotion : promotion;
+    // Check if a promotion piece is explicitly provided
+    const promotionPiece = metadata?.promotion || promotion;
 
+    // Try to make the move with the promotion piece (if any)
     const move = onMove(from, to, promotionPiece);
     if (!move) {
-      // Show promotion modal only for normal user moves, not for premoves
-      if (metadata?.isPremove !== true) {
+      // Check if this is a promotion move and show the promotion dialog if needed
+      const isPromotionMove = isPromotion(chess, from, to);
+      if (isPromotionMove && !promotionPiece) {
         show();
-        return false;
       }
       return false;
     }
@@ -66,10 +68,20 @@ const Chessboard = (props, ref) => {
   } = usePremove(handleMove);
 
   const boardRef = useRef();
+
+  const makeMove = async (from, to, promotionPiece) => {
+    if (promotionPiece) {
+      const metadata = { promotion: promotionPiece };
+      return await handleMove(from, to, metadata);
+    }
+    return await handleMove(from, to);
+  };
+
   useImperativeHandle(ref, () => ({
     board: boardRef.current?.board,
+    chess,
     undo: onUndo,
-    move: onMove,
+    move: makeMove,
     playPremove: onPlayPremove,
     cancelPremove: onCancelPremove,
   }));
