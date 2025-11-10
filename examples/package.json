@@ -16,6 +16,7 @@
   "dependencies": {
     "chess-moments": "^1.6.0",
     "highlight.js": "^11.3.1",
+    "lodash": "^4.17.21",
     "merge-class-names": "^1.4.2",
     "next": "^14.2.25",
     "next-chessground": "^1.4.3",
