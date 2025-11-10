@@ -54,6 +54,7 @@ const NextEditor = (props, ref) => {
           fen={fen}
           onSelect={onSelect}
           editing={true}
+          skipValidation={true}
         />
         <EditorPieces
           selected={selected}

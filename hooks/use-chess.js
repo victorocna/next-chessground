@@ -1,16 +1,19 @@
-import { useEffect, useState } from 'react';
 import { Chess } from 'chess.js';
+import { useEffect, useState } from 'react';
 import { initialFen } from '../utils/constants';
 
 const useChess = (props) => {
   const [fen, setFen] = useState(props.fen || initialFen);
-  const [chess, setChess] = useState(new Chess(fen));
+
+  // Initialize chess with optional skipValidation
+  const skipValidation = props?.skipValidation || false;
+  const [chess, setChess] = useState(new Chess(fen, { skipValidation }));
 
   // reinitialize when FEN changes from props
   useEffect(() => {
     if (props.fen) {
       setFen(props.fen);
-      setChess(new Chess(props.fen));
+      setChess(new Chess(props.fen, { skipValidation }));
       setLastMove([]);
     }
   }, [props.fen, props.reset]);
