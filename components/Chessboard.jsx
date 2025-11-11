@@ -3,7 +3,7 @@ import React, {
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useRef
+  useRef,
 } from 'react';
 import useChess from '../hooks/use-chess';
 import useChessground from '../hooks/use-chessground';
