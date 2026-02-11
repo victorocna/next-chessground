@@ -59,13 +59,28 @@ export default class Chessground extends React.Component {
   }
 
   componentDidMount() {
-    this.board = NativeChessground(this.el, this.buildConfigFromProps(this.props));
+    this.board = NativeChessground(
+      this.el,
+      this.buildConfigFromProps(this.props)
+    );
     if (this.props.shapes) {
       this.board.setShapes(this.props.shapes);
     }
   }
-  componentDidUpdate() {
-    this.board = NativeChessground(this.el, this.buildConfigFromProps(this.props));
+  componentDidUpdate(prevProps) {
+    const config = this.buildConfigFromProps(this.props);
+
+    // Skip fen if unchanged to avoid resetting pieces mid-drag
+    if (this.props.fen === prevProps.fen) {
+      delete config.fen;
+    }
+
+    if (this.board) {
+      this.board.set(config);
+    } else {
+      this.board = NativeChessground(this.el, config);
+    }
+
     if (this.props.shapes) {
       this.board.setShapes(this.props.shapes);
     }
