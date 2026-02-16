@@ -1,6 +1,6 @@
 {
   "name": "next-chessground",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "React and Next wrapper for Chessground with chessboard and pieces out of the box",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
