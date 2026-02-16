@@ -77,12 +77,20 @@ const Chessboard = (props, ref) => {
     return await handleMove(from, to);
   };
 
+  const playPremove = async () => {
+    // Clear the premove highlight from the board before execution
+    if (boardRef.current?.board) {
+      boardRef.current.board.cancelPremove();
+    }
+    return await onPlayPremove();
+  };
+
   useImperativeHandle(ref, () => ({
     board: boardRef.current?.board,
     chess,
     undo: onUndo,
     move: makeMove,
-    playPremove: onPlayPremove,
+    playPremove,
     cancelPremove: onCancelPremove,
   }));
 

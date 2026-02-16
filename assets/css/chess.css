@@ -56,6 +56,9 @@
   height: 12.5%;
   pointer-events: none;
 }
+.next-chessground cg-board square.selected {
+  background-color: rgba(246, 246, 130, 0.8);
+}
 .next-chessground .highlight cg-board square.last-move {
   will-change: transform;
   background-color: rgba(246, 246, 130, 0.5);
@@ -77,7 +80,7 @@
   );
 }
 .next-chessground cg-board square.current-premove {
-  background-color: rgba(20, 30, 85, 0.5);
+  background-color: rgba(235, 97, 80, 0.8);
 }
 .next-chessground cg-board piece {
   position: absolute;
