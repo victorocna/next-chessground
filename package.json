@@ -56,5 +56,8 @@
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2"
+  },
+  "overrides": {
+    "serialize-javascript": "^7.0.5"
   }
 }
