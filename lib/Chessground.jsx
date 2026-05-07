@@ -63,9 +63,7 @@ export default class Chessground extends React.Component {
       this.el,
       this.buildConfigFromProps(this.props)
     );
-    if (this.props.shapes) {
-      this.board.setShapes(this.props.shapes);
-    }
+    this.board.setShapes(this.props.shapes || []);
   }
   componentDidUpdate(prevProps) {
     const config = this.buildConfigFromProps(this.props);
@@ -81,9 +79,7 @@ export default class Chessground extends React.Component {
       this.board = NativeChessground(this.el, config);
     }
 
-    if (this.props.shapes) {
-      this.board.setShapes(this.props.shapes);
-    }
+    this.board.setShapes(this.props.shapes || []);
   }
 
   render() {
