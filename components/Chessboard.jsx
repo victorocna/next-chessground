@@ -152,7 +152,12 @@ const Chessboard = (props, ref) => {
         turnColor={turnColor}
         lastMove={lastMove}
         orientation={orientation}
-        movable={toDests(chess, orientation, props.premoves)}
+        movable={toDests(
+          chess,
+          orientation,
+          props.premoves,
+          theme.showLegalMoves
+        )}
         premovable={premovable}
         {...cgProps(props)}
       />

@@ -8,6 +8,7 @@ const ThemeContext = createContext({
     sounds: 'robot',
     highlight: true,
     coordinates: true,
+    showLegalMoves: true,
   },
   setTheme: () => {},
 });
