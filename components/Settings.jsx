@@ -4,6 +4,7 @@ import useDisclosure from '../hooks/use-disclosure';
 import StyleBoard from './StyleBoard';
 import Coordinates from './Coordinates';
 import HighlightMove from './HighlightMove';
+import ShowLegalMoves from './ShowLegalMoves';
 import StylePieces from './StylePieces';
 import PlaySounds from './PlaySounds';
 import Sounds from './Sounds';
@@ -27,6 +28,7 @@ const Settings = () => {
           <StylePieces />
           <StyleBoard />
           <HighlightMove />
+          <ShowLegalMoves />
           <PlaySounds />
           <Sounds />
           <Coordinates />

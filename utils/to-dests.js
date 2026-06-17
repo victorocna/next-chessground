@@ -6,7 +6,12 @@ import { SQUARES } from 'chess.js';
  * @param {string} orientation
  * @param {boolean} enablePremoves
  */
-const toDests = (chess, orientation, enablePremoves = false) => {
+const toDests = (
+  chess,
+  orientation,
+  enablePremoves = false,
+  showDests = true
+) => {
   if (!isValidFen(chess.fen())) {
     return { free: false };
   }
@@ -28,6 +33,7 @@ const toDests = (chess, orientation, enablePremoves = false) => {
     color: currentTurn,
     dests,
     free: false,
+    showDests,
   };
 
   // For premoves: allow the player to select their pieces even when it's not their turn
