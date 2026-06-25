@@ -122,6 +122,10 @@ const Chessboard = (props, ref) => {
     }
   }, [fen]);
 
+  // light the king when the side to move is in check.
+  const check =
+    props.check ?? (!props.editing && chess.inCheck() ? turnColor : false);
+
   const premovable = props.premoves
     ? {
         enabled: true,
@@ -150,6 +154,7 @@ const Chessboard = (props, ref) => {
         onMove={handleMove}
         fen={fen}
         turnColor={turnColor}
+        check={check}
         lastMove={lastMove}
         orientation={orientation}
         movable={toDests(
