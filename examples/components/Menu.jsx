@@ -3,12 +3,7 @@ import { MenuItem } from '.';
 const Menu = () => {
   return (
     <>
-      <input
-        type="checkbox"
-        id="menu"
-        className="hidden"
-        aria-label="Menu open/close"
-      />
+      <input type="checkbox" id="menu" className="hidden" aria-label="Menu open/close" />
       <label
         htmlFor="menu"
         aria-label="Menu open/close"
@@ -24,7 +19,6 @@ const Menu = () => {
           <MenuItem href="/play">Play computer</MenuItem>
           <MenuItem href="/watch">Watch computers play</MenuItem>
           <MenuItem href="/undo">Undo last move</MenuItem>
-          <MenuItem href="/editor">Chess editor</MenuItem>
         </div>
       </nav>
     </>

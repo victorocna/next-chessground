@@ -102,3 +102,7 @@ build/
 
 # vscode
 .vscode
+
+# Design docs and agent workspace, kept local
+superpowers/
+.superpowers/

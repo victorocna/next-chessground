@@ -1,5 +1,5 @@
 import { flat } from 'chess-moments';
-import { NextChessground } from 'next-chessground';
+import { Chessboard } from 'next-chessground';
 import { Highlight, Layout } from '../components';
 import { shapes } from '../utils/code-samples';
 
@@ -11,7 +11,9 @@ const Page = () => {
   return (
     <Layout title="Shapes">
       <div className="grid md:grid-cols-2 gap-12">
-        <NextChessground fen={current.fen} shapes={current.shapes} />
+        <div className="w-full max-w-md">
+          <Chessboard fen={current.fen} shapes={current.shapes} viewOnly />
+        </div>
         <div>
           <h2 className="text-xl mb-2">Code sample</h2>
           <Highlight>{shapes}</Highlight>

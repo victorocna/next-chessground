@@ -1,26 +1,30 @@
 {
   "name": "next-chessground-examples",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "Demo app for next-chessground",
+  "private": true,
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start -p 8080",
-    "export": "next build && next export",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "next start -p 8080"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "chess-moments": "^1.6.0",
     "highlight.js": "^11.3.1",
     "lodash": "^4.17.21",
     "merge-class-names": "^1.4.2",
     "next": "^16.2.4",
-    "next-chessground": "^1.4.3",
+    "next-chessground": "file:../next-chessground-2.0.0.tgz",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
+  },
+  "overrides": {
+    "chess.js": "github:brobert1/chess.js#e7d0b75a366fcc0b0fbea4520dec8960983b8ea1"
   }
 }

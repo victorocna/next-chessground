@@ -1,0 +1,265 @@
+/*
+ * Board menu drawn over the board, inside the square root element: a frosted dark panel of one
+ * row per preference. Colours, sizes and the blur are themeable through variables.
+ */
+.next-chessground-settings {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  background: var(--settings-backdrop, rgba(0, 0, 0, 0.45));
+  font-family: var(--settings-font, system-ui, sans-serif);
+  animation: ncg-settings-fade 120ms ease-out;
+}
+
+.next-chessground-settings-panel {
+  /* border-box so the panel keeps its margin on a small board whatever the app's reset does */
+  box-sizing: border-box;
+  width: min(90%, 21rem);
+  max-height: 92%;
+  overflow: auto;
+  padding: 0.75rem 0.875rem 0.5rem;
+  border: 1px solid var(--settings-panel-border, rgba(0, 0, 0, 0.08));
+  border-radius: var(--settings-panel-radius, 0.875rem);
+  background: var(--settings-panel-bg, rgba(255, 255, 255, 0.94));
+  -webkit-backdrop-filter: blur(var(--settings-panel-blur, 16px));
+  backdrop-filter: blur(var(--settings-panel-blur, 16px));
+  color: var(--settings-panel-color, #111827);
+  box-shadow: var(--settings-panel-shadow, 0 20px 50px rgba(0, 0, 0, 0.25));
+  animation: ncg-settings-pop 140ms ease-out;
+}
+
+.next-chessground-settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.next-chessground-settings-title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.next-chessground-settings-close {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--settings-muted, #6b7280);
+  cursor: pointer;
+}
+
+.next-chessground-settings-close:hover,
+.next-chessground-settings-close:focus-visible {
+  background: var(--settings-tile-bg, rgba(0, 0, 0, 0.05));
+  color: var(--settings-panel-color, #111827);
+  outline: none;
+}
+
+.next-chessground-settings-close svg {
+  width: 50%;
+  height: 50%;
+}
+
+.next-chessground-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--settings-panel-border, rgba(0, 0, 0, 0.08));
+}
+
+/* The rows are separated by their top border, so the first one carries none. */
+.next-chessground-settings-row:first-child,
+.next-chessground-settings-header + .next-chessground-settings-row {
+  border-top: 0;
+}
+
+.next-chessground-settings-label {
+  flex: 0 0 auto;
+  font-size: 0.8125rem;
+  color: var(--settings-muted, #6b7280);
+}
+
+.next-chessground-settings-control {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.375rem;
+}
+
+.next-chessground-settings-option {
+  display: grid;
+  place-items: center;
+  width: calc(var(--settings-option-size, 1.75rem) + 0.5rem);
+  height: calc(var(--settings-option-size, 1.75rem) + 0.5rem);
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  background: var(--settings-tile-bg, rgba(0, 0, 0, 0.05));
+  cursor: pointer;
+  transition:
+    border-color 120ms ease,
+    transform 120ms ease;
+}
+
+.next-chessground-settings-option:hover,
+.next-chessground-settings-option:focus-visible {
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.next-chessground-settings-option.is-active {
+  border-color: var(--settings-accent, #3b82f6);
+}
+
+.next-chessground-swatch {
+  display: block;
+  width: var(--settings-option-size, 1.75rem);
+  height: var(--settings-option-size, 1.75rem);
+  border-radius: 0.3125rem;
+  /* 400% shows a 2x2 corner of the 8x8 board image */
+  background-image: var(--board-bg);
+  background-size: 400% 400%;
+}
+
+.next-chessground-piece-preview {
+  display: block;
+  width: var(--settings-option-size, 1.75rem);
+  height: var(--settings-option-size, 1.75rem);
+}
+
+.next-chessground-piece-preview piece {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.next-chessground-settings-segmented {
+  display: inline-flex;
+  gap: 0.125rem;
+  padding: 0.125rem;
+  border-radius: 9999px;
+  background: var(--settings-tile-bg, rgba(0, 0, 0, 0.05));
+}
+
+.next-chessground-settings-segment {
+  padding: 0.1875rem 0.5rem;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--settings-muted, #6b7280);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.next-chessground-settings-segment.is-active {
+  background: var(--settings-accent, #3b82f6);
+  color: var(--settings-accent-contrast, #ffffff);
+}
+
+/* The toggles row holds one sub-row per switch instead of a name and a control. */
+.next-chessground-settings-row[data-section='toggles'] {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.next-chessground-settings-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.3125rem 0;
+}
+
+.next-chessground-settings-toggle-label {
+  font-size: 0.8125rem;
+  color: var(--settings-panel-color, #111827);
+}
+
+.next-chessground-settings-toggle {
+  position: relative;
+  flex: none;
+  width: 2.125rem;
+  height: 1.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--settings-switch-off, rgba(0, 0, 0, 0.18));
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.next-chessground-settings-toggle[aria-checked='true'] {
+  background: var(--settings-accent, #3b82f6);
+}
+
+.next-chessground-settings-toggle-thumb {
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  transition: transform 120ms ease;
+}
+
+.next-chessground-settings-toggle[aria-checked='true'] .next-chessground-settings-toggle-thumb {
+  transform: translateX(0.875rem);
+}
+
+@keyframes ncg-settings-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ncg-settings-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .next-chessground-settings,
+  .next-chessground-settings-panel {
+    animation: none;
+  }
+
+  .next-chessground-settings-option,
+  .next-chessground-settings-segment,
+  .next-chessground-settings-toggle,
+  .next-chessground-settings-toggle-thumb {
+    transition: none;
+  }
+
+  .next-chessground-settings-option:hover,
+  .next-chessground-settings-option:focus-visible {
+    transform: none;
+  }
+}

@@ -1,9 +1,12 @@
+const path = require('path');
+
 module.exports = {
   distDir: 'out',
-  eslint: {
-    ignoreDuringBuilds: true,
+  agentRules: false,
+  turbopack: {
+    root: path.join(__dirname),
   },
   env: {
-    STOCKFISH_PATH: process.env.STOCKFISH_PATH,
+    STOCKFISH_PATH: process.env.STOCKFISH_PATH || '/stockfish.asm.js',
   },
 };

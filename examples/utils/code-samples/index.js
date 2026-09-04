@@ -1,5 +1,4 @@
 import basic from './basic';
-import editor from './editor';
 import pawn from './pawn';
 import play from './play';
 import queen from './queen';
@@ -8,4 +7,4 @@ import shapes from './shapes';
 import undo from './undo';
 import watch from './watch';
 
-export { basic, editor, pawn, play, queen, rook, shapes, undo, watch };
+export { basic, pawn, play, queen, rook, shapes, undo, watch };

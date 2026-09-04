@@ -1,0 +1,38 @@
+/* Controls bar under the board; sizes and colours are themeable through variables. */
+.next-chessground-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.next-chessground-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--controls-gap, 0.25rem);
+}
+
+.next-chessground-control {
+  display: grid;
+  place-items: center;
+  width: var(--controls-size, 2rem);
+  height: var(--controls-size, 2rem);
+  padding: 0;
+  border: 0;
+  border-radius: var(--controls-radius, 0.375rem);
+  background: transparent;
+  color: var(--controls-color, #6b7280);
+  cursor: pointer;
+}
+
+.next-chessground-control:hover,
+.next-chessground-control:focus-visible {
+  background: var(--controls-hover-bg, rgba(0, 0, 0, 0.06));
+  outline: none;
+}
+
+/* The Font Awesome glyphs are dense, so they sit smaller than a stroke icon would. */
+.next-chessground-control svg {
+  width: 55%;
+  height: 55%;
+}

@@ -1,45 +1,63 @@
-import { useEffect, useRef, useState } from 'react';
-import { NextChessground, Stockfish, constants } from 'next-chessground';
+import { useEffect, useState } from 'react';
+import { Chessboard, INITIAL_FEN, toDests, uciMove } from 'next-chessground';
 import { Highlight, Layout } from '../components';
 import { watch } from '../utils/code-samples';
-import engineMove from '../../utils/engine-move';
+import { engineMove, Stockfish } from '../lib';
+
+// No legal move left: checkmate or stalemate
+const isOver = (fen) => toDests(fen).size === 0;
 
 const Page = () => {
-  const ref = useRef();
+  const [fen, setFen] = useState(INITIAL_FEN);
+  const [lastMove, setLastMove] = useState(null);
+  const [engine, setEngine] = useState(null);
 
-  const [engine] = useState(new Stockfish());
   useEffect(() => {
-    const init = async () => {
-      engine.init();
-      await getMove(constants.fen.initial);
+    const stockfish = new Stockfish();
+    let alive = true;
+    stockfish.init().then(() => {
+      if (alive) {
+        setEngine(stockfish);
+      }
+    });
+
+    return () => {
+      alive = false;
+      stockfish.quit();
     };
-    init();
   }, []);
 
-  const [lastMove, setLastMove] = useState();
-
-  const getMove = async (fen) => {
-    await engine.set_position(fen);
-    const move = engineMove(await engine.go_time(1000));
-
-    setLastMove([move.from, move.to]);
-    if (ref.current) {
-      ref.current.board.move(move.from, move.to);
+  // Nobody may move the pieces: `playerColor` is left out and the engine plays both sides,
+  // one position at a time. Every new fen runs this effect again.
+  useEffect(() => {
+    if (!engine || isOver(fen)) {
+      return;
     }
-  };
+    let cancelled = false;
 
-  const onMove = async (chess) => {
-    if (chess.isGameOver()) {
-      engine.quit();
-    }
+    const think = async () => {
+      await engine.set_position(fen);
+      const uci = engineMove(await engine.go_time(1000));
+      const move = uci ? uciMove(fen, uci) : null;
+      if (cancelled || !move) {
+        return;
+      }
+      setFen(move.fen);
+      setLastMove([move.from, move.to]);
+    };
+    think();
 
-    await getMove(chess.fen());
-  };
+    return () => {
+      cancelled = true;
+    };
+  }, [engine, fen]);
 
   return (
     <Layout title="Watch computers play">
       <div className="grid md:grid-cols-2 gap-12">
-        <NextChessground ref={ref} lastMove={lastMove} onMove={onMove} />
+        <div className="w-full max-w-md">
+          <Chessboard fen={fen} lastMove={lastMove} />
+        </div>
         <div>
           <h2 className="text-xl mb-2">Code sample</h2>
           <Highlight>{watch}</Highlight>

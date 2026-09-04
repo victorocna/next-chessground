@@ -1,16 +1,15 @@
-const engineMove = (move) => {
-  /**
-   * Engine reply format: bestmove e6f5 ponder a1b2,
-   * where e6 is sqare_from, f5 is square_to
-   * */
-  const moveInfo = move.split(' ')[1]; //e6f5
-  const from = moveInfo.substr(0, 2); //e6
-  const to = moveInfo.substr(2, 2); //f5
-  return {
-    from,
-    to,
-    promotion: 'q',
-  };
+/**
+ * Reads the UCI move out of a Stockfish reply.
+ * The reply looks like "bestmove e2e4 ponder e7e5", or "bestmove e7e8q" when the
+ * engine promotes. Returns the bare UCI string ("e2e4", "e7e8q"), or null when the
+ * engine has no move to make ("bestmove (none)").
+ */
+const engineMove = (reply) => {
+  const uci = String(reply ?? '').split(' ')[1];
+  if (!uci || uci === '(none)') {
+    return null;
+  }
+  return uci;
 };
 
 export default engineMove;

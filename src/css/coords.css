@@ -1,0 +1,66 @@
+/* Coordinates inside the board, chess.com style; colours come from the board theme (board.css) */
+.next-chessground coords {
+  position: absolute;
+  display: flex;
+  pointer-events: none;
+  user-select: none;
+  font-family: var(--board-font, system-ui, sans-serif);
+  font-weight: 700;
+  font-size: 0.5rem;
+  opacity: 0.9;
+}
+
+@media (min-width: 640px) {
+  .next-chessground coords {
+    font-size: 0.75rem;
+  }
+}
+
+.next-chessground coords.ranks {
+  flex-flow: column-reverse;
+  top: 0;
+  right: 0;
+  left: auto;
+  height: 100%;
+  width: 0.8em;
+  align-items: flex-start;
+}
+
+.next-chessground coords.ranks.black {
+  flex-flow: column;
+}
+
+.next-chessground coords.ranks coord {
+  transform: none;
+}
+
+.next-chessground coords.files {
+  bottom: 0;
+  left: 0;
+  flex-flow: row;
+  width: 100%;
+  height: auto;
+  text-transform: none;
+  text-align: left;
+}
+
+.next-chessground coords.files.black {
+  flex-flow: row-reverse;
+}
+
+.next-chessground coords.files coord {
+  padding-left: 4px;
+}
+
+.next-chessground coords coord {
+  flex: 1 1 auto;
+}
+
+/* chessground marks the colour of the square under each coordinate; we write in the opposite colour */
+.next-chessground coords coord.coord-light {
+  color: var(--coord-dark);
+}
+
+.next-chessground coords coord.coord-dark {
+  color: var(--coord-light);
+}
