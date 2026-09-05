@@ -2,19 +2,15 @@ import { useRouter } from 'next/router';
 import { Link } from '.';
 import { classnames } from '../lib';
 
-const MenuItem = ({ href, children, level }) => {
-  const router = useRouter();
-  const { pathname } = router;
+const MenuItem = ({ href, children }) => {
+  const { pathname } = useRouter();
+  const active = pathname === href;
 
   return (
     <Link
+      aria-current={active ? 'page' : undefined}
+      className={classnames('site-link', active && 'is-active')}
       href={href}
-      className={classnames(
-        'menu-item px-8 py-2 hover:bg-gray-100 cursor-pointer',
-        'no-underline text-gray-900',
-        level === 1 ? 'pl-8' : 'pl-12',
-        pathname === href && 'text-primary font-semibold'
-      )}
     >
       {children}
     </Link>

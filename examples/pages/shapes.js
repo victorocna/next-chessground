@@ -1,6 +1,6 @@
 import { flat } from 'chess-moments';
 import { Chessboard } from 'next-chessground';
-import { Highlight, Layout } from '../components';
+import { Demo } from '../components';
 import { shapes } from '../utils/code-samples';
 
 const Page = () => {
@@ -9,17 +9,13 @@ const Page = () => {
   const current = moments[1];
 
   return (
-    <Layout title="Shapes">
-      <div className="grid md:grid-cols-2 gap-12">
-        <div className="w-full max-w-md">
-          <Chessboard fen={current.fen} shapes={current.shapes} viewOnly />
-        </div>
-        <div>
-          <h2 className="text-xl mb-2">Code sample</h2>
-          <Highlight>{shapes}</Highlight>
-        </div>
-      </div>
-    </Layout>
+    <Demo
+      title="Shapes"
+      description="A view-only board drawing the circles a PGN comment carries, parsed by chess-moments."
+      code={shapes}
+    >
+      <Chessboard fen={current.fen} shapes={current.shapes} viewOnly />
+    </Demo>
   );
 };
 

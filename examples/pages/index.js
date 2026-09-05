@@ -1,29 +1,37 @@
 import { useState } from 'react';
 import { Chessboard, INITIAL_FEN } from 'next-chessground';
-import { Highlight, Layout } from '../components';
+import { BoardControls, BoardSettings, Demo } from '../components';
 import { basic } from '../utils/code-samples';
 
 const Page = () => {
   const [fen, setFen] = useState(INITIAL_FEN);
   const [lastMove, setLastMove] = useState(null);
+  const [orientation, setOrientation] = useState('white');
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const onMove = (move) => {
     setFen(move.fen);
     setLastMove([move.from, move.to]);
   };
+  const onFlip = () => setOrientation(orientation === 'white' ? 'black' : 'white');
 
   return (
-    <Layout title="Basic example">
-      <div className="grid md:grid-cols-2 gap-12">
-        <div className="w-full max-w-md">
-          <Chessboard controls fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
-        </div>
-        <div>
-          <h2 className="text-xl mb-2">Code sample</h2>
-          <Highlight>{basic}</Highlight>
-        </div>
-      </div>
-    </Layout>
+    <Demo
+      title="Basic example"
+      description="A board for both sides. The flip button and the settings panel under it are demo components built on the package's preferences hook."
+      code={basic}
+      controls={<BoardControls onFlip={onFlip} onSettings={() => setSettingsOpen(true)} />}
+    >
+      <Chessboard
+        fen={fen}
+        lastMove={lastMove}
+        onMove={onMove}
+        orientation={orientation}
+        playerColor="both"
+      >
+        {settingsOpen && <BoardSettings onClose={() => setSettingsOpen(false)} />}
+      </Chessboard>
+    </Demo>
   );
 };
 

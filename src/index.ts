@@ -2,16 +2,6 @@ export { Chessboard, default } from './components/Chessboard';
 export type { ChessboardProps } from './components/Chessboard';
 export { Board } from './components/Board';
 export type { BoardProps } from './components/Board';
-export { BoardControls } from './components/BoardControls';
-export type { BoardControlsProps } from './components/BoardControls';
-export { BoardSettings } from './components/BoardSettings';
-export type {
-  BoardSettingsProps,
-  SettingsClassNames,
-  SettingsLabels,
-  SettingsOptionLabels,
-  SettingsSection,
-} from './components/BoardSettings';
 export { Promotion } from './components/Promotion';
 export type { PromotionLabels, PromotionProps } from './components/Promotion';
 export { useBoardOrientation } from './components/board-context';

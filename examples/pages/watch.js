@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Chessboard, INITIAL_FEN, toDests, uciMove } from 'next-chessground';
-import { Highlight, Layout } from '../components';
+import { Demo } from '../components';
 import { watch } from '../utils/code-samples';
 import { engineMove, Stockfish } from '../lib';
 
@@ -53,17 +53,13 @@ const Page = () => {
   }, [engine, fen]);
 
   return (
-    <Layout title="Watch computers play">
-      <div className="grid md:grid-cols-2 gap-12">
-        <div className="w-full max-w-md">
-          <Chessboard fen={fen} lastMove={lastMove} />
-        </div>
-        <div>
-          <h2 className="text-xl mb-2">Code sample</h2>
-          <Highlight>{watch}</Highlight>
-        </div>
-      </div>
-    </Layout>
+    <Demo
+      title="Watch computers play"
+      description="Nobody may move: Stockfish plays both sides."
+      code={watch}
+    >
+      <Chessboard fen={fen} lastMove={lastMove} />
+    </Demo>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Chessboard, INITIAL_FEN, toDests, uciMove } from 'next-chessground';
-import { Highlight, Layout } from '../components';
+import { Demo } from '../components';
 import { play } from '../utils/code-samples';
 import { engineMove, Stockfish } from '../lib';
 
@@ -53,17 +53,13 @@ const Page = () => {
   };
 
   return (
-    <Layout title="Play computer">
-      <div className="grid md:grid-cols-2 gap-12">
-        <div className="w-full max-w-md">
-          <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="white" />
-        </div>
-        <div>
-          <h2 className="text-xl mb-2">Code sample</h2>
-          <Highlight>{play}</Highlight>
-        </div>
-      </div>
-    </Layout>
+    <Demo
+      title="Play computer"
+      description="You play white against Stockfish. Premoves are on by default."
+      code={play}
+    >
+      <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="white" />
+    </Demo>
   );
 };
 

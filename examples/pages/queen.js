@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Chessboard } from 'next-chessground';
-import { Highlight, Layout } from '../components';
+import { Demo } from '../components';
 import { queen } from '../utils/code-samples';
 
 const START_FEN = '8/8/8/8/6q1/5k2/8/7K b - - 0 1';
@@ -15,17 +15,9 @@ const Page = () => {
   };
 
   return (
-    <Layout title="With queen">
-      <div className="grid md:grid-cols-2 gap-12">
-        <div className="w-full max-w-md">
-          <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
-        </div>
-        <div>
-          <h2 className="text-xl mb-2">Code sample</h2>
-          <Highlight>{queen}</Highlight>
-        </div>
-      </div>
-    </Layout>
+    <Demo title="With queen" description="A queen endgame, black to move." code={queen}>
+      <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
+    </Demo>
   );
 };
 

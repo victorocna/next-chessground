@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Chessboard } from 'next-chessground';
-import { Highlight, Layout } from '../components';
+import { Demo } from '../components';
 import { rook } from '../utils/code-samples';
 
 const START_FEN = '5k2/8/5K2/8/3R4/8/8/8 w - - 0 1';
@@ -15,17 +15,13 @@ const Page = () => {
   };
 
   return (
-    <Layout title="With rook">
-      <div className="grid md:grid-cols-2 gap-12">
-        <div className="w-full max-w-md">
-          <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
-        </div>
-        <div>
-          <h2 className="text-xl mb-2">Code sample</h2>
-          <Highlight>{rook}</Highlight>
-        </div>
-      </div>
-    </Layout>
+    <Demo
+      title="With rook"
+      description="A rook endgame from a custom fen start position."
+      code={rook}
+    >
+      <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
+    </Demo>
   );
 };
 

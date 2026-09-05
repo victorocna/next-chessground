@@ -35,7 +35,7 @@
   },
   "scripts": {
     "build": "tsdown && npm run build:css",
-    "build:css": "echo '/* next-chessground: chessground base stylesheet, board themes, coordinates, highlights, promotion, controls, settings */' > dist/styles.css && cat node_modules/@lichess-org/chessground/assets/chessground.base.css src/css/root.css src/css/highlights.css src/css/board.css src/css/coords.css src/css/promotion.css src/css/controls.css src/css/settings.css >> dist/styles.css && cp src/css/pieces.css dist/pieces.css",
+    "build:css": "echo '/* next-chessground: chessground base stylesheet, board themes, coordinates, highlights, promotion */' > dist/styles.css && cat node_modules/@lichess-org/chessground/assets/chessground.base.css src/css/root.css src/css/highlights.css src/css/board.css src/css/coords.css src/css/promotion.css >> dist/styles.css && cp src/css/pieces.css dist/pieces.css",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --max-warnings=0",

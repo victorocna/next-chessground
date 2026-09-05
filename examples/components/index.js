@@ -1,6 +1,9 @@
 export { default as AppHead } from './AppHead';
+export { default as BoardControls } from './BoardControls';
+export { default as BoardSettings } from './BoardSettings';
 export { default as Highlight } from './Highlight';
 export { default as Layout } from './Layout';
+export { default as Demo } from './Demo';
 export { default as Link } from './Link';
 export { default as Menu } from './Menu';
 export { default as MenuButton } from './MenuButton';

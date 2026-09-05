@@ -6,16 +6,13 @@ const AppHead = () => {
   const showStylesheets = (href) => {
     return <link key={href} rel="stylesheet" href={href} />;
   };
-  const showScripts = (src) => {
-    return <script key={src} type="text/javascript" src={src}></script>;
-  };
 
   return (
     <Head>
       <title>{config.title}</title>
       <meta name="description" content={config.description} />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       {config.stylesheets.map(showStylesheets)}
-      {config.scripts.map(showScripts)}
     </Head>
   );
 };

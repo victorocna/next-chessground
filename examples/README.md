@@ -1,11 +1,26 @@
 # next-chessground examples
 
-A small Next.js (pages router) app that exercises the 2.0 board. One page per demo, each with the
-code sample next to the board.
+A small Next.js (pages router) app that exercises the 2.0 board. One page per demo: a sidebar lists
+them all, and each page puts the board and the code that draws it on one row inside a single card.
+
+Every page is one `<Demo>` — `components/Demo.jsx` renders the shell, the title, the description,
+the board column (children, plus whatever `controls` it is given) and the code column:
+
+```jsx
+<Demo title="Basic example" description="One sentence." code={sample} controls={<BoardControls … />}>
+  <Chessboard … />
+</Demo>
+```
+
+Styling is one local stylesheet, `css/site.css`: CSS variables on `:root`, classes prefixed `site-`
+(the shell) and `demo-` (the template and the board chrome). No CSS framework. The package's own
+`styles.css` and `pieces.css` and the highlight.js theme are imported from `node_modules` in
+`pages/_app.js`; the icons are Font Awesome 5 from the CDN link listed in `site.config.js`, rendered
+by `AppHead` as in the 1.x demo.
 
 | Page      | What it shows                                                                       |
 | --------- | ----------------------------------------------------------------------------------- |
-| `/`       | The basic board: local `fen`, `onMove`, `playerColor="both"`.                       |
+| `/`       | The basic board, plus the demo's own flip button and settings panel.                |
 | `/rook`   | A rook endgame as a custom `fen` start position.                                    |
 | `/queen`  | A queen endgame, black to move.                                                     |
 | `/pawn`   | Pawn promotion: push c7-c8 and the board asks which piece to promote to.            |
@@ -13,6 +28,14 @@ code sample next to the board.
 | `/play`   | Play white against Stockfish; premoves are on by default.                           |
 | `/watch`  | Nobody may move: Stockfish plays both sides.                                        |
 | `/undo`   | The app keeps the positions it visited and sets an earlier `fen` to undo.           |
+
+## Chrome is the app's
+
+The package draws the board and nothing else. `components/BoardControls.jsx` (flip and settings
+buttons) and `components/BoardSettings.jsx` (the preferences dialog) are demo components: the panel
+is passed as a child of `<Chessboard>` so it covers the board, and it reads and writes the shared
+preferences through the package's `useBoardPrefs()`, over the `BOARDS`, `PIECES` and `SOUNDS` lists
+and `playSound()`. Orientation is a plain `orientation` prop the page owns.
 
 ## Running it
 
@@ -75,3 +98,7 @@ STOCKFISH_PATH=/my-stockfish.js npm run dev
 branch has since dropped `getGlyph()`. Without the override the parser throws, `flat()` returns an
 empty array and `/shapes` has nothing to render. Drop the override once `chess-moments` ships against
 a working chess.js.
+
+`lodash` is in `dependencies` for the same reason: `chess-moments/functions/parser.js` requires it
+without declaring it, so the build fails to resolve it unless this app installs it. It is not used by
+any demo code — drop it once `chess-moments` declares its own.

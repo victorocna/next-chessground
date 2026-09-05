@@ -23,16 +23,13 @@ const Page = () => {
     setHistory(history.slice(0, -1));
   };
 
-  const canUndo = history.length > 0;
-
   return (
-    <div>
+    <>
       <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
-      <button onClick={handleUndo} disabled={!canUndo}>
-        Undo Last Move
+      <button type="button" onClick={handleUndo} disabled={history.length === 0}>
+        Undo
       </button>
-      <span>Moves: {history.length}</span>
-    </div>
+    </>
   );
 };
 

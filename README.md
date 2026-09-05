@@ -15,7 +15,7 @@ Declarative React chessboard built on Lichess [chessground](https://github.com/l
 * **Strict Move Validation:** Enforces legal moves via `chessops`. The application maintains position state and receives full move payloads: `{ from, to, promotion, uci, san, fen }`.
 * **Interactive Controls:** Includes an on-board pawn promotion picker, premove support, and automatic snap-back on illegal moves.
 * **Variant Support:** Out-of-the-box support for Standard, Chess960, King of the Hill, and Three-check variants.
-* **Customization:** Includes 5 board themes, 5 piece sets, move sound effects, and user preference persistence via `localStorage`. Includes optional on-board settings and flip controls.
+* **Customization:** Includes 5 board themes, 5 piece sets, move sound effects, and user preference persistence via `localStorage`.
 * **Unified Component:** Serves live games, analysis, and static board previews through a single component. Exports utility hooks and helpers for custom implementations.
 * **Developer Experience:** Ships with TypeScript definitions, ESM support, React 18 & 19 compatibility, and Server-Side Rendering (SSR) support.
 
@@ -82,6 +82,51 @@ if (reply) onMove(reply);
 
 ```
 
+### Preferences and Your Own Controls
+
+The package ships the data layer, not the chrome: build the flip button and the settings panel in your own design system and drop them in as `children`.
+
+```jsx
+import { useState } from 'react';
+import { BOARDS, Chessboard, playSound, SOUNDS, useBoardPrefs } from 'next-chessground';
+
+const Game = ({ fen, onMove }) => {
+  const [prefs, setPrefs] = useBoardPrefs();
+  const [orientation, setOrientation] = useState('white');
+
+  return (
+    <Chessboard fen={fen} onMove={onMove} orientation={orientation} playerColor="both">
+      <div className="board-menu">
+        <button onClick={() => setOrientation(orientation === 'white' ? 'black' : 'white')}>
+          Flip
+        </button>
+
+        {BOARDS.map((board) => (
+          <button key={board} aria-pressed={prefs.board === board} onClick={() => setPrefs({ board })}>
+            <span className={`swatch board-${board}`} />
+          </button>
+        ))}
+
+        {SOUNDS.map((sound) => (
+          <button
+            key={sound}
+            aria-pressed={prefs.sound === sound}
+            onClick={() => {
+              setPrefs({ sound });
+              playSound(sound); // preview the clip
+            }}
+          >
+            {sound}
+          </button>
+        ))}
+      </div>
+    </Chessboard>
+  );
+};
+```
+
+Preferences live in a single store persisted in `localStorage` under the key `next-chessground`, so a pick applies to every board on the page at once and survives a reload. The stylesheets carry the preview hooks: `.board-<id>` sets `--board-bg` to the theme image, so `.swatch { background-image: var(--board-bg); background-size: 400% 400% }` shows a 2x2 corner of it, and `.pieces-<id>` around `<piece class="knight white"></piece>` renders a piece of that set (the nearest `.pieces-<id>` ancestor wins, so previews work inside the board too). `children` render inside the board root, which is `position: relative`, so an absolutely positioned panel covers the board and nothing else.
+
 > **Sizing Note:** The `Chessboard` component expands to fill its parent container. Sizing must be applied to the wrapper element.
 
 ---
@@ -91,9 +136,8 @@ if (reply) onMove(reply);
 | Category | Properties / Parameters |
 | --- | --- |
 | **Position & Rules** | `fen`, `lastMove`, `playerColor` (`"white"`, `"black"`, `"both"`), `variant` (`"standard"`, `"chess960"`, `"kingOfTheHill"`, `"threeCheck"`) |
-| **Display & Layout** | `orientation`, `defaultOrientation`, `onOrientationChange`, `coordinates`, `labels`, `className`, `children` |
+| **Display & Layout** | `orientation`, `coordinates`, `labels`, `className`, `children` |
 | **Board Interaction** | `locked`, `viewOnly`, `premove`, `onMove` |
 | **Annotations** | `shapes`, `autoShapes`, `onShapesChange` |
-| **Configuration** | `controls`, `settings`, `settingsOpen`, `onSettingsOpenChange` |
 
 *Omitting `playerColor` disables move input and sets the board to static mode.*

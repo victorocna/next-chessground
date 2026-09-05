@@ -11,7 +11,7 @@ const Page = () => {
   };
 
   return (
-    <Chessboard controls fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
+    <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
   );
 };
 
