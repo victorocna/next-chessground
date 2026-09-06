@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type {
   Color,
   Dests,
@@ -9,12 +9,14 @@ import type {
   PromotionRole,
   Variant,
 } from '../board/types';
+import { isDev } from '../lib/env';
+import { useLatest } from '../lib/use-latest';
 import { boardState } from '../rules/board-state';
 import { moveFrom, uciMove } from '../rules/moves';
 import { INITIAL_FEN, readPosition } from '../rules/position';
 import { isPromotionAt } from '../rules/promotion';
 
-export interface UseChessBoardOptions {
+export interface UseChessboardOptions {
   fen?: string;
   variant?: Variant;
   playerColor?: PlayerColor;
@@ -30,7 +32,7 @@ export interface PromotionState {
   onCancel: () => void;
 }
 
-export interface UseChessBoardResult {
+export interface UseChessboardResult {
   boardProps: {
     fen: string;
     turnColor: Color;
@@ -55,26 +57,22 @@ interface Pending {
   fen: string;
 }
 
-const isDev = (): boolean =>
-  typeof process !== 'undefined' && process.env.NODE_ENV !== 'production';
-
 /**
  * Everything chess-derived for a Board: legal targets, turn, check, premove state, the
  * promotion picker and the snap-back counter. The caller owns the position and receives
  * validated moves through `onMove`.
  */
-export const useChessBoard = ({
+export const useChessboard = ({
   fen = INITIAL_FEN,
   variant = 'standard',
   playerColor,
   locked = false,
   premove = true,
   onMove,
-}: UseChessBoardOptions): UseChessBoardResult => {
+}: UseChessboardOptions): UseChessboardResult => {
   const [pending, setPending] = useState<Pending | null>(null);
   const [syncKey, setSyncKey] = useState(0);
-  const onMoveRef = useRef(onMove);
-  onMoveRef.current = onMove;
+  const onMoveRef = useLatest(onMove);
 
   const position = useMemo(() => readPosition(fen, variant), [fen, variant]);
   const isLocked = locked || pending !== null;
@@ -83,13 +81,16 @@ export const useChessBoard = ({
     [fen, variant, playerColor, isLocked, premove]
   );
 
-  const emit = useCallback((move: Move | null): boolean => {
-    if (!move) {
-      return false;
-    }
-    onMoveRef.current?.(move);
-    return true;
-  }, []);
+  const emit = useCallback(
+    (move: Move | null): boolean => {
+      if (!move) {
+        return false;
+      }
+      onMoveRef.current?.(move);
+      return true;
+    },
+    [onMoveRef]
+  );
 
   const cancel = useCallback(() => {
     setPending(null);

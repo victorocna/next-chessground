@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import type { Key } from '../src/board/types';
-import { uciMove, userMove } from '../src/rules/moves';
+import { isPromotionRole, uciMove, userMove } from '../src/rules/moves';
 import { INITIAL_FEN } from '../src/rules/position';
 
 const CASTLE_FEN = 'r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1';
 const PROMO_FEN = '4k3/P7/8/8/8/8/8/4K3 w - - 0 1';
+// Black king moved off e8 so the e-file promotion square is free.
+const PROMO_E_FEN = '7k/4P3/8/8/8/8/8/4K3 w - - 0 1';
 
 describe('userMove', () => {
   it('returns the move with san, uci and the resulting fen', () => {
@@ -77,5 +79,24 @@ describe('uciMove', () => {
     expect(uciMove(CASTLE_FEN, 'e1h1')).toMatchObject({ uci: 'e1g1' });
     expect(uciMove(CASTLE_FEN, 'e1g1')).toMatchObject({ uci: 'e1g1' });
     expect(uciMove(CASTLE_FEN, 'e1h1', 'chess960')).toMatchObject({ uci: 'e1h1' });
+  });
+
+  it('rejects a promotion role that is not queen/rook/bishop/knight', () => {
+    expect(uciMove(PROMO_E_FEN, 'e7e8k')).toBeNull();
+    expect(uciMove(PROMO_E_FEN, 'e7e8q')).toMatchObject({ uci: 'e7e8q', promotion: 'queen' });
+  });
+});
+
+describe('isPromotionRole', () => {
+  it('accepts only queen, rook, bishop and knight', () => {
+    expect(isPromotionRole('queen')).toBe(true);
+    expect(isPromotionRole('rook')).toBe(true);
+    expect(isPromotionRole('bishop')).toBe(true);
+    expect(isPromotionRole('knight')).toBe(true);
+  });
+
+  it('rejects king and pawn, which chessops also treats as roles', () => {
+    expect(isPromotionRole('king')).toBe(false);
+    expect(isPromotionRole('pawn')).toBe(false);
   });
 });

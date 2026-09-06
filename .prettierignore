@@ -1,7 +1,5 @@
 dist/
 src/sound/clips.ts
-src/css/board.css
-src/css/pieces.css
 package.json
 examples/public/
 README.md

@@ -56,4 +56,20 @@ describe('prefs store', () => {
     localStorage.setItem(STORAGE_KEY, '{not json');
     expect(readPrefs()).toEqual(DEFAULT_PREFS);
   });
+
+  it('falls back to the default board when the stored id is stale', () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ board: 'blue' }));
+    expect(readPrefs()).toEqual(DEFAULT_PREFS);
+  });
+
+  it('falls back to the default when a stored value has the wrong type', () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ showDests: 'yes' }));
+    expect(readPrefs()).toEqual(DEFAULT_PREFS);
+  });
+
+  it('drops unknown keys', () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ bogus: 'nope' }));
+    expect(readPrefs()).toEqual(DEFAULT_PREFS);
+    expect(readPrefs()).not.toHaveProperty('bogus');
+  });
 });

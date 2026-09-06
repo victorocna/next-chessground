@@ -6,6 +6,11 @@ import { kingCastlesTo, makeSquare, makeUci, parseSquare, parseUci } from 'chess
 import type { Key, Move, PromotionRole, Variant } from '../board/types';
 import { readPosition } from './position';
 
+const PROMOTION_ROLES: ReadonlySet<string> = new Set(['queen', 'rook', 'bishop', 'knight']);
+
+/** Chessops' `Role` also includes `king` and `pawn`, which are never legal promotion targets. */
+export const isPromotionRole = (role: string): role is PromotionRole => PROMOTION_ROLES.has(role);
+
 /**
  * Validates a move on a position and returns the shape handed to `onMove`; null when illegal.
  * Chessground reports the square the user dropped on, so castling may arrive as king two
@@ -66,6 +71,9 @@ export const uciMove = (fen: string, uci: string, variant: Variant = 'standard')
   if (!pos) {
     return null;
   }
-  const promotion = parsed.promotion as PromotionRole | undefined;
+  const { promotion } = parsed;
+  if (promotion !== undefined && !isPromotionRole(promotion)) {
+    return null;
+  }
   return moveFrom(pos, variant, makeSquare(parsed.from), makeSquare(parsed.to), promotion);
 };

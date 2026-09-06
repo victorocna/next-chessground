@@ -1,5 +1,6 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import type { Color, Dests, Key, MoveMetadata } from '@lichess-org/chessground/types';
+import type { BoardId, PieceSetId, SoundId } from '../prefs/options';
 
 export type { Color, Dests, DrawShape, Key, MoveMetadata };
 
@@ -21,9 +22,9 @@ export interface Move {
 }
 
 export interface Prefs {
-  board: string;
-  pieces: string;
-  sound: string;
+  board: BoardId;
+  pieces: PieceSetId;
+  sound: SoundId;
   showDests: boolean;
   highlight: boolean;
   coordinates: boolean;
@@ -40,7 +41,10 @@ export interface BoardState {
   isDisplayable: boolean;
 }
 
-/** Position and interaction props of `Board`, the pure input of `boardConfig()`. */
+/**
+ * Position and interaction props of `Board`, the pure input of `boardConfig()`. Data only:
+ * the callbacks live in `ConfigHandlers`, so a change of identity here is a change of position.
+ */
 export interface BoardInput {
   fen: string;
   orientation: Color;
@@ -52,6 +56,4 @@ export interface BoardInput {
   premovable: boolean;
   viewOnly: boolean;
   coordinates?: boolean;
-  onMove?: (orig: Key, dest: Key, meta: MoveMetadata) => boolean;
-  onShapesChange?: (shapes: DrawShape[]) => void;
 }

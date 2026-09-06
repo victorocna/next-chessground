@@ -6,17 +6,18 @@ export { Promotion } from './components/Promotion';
 export type { PromotionLabels, PromotionProps } from './components/Promotion';
 export { useBoardOrientation } from './components/board-context';
 
-export { useChessBoard } from './hooks/use-chess-board';
+export { useChessboard } from './hooks/use-chessboard';
 export type {
   PromotionState,
-  UseChessBoardOptions,
-  UseChessBoardResult,
-} from './hooks/use-chess-board';
+  UseChessboardOptions,
+  UseChessboardResult,
+} from './hooks/use-chessboard';
 export { useBoardPrefs } from './hooks/use-board-prefs';
 export { useBoardSound } from './hooks/use-board-sound';
 export { useMoveSound } from './hooks/use-move-sound';
 
 export { BOARDS, DEFAULT_PREFS, PIECES, SILENT, SOUNDS } from './prefs/options';
+export type { BoardId, PieceSetId, SoundId } from './prefs/options';
 export { STORAGE_KEY, readPrefs, subscribePrefs, writePrefs } from './prefs/store';
 export { playSound } from './sound/play';
 

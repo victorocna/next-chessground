@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { Key } from '../board/types';
+import { placementOf } from '../rules/position';
 import { useBoardSound } from './use-board-sound';
-
-const placementOf = (fen: string): string => fen.split(' ')[0] ?? '';
 
 /**
  * Plays the move clip when the pieces change and a last move is set: own, opponent, engine
@@ -18,7 +17,7 @@ export const useMoveSound = (fen: string, lastMove: [Key, Key] | null): void => 
     const before = previous.current;
     previous.current = placement;
     if (before !== null && before !== placement && lastMove) {
-      play('move');
+      play();
     }
   }, [placement, lastMove, play]);
 };

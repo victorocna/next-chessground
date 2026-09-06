@@ -1,21 +1,22 @@
 import { Chessground } from '@lichess-org/chessground';
 import type { Api } from '@lichess-org/chessground/api';
 import type { RefObject } from 'react';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import type { ConfigHandlers } from '../board/board-config';
 import { boardConfig } from '../board/board-config';
 import type { BoardInput, DrawShape, Key, MoveMetadata, Prefs } from '../board/types';
-import { isDisplayableFen } from '../rules/position';
+import { isDev } from '../lib/env';
+import { useLatest } from '../lib/use-latest';
+import { isDisplayableFen, placementOf } from '../rules/position';
 
 export interface ChessgroundExtras {
   autoShapes: DrawShape[];
   holdPieces: boolean;
+  onMove?: (orig: Key, dest: Key, meta: MoveMetadata) => boolean;
+  onShapesChange?: (shapes: DrawShape[]) => void;
   shapes: DrawShape[];
   syncKey: number;
 }
-
-const placementOf = (fen: string): string => fen.split(' ')[0] ?? '';
-const isDev = (): boolean =>
-  typeof process !== 'undefined' && process.env.NODE_ENV !== 'production';
 
 /**
  * Keeps one chessground instance in step with the props: created on mount, `set` on every
@@ -26,31 +27,31 @@ export const useChessground = (
   el: RefObject<HTMLDivElement | null>,
   input: BoardInput,
   prefs: Prefs,
-  { autoShapes, holdPieces, shapes, syncKey }: ChessgroundExtras
+  { autoShapes, holdPieces, onMove, onShapesChange, shapes, syncKey }: ChessgroundExtras
 ): void => {
   const api = useRef<Api | null>(null);
-  const latest = useRef(input);
-  latest.current = input;
-  const latestPrefs = useRef(prefs);
-  latestPrefs.current = prefs;
-  const latestShapes = useRef({ autoShapes, shapes });
-  latestShapes.current = { autoShapes, shapes };
+  const latest = useLatest(input);
+  const latestPrefs = useLatest(prefs);
+  const latestShapes = useLatest({ autoShapes, shapes });
+  const latestOnMove = useLatest(onMove);
+  const latestOnShapesChange = useLatest(onShapesChange);
 
-  // A rejected move needs a full resync: chessground has already cleared dests and check
-  // before `after` fires, so a partial set would leave the board frozen.
-  const after = useCallback((orig: Key, dest: Key, meta: MoveMetadata) => {
-    const { onMove } = latest.current;
-    if (onMove && !onMove(orig, dest, meta)) {
-      api.current?.set(boardConfig(latest.current, latestPrefs.current, handlers));
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps -- handlers is stable and defined below
-  const handlers = useMemo(
-    () => ({
-      after,
-      onShapesChange: (drawn: DrawShape[]) => latest.current.onShapesChange?.(drawn),
-    }),
-    [after]
-  );
+  // One stable object for the life of the board: chessground keeps the handlers it was built
+  // with, so `after` resyncs through the very object it is a member of.
+  const handlers = useMemo<ConfigHandlers>(() => {
+    const stable: ConfigHandlers = {
+      // A rejected move needs a full resync: chessground has already cleared dests and check
+      // before `after` fires, so a partial set would leave the board frozen.
+      after: (orig, dest, meta) => {
+        const accept = latestOnMove.current;
+        if (accept && !accept(orig, dest, meta)) {
+          api.current?.set(boardConfig(latest.current, latestPrefs.current, stable));
+        }
+      },
+      onShapesChange: (drawn) => latestOnShapesChange.current?.(drawn),
+    };
+    return stable;
+  }, [latest, latestOnMove, latestOnShapesChange, latestPrefs]);
 
   // chessground binds its document listeners (drag move/end) once, at creation, and only when
   // the board is not viewOnly: a board that turns interactive later needs a fresh instance.
@@ -70,36 +71,29 @@ export const useChessground = (
       board.destroy();
       api.current = null;
     };
-  }, [el, handlers, viewOnly]);
+  }, [el, handlers, latest, latestPrefs, latestShapes, viewOnly]);
 
-  const {
-    check,
-    coordinates,
-    dests,
-    fen,
-    lastMove,
-    movableColor,
-    orientation,
-    premovable,
-    turnColor,
-  } = input;
   // coordinates are bound when chessground builds its DOM: changing them needs redrawAll
-  const rebuildKey = `${coordinates ?? prefs.coordinates}`;
+  const rebuildKey = `${input.coordinates ?? prefs.coordinates}`;
   const lastRebuild = useRef(rebuildKey);
 
+  // `input` and `prefs` are read from the closure, not from refs, so this effect re-runs whenever
+  // their identity changes; Board.tsx's `FullBoardInput`-typed memo requires every key, required
+  // or optional, to appear in its literal, so a new field on BoardInput cannot go out of sync
+  // unnoticed here.
   useEffect(() => {
     const board = api.current;
     if (!board) {
       return;
     }
-    const config = boardConfig(latest.current, latestPrefs.current, handlers);
+    const config = boardConfig(input, prefs, handlers);
     // fen only when the pieces differ (a dragged piece is not reset) and never while the
     // promotion picker holds the pawn; an undisplayable fen keeps the previous position
-    const displayable = isDisplayableFen(fen);
+    const displayable = isDisplayableFen(input.fen);
     if (!displayable && isDev()) {
-      console.warn('[next-chessground] fen not displayable, keeping previous position:', fen);
+      console.warn('[next-chessground] fen not displayable, keeping previous position:', input.fen);
     }
-    const pushFen = displayable && !holdPieces && board.getFen() !== placementOf(fen);
+    const pushFen = displayable && !holdPieces && board.getFen() !== placementOf(input.fen);
     if (!pushFen) {
       delete config.fen;
     }
@@ -113,25 +107,11 @@ export const useChessground = (
     if (pushFen) {
       board.playPremove();
     }
-  }, [
-    check,
-    dests,
-    fen,
-    handlers,
-    holdPieces,
-    lastMove,
-    movableColor,
-    orientation,
-    premovable,
-    prefs,
-    rebuildKey,
-    syncKey,
-    turnColor,
-  ]);
+  }, [handlers, holdPieces, input, prefs, rebuildKey, syncKey]);
 
   useEffect(() => {
     // fen is a dependency because a new position wipes user-drawn shapes
     api.current?.setShapes(shapes);
     api.current?.setAutoShapes(autoShapes);
-  }, [autoShapes, fen, shapes]);
+  }, [autoShapes, input.fen, shapes]);
 };

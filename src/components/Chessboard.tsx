@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Color, DrawShape, Key, Move, PlayerColor, Variant } from '../board/types';
-import { useChessBoard } from '../hooks/use-chess-board';
+import { useChessboard } from '../hooks/use-chessboard';
 import { useMoveSound } from '../hooks/use-move-sound';
 import { INITIAL_FEN } from '../rules/position';
 import { Board } from './Board';
@@ -50,7 +50,7 @@ export const Chessboard = ({
   variant = 'standard',
   viewOnly = false,
 }: ChessboardProps) => {
-  const { boardProps, promotion } = useChessBoard({
+  const { boardProps, promotion } = useChessboard({
     fen,
     variant,
     playerColor,

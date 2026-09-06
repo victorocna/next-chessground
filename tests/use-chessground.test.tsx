@@ -1,8 +1,31 @@
 // @vitest-environment jsdom
 import { act, cleanup, render } from '@testing-library/react';
+import type * as Chessground from '@lichess-org/chessground';
+import type { Api } from '@lichess-org/chessground/api';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Board } from '../src/components/Board';
 import { resetPrefsCache } from '../src/prefs/store';
+
+// The real chessground, with its api kept within reach so a sync can be counted rather than
+// only seen in the DOM.
+const mounted = vi.hoisted(() => ({ api: null as Api | null }));
+
+vi.mock('@lichess-org/chessground', async (importOriginal) => {
+  const actual = await importOriginal<typeof Chessground>();
+  return {
+    Chessground: (el: HTMLElement, config: Parameters<typeof actual.Chessground>[1]) => {
+      mounted.api = actual.Chessground(el, config);
+      return mounted.api;
+    },
+  };
+});
+
+const api = (): Api => {
+  if (!mounted.api) {
+    throw new Error('no chessground instance');
+  }
+  return mounted.api;
+};
 
 const KINGS = '4k3/8/8/8/8/8/8/4K3 w - - 0 1';
 const START = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
@@ -15,13 +38,29 @@ const frame = async () => {
   });
 };
 
-// chessground's api is not reachable from the DOM, so the sync rules are asserted on what it paints.
+// The vi.mock above keeps a handle on the real chessground api (see `mounted`), so the sync
+// rules are asserted directly against its calls rather than only against what it paints.
 describe('useChessground with a real chessground', () => {
   beforeEach(() => {
     localStorage.clear();
     resetPrefsCache();
+    mounted.api = null;
   });
   afterEach(cleanup);
+
+  it('re-syncs when a single BoardInput field changes', async () => {
+    const { container, rerender } = render(<Board fen={KINGS} orientation="white" />);
+    await frame();
+    // the sync effect depends on the whole input object, so one changed field is one sync
+    const set = vi.spyOn(api(), 'set');
+
+    rerender(<Board fen={KINGS} orientation="black" />);
+    await frame();
+    expect(set).toHaveBeenCalledTimes(1);
+    expect(set.mock.lastCall?.[0]).toHaveProperty('orientation', 'black');
+    expect(container.querySelector('.cg-wrap')?.classList.contains('orientation-black')).toBe(true);
+    set.mockRestore();
+  });
 
   it('does not push a new fen while holdPieces is set', async () => {
     const { container, rerender } = render(<Board fen={KINGS} />);

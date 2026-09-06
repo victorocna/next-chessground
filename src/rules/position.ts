@@ -24,9 +24,10 @@ export interface ReadPosition {
   pos: Position | null;
 }
 
-const boardPartOf = (fen: string): string => fen.split(' ')[0] ?? '';
+/** Piece placement, the first FEN field. */
+export const placementOf = (fen: string): string => fen.split(' ')[0] ?? '';
 
-export const isDisplayableFen = (fen: string): boolean => parseBoardFen(boardPartOf(fen)).isOk;
+export const isDisplayableFen = (fen: string): boolean => parseBoardFen(placementOf(fen)).isOk;
 
 export const readPosition = (fen: string, variant: Variant = 'standard'): ReadPosition => {
   const result = parseFen(fen).chain((setup) => setupPosition(rulesOf(variant), setup));

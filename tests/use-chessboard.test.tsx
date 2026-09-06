@@ -1,15 +1,17 @@
 // @vitest-environment jsdom
-import { act, renderHook } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
-import { useChessBoard } from '../src/hooks/use-chess-board';
+import { act, cleanup, renderHook } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { useChessboard } from '../src/hooks/use-chessboard';
 import { INITIAL_FEN } from '../src/rules/position';
 
 const PROMO_FEN = '4k3/P7/8/8/8/8/8/4K3 w - - 0 1';
 const meta = { premove: false };
 
-describe('useChessBoard', () => {
+describe('useChessboard', () => {
+  afterEach(cleanup);
+
   it('derives board props from the position', () => {
-    const { result } = renderHook(() => useChessBoard({ fen: INITIAL_FEN, playerColor: 'white' }));
+    const { result } = renderHook(() => useChessboard({ fen: INITIAL_FEN, playerColor: 'white' }));
     expect(result.current.boardProps.turnColor).toBe('white');
     expect(result.current.boardProps.movableColor).toBe('white');
     expect(result.current.boardProps.dests.size).toBe(10);
@@ -21,7 +23,7 @@ describe('useChessBoard', () => {
   it('emits a legal move and rejects an illegal one', () => {
     const onMove = vi.fn();
     const { result } = renderHook(() =>
-      useChessBoard({ fen: INITIAL_FEN, playerColor: 'white', onMove })
+      useChessboard({ fen: INITIAL_FEN, playerColor: 'white', onMove })
     );
     let accepted = false;
     act(() => {
@@ -39,7 +41,7 @@ describe('useChessBoard', () => {
   it('opens the promotion picker, holds the pawn and completes on pick', () => {
     const onMove = vi.fn();
     const { result } = renderHook(() =>
-      useChessBoard({ fen: PROMO_FEN, playerColor: 'white', onMove })
+      useChessboard({ fen: PROMO_FEN, playerColor: 'white', onMove })
     );
     act(() => {
       result.current.boardProps.onMove('a7', 'a8', meta);
@@ -59,7 +61,7 @@ describe('useChessBoard', () => {
   });
 
   it('cancels the picker and bumps syncKey so the board snaps back', () => {
-    const { result } = renderHook(() => useChessBoard({ fen: PROMO_FEN, playerColor: 'white' }));
+    const { result } = renderHook(() => useChessboard({ fen: PROMO_FEN, playerColor: 'white' }));
     const before = result.current.boardProps.syncKey;
     act(() => {
       result.current.boardProps.onMove('a7', 'a8', meta);
@@ -74,7 +76,7 @@ describe('useChessBoard', () => {
   it('auto-queens a premoved promotion', () => {
     const onMove = vi.fn();
     const { result } = renderHook(() =>
-      useChessBoard({ fen: PROMO_FEN, playerColor: 'white', onMove })
+      useChessboard({ fen: PROMO_FEN, playerColor: 'white', onMove })
     );
     act(() => {
       result.current.boardProps.onMove('a7', 'a8', { premove: true });
@@ -88,7 +90,7 @@ describe('useChessBoard', () => {
   it('cancels a pending promotion when the board gets locked or the position changes', () => {
     const { result, rerender } = renderHook(
       ({ fen, locked }: { fen: string; locked: boolean }) =>
-        useChessBoard({ fen, playerColor: 'white', locked }),
+        useChessboard({ fen, playerColor: 'white', locked }),
       { initialProps: { fen: PROMO_FEN, locked: false } }
     );
     act(() => {
@@ -111,7 +113,7 @@ describe('useChessBoard', () => {
     const onMove = vi.fn();
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
     const { result } = renderHook(() =>
-      useChessBoard({ fen: INITIAL_FEN, playerColor: 'black', onMove })
+      useChessboard({ fen: INITIAL_FEN, playerColor: 'black', onMove })
     );
     let ok = false;
     act(() => {
@@ -130,7 +132,7 @@ describe('useChessBoard', () => {
   it('honours the variant', () => {
     const CASTLE_FEN = 'r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1';
     const { result } = renderHook(() =>
-      useChessBoard({ fen: CASTLE_FEN, playerColor: 'white', variant: 'chess960' })
+      useChessboard({ fen: CASTLE_FEN, playerColor: 'white', variant: 'chess960' })
     );
     expect(result.current.boardProps.dests.get('e1')).not.toContain('g1');
     expect(result.current.boardProps.dests.get('e1')).toContain('h1');
