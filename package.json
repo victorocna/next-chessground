@@ -42,7 +42,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --max-warnings=0",
     "format": "prettier --write .",
-    "prepack": "npm run build"
+    "prepare": "npm run build"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
