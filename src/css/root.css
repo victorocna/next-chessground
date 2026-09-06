@@ -1,0 +1,16 @@
+/* Root sizing: the outer element keeps a square footprint, chessground fills it. */
+.next-chessground {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.next-chessground-board {
+  position: absolute;
+  inset: 0;
+}
+
+.next-chessground .cg-wrap {
+  border-radius: var(--board-radius, 0.25rem);
+  overflow: hidden;
+}

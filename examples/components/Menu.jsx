@@ -1,21 +1,23 @@
+import pkg from 'next-chessground/package.json';
 import { MenuItem } from '.';
+import * as config from '../site.config';
 
 const Menu = () => {
   return (
     <>
       <input
-        type="checkbox"
+        aria-label="Menu open/close"
+        className="site-menu-checkbox"
         id="menu"
-        className="hidden"
-        aria-label="Menu open/close"
+        type="checkbox"
       />
-      <label
-        htmlFor="menu"
-        aria-label="Menu open/close"
-        className="backdrop bg-gray-300 fixed lg:hidden h-screen w-screen inset-0"
-      />
-      <nav className="nav-menu overflow-y-auto bg-white border-r border-gray-200">
-        <div className="flex flex-col py-8 lg:sticky lg:top-0">
+      <label aria-label="Close menu" className="site-backdrop" htmlFor="menu" />
+      <nav className="site-nav">
+        <div className="site-brand">
+          <span className="site-wordmark">next-chessground</span>
+          <span className="site-version">v{pkg.version}</span>
+        </div>
+        <div className="site-links">
           <MenuItem href="/">Basic example</MenuItem>
           <MenuItem href="/rook">With rook</MenuItem>
           <MenuItem href="/queen">With queen</MenuItem>
@@ -24,7 +26,14 @@ const Menu = () => {
           <MenuItem href="/play">Play computer</MenuItem>
           <MenuItem href="/watch">Watch computers play</MenuItem>
           <MenuItem href="/undo">Undo last move</MenuItem>
-          <MenuItem href="/editor">Chess editor</MenuItem>
+        </div>
+        <div className="site-nav-footer">
+          <a className="site-external" href={config.repo} rel="noreferrer" target="_blank">
+            GitHub
+          </a>
+          <a className="site-external" href={config.npm} rel="noreferrer" target="_blank">
+            npm
+          </a>
         </div>
       </nav>
     </>

@@ -1,8 +1,19 @@
-const rook = `import { NextChessground } from 'next-chessground';
+const rook = `import { useState } from 'react';
+import { Chessboard } from 'next-chessground';
+
+const START_FEN = '5k2/8/5K2/8/3R4/8/8/8 w - - 0 1';
 
 const Page = () => {
+  const [fen, setFen] = useState(START_FEN);
+  const [lastMove, setLastMove] = useState(null);
+
+  const onMove = (move) => {
+    setFen(move.fen);
+    setLastMove([move.from, move.to]);
+  };
+
   return (
-    <NextChessground fen="5k2/8/5K2/8/3R4/8/8/8 w - - 0 1" />
+    <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
   );
 };
 

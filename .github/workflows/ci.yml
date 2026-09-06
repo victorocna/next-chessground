@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main, v2]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# Node 22 only: the package itself is browser ESM with `engines.node >= 20`, but the dev toolchain
+# (jsdom 30 via undici) needs Node 22, so a Node 20 leg fails in jsdom before any test runs.
+jobs:
+  check:
+    name: react ${{ matrix.react }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        react: [18, 19]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # peerDependencies allow ^18 || ^19; the lockfile pins 19, so the 18 leg swaps at runtime
+      - if: matrix.react == 18
+        run: npm install --no-save react@^18 react-dom@^18
+      - if: matrix.react == 19
+        run: npm run lint
+      - if: matrix.react == 19
+        run: npm run typecheck
+      - run: npm test
+      - if: matrix.react == 19
+        run: npm run build
+
+  generated:
+    name: generated files and package contents
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prettier --check .
+      # src/sound/clips.ts is committed but generated from sounds/*.ogg; a stale copy must fail
+      - run: npm run build:clips
+      - run: git diff --exit-code -- src/sound/clips.ts
+      # prepack runs the build, so this is what `npm publish` would ship
+      - run: npm pack --dry-run

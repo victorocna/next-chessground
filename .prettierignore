@@ -1,0 +1,5 @@
+dist/
+src/sound/clips.ts
+package.json
+examples/public/
+README.md

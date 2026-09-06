@@ -1,0 +1,56 @@
+/* Square highlights; structure comes from chessground.base.css. Last move colours only when the .highlight preference class is on the root. */
+.next-chessground cg-board square.selected {
+  background-color: rgba(246, 246, 130, 0.8);
+}
+
+.next-chessground cg-board square.move-dest {
+  background: radial-gradient(
+    rgba(0, 0, 0, 0.4) 22%,
+    rgba(0, 0, 0, 0.15) 22%,
+    rgba(0, 0, 0, 0) 73%
+  );
+}
+
+.next-chessground cg-board square.premove-dest {
+  pointer-events: auto;
+  background: radial-gradient(
+    rgba(20, 30, 85, 0.5) 22%,
+    #203085 0,
+    rgba(0, 0, 0, 0.3) 0,
+    rgba(0, 0, 0, 0) 0
+  );
+}
+
+.next-chessground cg-board square.oc.move-dest {
+  background: radial-gradient(transparent 0%, transparent 79%, rgba(0, 0, 0, 0.2) 80%);
+}
+
+.next-chessground cg-board square.oc.premove-dest {
+  background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
+}
+
+.next-chessground cg-board square.move-dest:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.next-chessground cg-board square.premove-dest:hover {
+  background: rgba(20, 30, 85, 0.2);
+}
+
+.next-chessground.highlight cg-board square.last-move {
+  background-color: rgba(246, 246, 130, 0.5);
+}
+
+.next-chessground cg-board square.check {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(231, 0, 0, 1) 25%,
+    rgba(169, 0, 0, 0) 89%,
+    rgba(158, 0, 0, 0) 100%
+  );
+}
+
+.next-chessground cg-board square.current-premove {
+  background-color: rgba(235, 97, 80, 0.8);
+}

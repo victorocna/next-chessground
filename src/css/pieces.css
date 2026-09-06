@@ -1,0 +1,130 @@
+/* Piece sets kept from v1; images are hotlinked from the lichess and chess.com CDNs */
+/*
+ * Each set only defines variables on its `.pieces-<id>` element; the generic `piece` rules below
+ * read them. Variables inherit from the nearest ancestor, so a preview wrapped in its own
+ * `.pieces-<id>` shows that set even when it sits inside a board that uses another one.
+ */
+/**
+ * Cburnett
+ */
+.pieces-cburnett {
+  --piece-white-pawn: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/wP.svg');
+  --piece-white-bishop: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/wB.svg');
+  --piece-white-knight: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/wN.svg');
+  --piece-white-rook: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/wR.svg');
+  --piece-white-queen: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/wQ.svg');
+  --piece-white-king: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/wK.svg');
+  --piece-black-pawn: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/bP.svg');
+  --piece-black-bishop: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/bB.svg');
+  --piece-black-knight: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/bN.svg');
+  --piece-black-rook: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/bR.svg');
+  --piece-black-queen: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/bQ.svg');
+  --piece-black-king: url('https://lichess1.org/assets/_MKI2V3/piece/cburnett/bK.svg');
+}
+/**
+ * Classic
+ */
+.pieces-classic {
+  --piece-white-pawn: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wp.png');
+  --piece-white-bishop: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wb.png');
+  --piece-white-knight: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wn.png');
+  --piece-white-rook: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wr.png');
+  --piece-white-queen: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wq.png');
+  --piece-white-king: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/wk.png');
+  --piece-black-pawn: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/bp.png');
+  --piece-black-bishop: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/bb.png');
+  --piece-black-knight: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/bn.png');
+  --piece-black-rook: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/br.png');
+  --piece-black-queen: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/bq.png');
+  --piece-black-king: url('https://images.chesscomfiles.com/chess-themes/pieces/classic/150/bk.png');
+}
+/**
+ * Neo
+ */
+.pieces-neo {
+  --piece-white-pawn: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wp.png');
+  --piece-white-bishop: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wb.png');
+  --piece-white-knight: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wn.png');
+  --piece-white-rook: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wr.png');
+  --piece-white-queen: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wq.png');
+  --piece-white-king: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wk.png');
+  --piece-black-pawn: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bp.png');
+  --piece-black-bishop: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bb.png');
+  --piece-black-knight: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bn.png');
+  --piece-black-rook: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/br.png');
+  --piece-black-queen: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bq.png');
+  --piece-black-king: url('https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bk.png');
+}
+/**
+ * Alpha
+ */
+.pieces-alpha {
+  --piece-white-pawn: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/wp.png');
+  --piece-white-bishop: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/wb.png');
+  --piece-white-knight: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/wn.png');
+  --piece-white-rook: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/wr.png');
+  --piece-white-queen: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/wq.png');
+  --piece-white-king: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/wk.png');
+  --piece-black-pawn: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/bp.png');
+  --piece-black-bishop: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/bb.png');
+  --piece-black-knight: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/bn.png');
+  --piece-black-rook: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/br.png');
+  --piece-black-queen: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/bq.png');
+  --piece-black-king: url('https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/bk.png');
+}
+/**
+ * Bases
+ */
+.pieces-bases {
+  --piece-white-pawn: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/wp.png');
+  --piece-white-bishop: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/wb.png');
+  --piece-white-knight: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/wn.png');
+  --piece-white-rook: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/wr.png');
+  --piece-white-queen: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/wq.png');
+  --piece-white-king: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/wk.png');
+  --piece-black-pawn: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/bp.png');
+  --piece-black-bishop: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/bb.png');
+  --piece-black-knight: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/bn.png');
+  --piece-black-rook: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/br.png');
+  --piece-black-queen: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/bq.png');
+  --piece-black-king: url('https://images.chesscomfiles.com/chess-themes/pieces/bases/150/bk.png');
+}
+/**
+ * Generic piece rules, one per colour and role
+ */
+piece.pawn.white {
+  background-image: var(--piece-white-pawn);
+}
+piece.bishop.white {
+  background-image: var(--piece-white-bishop);
+}
+piece.knight.white {
+  background-image: var(--piece-white-knight);
+}
+piece.rook.white {
+  background-image: var(--piece-white-rook);
+}
+piece.queen.white {
+  background-image: var(--piece-white-queen);
+}
+piece.king.white {
+  background-image: var(--piece-white-king);
+}
+piece.pawn.black {
+  background-image: var(--piece-black-pawn);
+}
+piece.bishop.black {
+  background-image: var(--piece-black-bishop);
+}
+piece.knight.black {
+  background-image: var(--piece-black-knight);
+}
+piece.rook.black {
+  background-image: var(--piece-black-rook);
+}
+piece.queen.black {
+  background-image: var(--piece-black-queen);
+}
+piece.king.black {
+  background-image: var(--piece-black-king);
+}

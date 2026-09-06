@@ -1,0 +1,71 @@
+/* Coordinates inside the board, chess.com style; colours come from the board theme (board.css) */
+/* chessground mounts into an element it tags `.cg-wrap` (see @lichess-org/chessground dist/wrap.js);
+   `.next-chessground .cg-wrap coords` out-specifies the upstream `.cg-wrap coords` (both were 0,1,1,
+   so the file-concatenation order in scripts/build-css.mjs used to be what made ours win). */
+.next-chessground .cg-wrap coords {
+  position: absolute;
+  display: flex;
+  pointer-events: none;
+  user-select: none;
+  font-family: var(--board-font, system-ui, sans-serif);
+  font-weight: 700;
+  font-size: 0.5rem;
+  opacity: 0.9;
+}
+
+@media (min-width: 640px) {
+  .next-chessground .cg-wrap coords {
+    font-size: 0.75rem;
+  }
+}
+
+.next-chessground .cg-wrap coords.ranks {
+  flex-flow: column-reverse;
+  top: 0;
+  right: 0;
+  left: auto;
+  height: 100%;
+  width: 0.8em;
+  align-items: flex-start;
+}
+
+.next-chessground .cg-wrap coords.ranks.black {
+  flex-flow: column;
+}
+
+.next-chessground .cg-wrap coords.ranks coord {
+  transform: none;
+}
+
+.next-chessground .cg-wrap coords.files {
+  bottom: 0;
+  left: 0;
+  flex-flow: row;
+  width: 100%;
+  height: auto;
+  text-transform: none;
+  text-align: left;
+}
+
+.next-chessground .cg-wrap coords.files.black {
+  flex-flow: row-reverse;
+}
+
+/* The one-class coords rules in this file (no .cg-wrap) are deliberate: they already out-specify
+   chessground's base rules, so adding .cg-wrap to them would be redundant, not a fix. */
+.next-chessground coords.files coord {
+  padding-left: 4px;
+}
+
+.next-chessground .cg-wrap coords coord {
+  flex: 1 1 auto;
+}
+
+/* chessground marks the colour of the square under each coordinate; we write in the opposite colour */
+.next-chessground coords coord.coord-light {
+  color: var(--coord-dark);
+}
+
+.next-chessground coords coord.coord-dark {
+  color: var(--coord-light);
+}

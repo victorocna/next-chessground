@@ -1,16 +1,16 @@
-const basic = `import { tree } from 'chess-moments';
-import { NextChessground } from 'next-chessground';
+const shapes = `import { flat } from 'chess-moments';
+import { Chessboard } from 'next-chessground';
 
 const Page = () => {
   const pgn = '1. e4 { [%csl Gd4,Ge4,Be5,Bd5] }';
-  const moments = tree(pgn);
+  const moments = flat(pgn);
   const current = moments[1];
 
   return (
-    <NextChessground fen={current.fen} shapes={current.shapes} />
+    <Chessboard fen={current.fen} shapes={current.shapes} viewOnly />
   );
 };
 
 export default Page;`;
 
-export default basic;
+export default shapes;

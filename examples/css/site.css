@@ -1,0 +1,625 @@
+/*
+ * next-chessground examples — the whole site stylesheet.
+ * No Tailwind: the shell, the demo template and the demo chrome (BoardControls,
+ * BoardSettings) all live here. Icons are Font Awesome 5 from the CDN link in site.config.js.
+ */
+
+:root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --border: #e3e6ea;
+  --text: #1f2328;
+  --muted: #6b7280;
+  --accent: #4f7a3a;
+  --accent-soft: rgba(79, 122, 58, 0.1);
+  --accent-ring: rgba(79, 122, 58, 0.35);
+  --hover: #f3f4f6;
+  --radius: 0.5rem;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 10px 24px -12px rgba(16, 24, 40, 0.18);
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --nav-width: 16rem;
+}
+
+/* Reset — small, because Tailwind's preflight is gone */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--mono);
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+/* Shell */
+
+.site-shell {
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.site-menu-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}
+
+.site-backdrop {
+  display: none;
+}
+
+/* Sidebar */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  flex: 0 0 var(--nav-width);
+  flex-direction: column;
+  width: var(--nav-width);
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+}
+
+.site-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 1.5rem 1.25rem 1rem;
+}
+
+.site-wordmark {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.site-version {
+  padding: 0.0625rem 0.4375rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.site-links {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+
+.site-link {
+  position: relative;
+  display: block;
+  padding: 0.4375rem 1.25rem;
+  border-left: 3px solid transparent;
+  color: var(--text);
+}
+
+.site-link:hover {
+  background: var(--hover);
+}
+
+.site-link.is-active {
+  border-left-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.site-link:focus-visible {
+  outline: 2px solid var(--accent-ring);
+  outline-offset: -2px;
+}
+
+.site-nav-footer {
+  display: flex;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.site-external {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.site-external:hover {
+  color: var(--accent);
+}
+
+/* Main */
+
+.site-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 2rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.site-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.site-menu-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.site-menu-button:hover {
+  background: var(--hover);
+}
+
+.site-card {
+  padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+/* Demo template — board and code on one row */
+
+.demo {
+  display: grid;
+  grid-template-columns: min(100%, 480px) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.demo-board {
+  position: sticky;
+  top: 2rem;
+  min-width: 0;
+}
+
+.demo-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.demo-code {
+  min-width: 0;
+}
+
+.demo-code-title {
+  margin-bottom: 0.625rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.demo-code pre {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fafafa;
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+/* highlight.js' github theme pads and paints the <code>; the <pre> does both here */
+.demo-code pre code.hljs {
+  display: block;
+  padding: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+/* Board chrome — BoardControls */
+
+/* 2rem square for an icon; a text label ("Undo") stretches it sideways */
+.demo-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.demo-button:hover:not(:disabled) {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.demo-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.demo-button:focus-visible {
+  outline: 2px solid var(--accent-ring);
+  outline-offset: 2px;
+}
+
+.demo-note {
+  margin-left: 0.25rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+/* Board chrome — BoardSettings, rendered as a child of the board so it covers it */
+
+.demo-settings-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 24, 39, 0.4);
+}
+
+.demo-settings {
+  width: min(90%, 21rem);
+  max-height: 100%;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 20px 40px -12px rgba(16, 24, 40, 0.45);
+  color: var(--text);
+  overflow-y: auto;
+}
+
+.demo-settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.demo-settings-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.demo-settings-close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.demo-settings-close:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.demo-settings-close:focus-visible {
+  outline: 2px solid var(--accent-ring);
+  outline-offset: 1px;
+}
+
+.demo-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.demo-settings-row-label {
+  flex: none;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.demo-settings-row-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+.demo-tile {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: pointer;
+}
+
+.demo-tile:hover {
+  border-color: var(--border);
+}
+
+.demo-tile.is-active,
+.demo-tile.is-active:hover {
+  border-color: var(--accent);
+}
+
+.demo-tile:focus-visible {
+  outline: 2px solid var(--accent-ring);
+  outline-offset: 1px;
+}
+
+.demo-swatch {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.125rem;
+  background-image: var(--board-bg);
+  background-size: 400% 400%;
+}
+
+.demo-piece-preview {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.demo-piece-preview piece {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.demo-segmented {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+.demo-segment {
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.demo-segment:hover {
+  color: var(--text);
+}
+
+.demo-segment.is-active,
+.demo-segment.is-active:hover {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.demo-segment:focus-visible {
+  outline: 2px solid var(--accent-ring);
+  outline-offset: 1px;
+}
+
+.demo-toggles {
+  padding: 0.25rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.demo-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.demo-toggle-label {
+  font-size: 0.75rem;
+}
+
+.demo-switch {
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: 2.25rem;
+  height: 1.25rem;
+  padding: 0 0.125rem;
+  border: 0;
+  border-radius: 999px;
+  background: #d1d5db;
+  cursor: pointer;
+}
+
+.demo-switch.is-on {
+  background: var(--accent);
+}
+
+.demo-switch:focus-visible {
+  outline: 2px solid var(--accent-ring);
+  outline-offset: 1px;
+}
+
+.demo-switch-knob {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: #ffffff;
+  transform: translateX(0);
+  transition: transform 0.15s ease;
+}
+
+.demo-switch.is-on .demo-switch-knob {
+  transform: translateX(1rem);
+}
+
+/* Under 1100px: the sidebar goes off-canvas and the demo stacks, board first */
+
+@media (max-width: 1099px) {
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .site-menu-checkbox:checked ~ .site-nav {
+    transform: translateX(0);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .site-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: block;
+    background: rgba(17, 24, 39, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out;
+  }
+
+  .site-menu-checkbox:checked ~ .site-backdrop {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .site-main {
+    padding: 1rem;
+  }
+
+  .demo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .demo-board {
+    position: static;
+  }
+
+  .site-card {
+    padding: 1.25rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .site-menu-button {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav,
+  .site-backdrop,
+  .demo-switch-knob {
+    transition: none;
+  }
+}

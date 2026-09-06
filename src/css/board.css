@@ -1,0 +1,107 @@
+/* Board themes as variables: the same image serves the board and an app swatch */
+.board-brown {
+  --board-bg: url('../../assets/boards/brown.svg');
+}
+.board-green {
+  --board-bg: url('../../assets/boards/green.svg');
+}
+.board-ruby {
+  --board-bg: url('../../assets/boards/ruby.svg');
+}
+.board-purple {
+  --board-bg: url('../../assets/boards/purple.png');
+}
+.board-teal {
+  --board-bg: url('../../assets/boards/teal.svg');
+}
+
+/* Legal-move dots in the theme colour */
+.board-green cg-board square.move-dest,
+.board-brown cg-board square.move-dest {
+  background: radial-gradient(
+    rgba(20, 85, 30, 0.5) 22%,
+    #208530 0,
+    rgba(0, 0, 0, 0.3) 0,
+    rgba(0, 0, 0, 0) 0
+  );
+}
+.board-green cg-board square.oc.move-dest,
+.board-brown cg-board square.oc.move-dest {
+  background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
+}
+.board-green cg-board square.move-dest:hover,
+.board-brown cg-board square.move-dest:hover {
+  background: rgba(20, 85, 30, 0.3);
+}
+
+.board-ruby cg-board square.move-dest {
+  background: radial-gradient(
+    rgba(200, 180, 40, 0.6) 22%,
+    rgba(200, 180, 40, 0.8) 0,
+    rgba(0, 0, 0, 0.3) 0,
+    rgba(0, 0, 0, 0) 0
+  );
+}
+.board-ruby cg-board square.oc.move-dest {
+  background: radial-gradient(transparent 0%, transparent 80%, rgba(200, 180, 40, 0.3) 80%);
+}
+.board-ruby cg-board square.move-dest:hover {
+  background: rgba(200, 180, 40, 0.3);
+}
+
+.board-purple cg-board square.move-dest {
+  background: radial-gradient(
+    rgba(180, 130, 255, 0.6) 22%,
+    rgba(180, 130, 255, 0.8) 0,
+    rgba(0, 0, 0, 0.3) 0,
+    rgba(0, 0, 0, 0) 0
+  );
+}
+.board-purple cg-board square.oc.move-dest {
+  background: radial-gradient(transparent 0%, transparent 80%, rgba(180, 130, 255, 0.3) 80%);
+}
+.board-purple cg-board square.move-dest:hover {
+  background: rgba(180, 130, 255, 0.3);
+}
+
+.board-teal cg-board square.move-dest {
+  background: radial-gradient(
+    rgba(20, 200, 180, 0.6) 22%,
+    rgba(20, 200, 180, 0.8) 0,
+    rgba(0, 0, 0, 0.3) 0,
+    rgba(0, 0, 0, 0) 0
+  );
+}
+.board-teal cg-board square.oc.move-dest {
+  background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 200, 180, 0.3) 80%);
+}
+.board-teal cg-board square.move-dest:hover {
+  background: rgba(20, 200, 180, 0.3);
+}
+
+/* Coordinates take the theme colours: dark text on light squares and the reverse */
+.board-brown {
+  --coord-light: #f0d9b5;
+  --coord-dark: #b58863;
+}
+.board-green {
+  --coord-light: #ebecd0;
+  --coord-dark: #779556;
+}
+.board-purple {
+  --coord-light: #e3d8ed;
+  --coord-dark: #977bb2;
+}
+.board-ruby {
+  --coord-light: #d2d4c8;
+  --coord-dark: #8b2635;
+}
+.board-teal {
+  --coord-light: #e3ebf3;
+  --coord-dark: #1c72ad;
+}
+
+/* The theme class sits on the root element, the variable reaches the board */
+.next-chessground cg-board {
+  background-image: var(--board-bg);
+}
