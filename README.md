@@ -32,6 +32,8 @@ import 'next-chessground/styles.css';
 import 'next-chessground/pieces.css';
 ```
 
+Upgrading from 1.x? The [changelog](CHANGELOG.md) lists every breaking change and its replacement.
+
 ## Usage
 
 The app owns the position. The board reports validated moves through `onMove`, and the app feeds the new `fen` back in.

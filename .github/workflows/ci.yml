@@ -13,20 +13,21 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+# Node 22 only: the package itself is browser ESM with `engines.node >= 20`, but the dev toolchain
+# (jsdom 30 via undici) needs Node 22, so a Node 20 leg fails in jsdom before any test runs.
 jobs:
   check:
-    name: node ${{ matrix.node }} / react ${{ matrix.react }}
+    name: react ${{ matrix.react }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        node: [20, 22]
         react: [18, 19]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 22
           cache: npm
       - run: npm ci
       # peerDependencies allow ^18 || ^19; the lockfile pins 19, so the 18 leg swaps at runtime
@@ -44,8 +45,8 @@ jobs:
     name: generated files and package contents
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
