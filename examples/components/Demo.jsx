@@ -1,13 +1,12 @@
 import { Highlight, Layout } from '.';
 
 /**
- * The page template: a title, an optional description and one row holding the
- * board (with its optional controls underneath) and the code sample.
+ * The page template: a title and one row holding the board (with its optional
+ * controls underneath) and the code sample.
  */
-const Demo = ({ children, code, controls, description, title }) => {
+const Demo = ({ children, code, controls, title }) => {
   return (
     <Layout title={title}>
-      {description && <p className="demo-description">{description}</p>}
       <div className="demo">
         <div className="demo-board">
           {children}

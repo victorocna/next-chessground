@@ -15,11 +15,7 @@ const Page = () => {
   };
 
   return (
-    <Demo
-      title="With rook"
-      description="A rook endgame from a custom fen start position."
-      code={rook}
-    >
+    <Demo title="With rook" code={rook}>
       <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
     </Demo>
   );

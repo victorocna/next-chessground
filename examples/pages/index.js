@@ -18,7 +18,6 @@ const Page = () => {
   return (
     <Demo
       title="Basic example"
-      description="A board for both sides. The flip button and the settings panel under it are demo components built on the package's preferences hook."
       code={basic}
       controls={<BoardControls onFlip={onFlip} onSettings={() => setSettingsOpen(true)} />}
     >

@@ -30,7 +30,6 @@ const Page = () => {
   return (
     <Demo
       title="Undo last move"
-      description="The page keeps the positions it visited and sets an earlier fen to undo."
       code={undo}
       controls={
         <>

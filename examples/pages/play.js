@@ -53,11 +53,7 @@ const Page = () => {
   };
 
   return (
-    <Demo
-      title="Play computer"
-      description="You play white against Stockfish. Premoves are on by default."
-      code={play}
-    >
+    <Demo title="Play computer" code={play}>
       <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="white" />
     </Demo>
   );

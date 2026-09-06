@@ -15,7 +15,7 @@ const Page = () => {
   };
 
   return (
-    <Demo title="With queen" description="A queen endgame, black to move." code={queen}>
+    <Demo title="With queen" code={queen}>
       <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
     </Demo>
   );

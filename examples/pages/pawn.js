@@ -16,11 +16,7 @@ const Page = () => {
   };
 
   return (
-    <Demo
-      title="Pawn promotion"
-      description="Push the pawn from c7 to c8 and the board asks which piece to promote to."
-      code={pawn}
-    >
+    <Demo title="Pawn promotion" code={pawn}>
       <Chessboard fen={fen} lastMove={lastMove} onMove={onMove} playerColor="both" />
     </Demo>
   );

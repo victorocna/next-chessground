@@ -53,11 +53,7 @@ const Page = () => {
   }, [engine, fen]);
 
   return (
-    <Demo
-      title="Watch computers play"
-      description="Nobody may move: Stockfish plays both sides."
-      code={watch}
-    >
+    <Demo title="Watch computers play" code={watch}>
       <Chessboard fen={fen} lastMove={lastMove} />
     </Demo>
   );

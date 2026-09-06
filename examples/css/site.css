@@ -241,20 +241,6 @@ svg {
 
 /* Demo template — board and code on one row */
 
-.demo-description {
-  max-width: 60ch;
-  margin-bottom: 1.5rem;
-  color: var(--muted);
-}
-
-.demo-description code {
-  padding: 0.0625rem 0.25rem;
-  border-radius: 0.25rem;
-  background: var(--hover);
-  color: var(--text);
-  font-size: 0.8125rem;
-}
-
 .demo {
   display: grid;
   grid-template-columns: min(100%, 480px) minmax(0, 1fr);

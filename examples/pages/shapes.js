@@ -9,11 +9,7 @@ const Page = () => {
   const current = moments[1];
 
   return (
-    <Demo
-      title="Shapes"
-      description="A view-only board drawing the circles a PGN comment carries, parsed by chess-moments."
-      code={shapes}
-    >
+    <Demo title="Shapes" code={shapes}>
       <Chessboard fen={current.fen} shapes={current.shapes} viewOnly />
     </Demo>
   );
