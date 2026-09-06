@@ -47,11 +47,35 @@ describe('boardConfig', () => {
     );
     expect(config.movable?.events?.after).toBe(handlers.after);
     expect(config.drawable?.onChange).toBe(handlers.onShapesChange);
-    expect(config.movable?.color).toBe('both');
+    expect(config.movable?.color).toBe('white');
     expect(config.movable?.showDests).toBe(false);
     expect(config.premovable?.enabled).toBe(true);
     expect(config.highlight?.lastMove).toBe(false);
     expect(config.highlight?.check).toBe(true);
+  });
+
+  it('names the side to move when the user plays both sides', () => {
+    // chessground's own `both` skips its turn check, so the waiting side would be grabbable
+    const white = boardConfig({ ...input, movableColor: 'both' }, DEFAULT_PREFS, handlers);
+    expect(white.movable?.color).toBe('white');
+
+    const black = boardConfig(
+      { ...input, movableColor: 'both', turnColor: 'black' },
+      DEFAULT_PREFS,
+      handlers
+    );
+    expect(black.movable?.color).toBe('black');
+  });
+
+  it('passes a single-sided movableColor through untouched', () => {
+    // one side's own board: chessground still needs the mismatch that arms a premove
+    const config = boardConfig(
+      { ...input, movableColor: 'black', turnColor: 'white' },
+      DEFAULT_PREFS,
+      handlers
+    );
+    expect(config.movable?.color).toBe('black');
+    expect(config.turnColor).toBe('white');
   });
 
   it('lets a drawn arrow end on the released square', () => {

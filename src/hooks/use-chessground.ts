@@ -33,6 +33,8 @@ export const useChessground = (
   latest.current = input;
   const latestPrefs = useRef(prefs);
   latestPrefs.current = prefs;
+  const latestShapes = useRef({ autoShapes, shapes });
+  latestShapes.current = { autoShapes, shapes };
 
   // A rejected move needs a full resync: chessground has already cleared dests and check
   // before `after` fires, so a partial set would leave the board frozen.
@@ -50,19 +52,25 @@ export const useChessground = (
     [after]
   );
 
+  // chessground binds its document listeners (drag move/end) once, at creation, and only when
+  // the board is not viewOnly: a board that turns interactive later needs a fresh instance.
+  const { viewOnly } = input;
   useEffect(() => {
     if (!el.current) {
       return undefined;
     }
-    api.current = Chessground(
+    const board = Chessground(
       el.current,
       boardConfig(latest.current, latestPrefs.current, handlers)
     );
+    board.setShapes(latestShapes.current.shapes);
+    board.setAutoShapes(latestShapes.current.autoShapes);
+    api.current = board;
     return () => {
-      api.current?.destroy();
+      board.destroy();
       api.current = null;
     };
-  }, [el, handlers]);
+  }, [el, handlers, viewOnly]);
 
   const {
     check,
@@ -74,10 +82,9 @@ export const useChessground = (
     orientation,
     premovable,
     turnColor,
-    viewOnly,
   } = input;
-  // viewOnly and coordinates are bound when chessground builds its DOM: changing them needs redrawAll
-  const rebuildKey = `${viewOnly}:${coordinates ?? prefs.coordinates}`;
+  // coordinates are bound when chessground builds its DOM: changing them needs redrawAll
+  const rebuildKey = `${coordinates ?? prefs.coordinates}`;
   const lastRebuild = useRef(rebuildKey);
 
   useEffect(() => {

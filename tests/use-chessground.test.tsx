@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { act, cleanup, render } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Board } from '../src/components/Board';
 import { resetPrefsCache } from '../src/prefs/store';
 
@@ -52,6 +52,19 @@ describe('useChessground with a real chessground', () => {
     expect(container.querySelector('cg-board')).toBe(board);
     expect(container.querySelectorAll('cg-board piece')).toHaveLength(32);
     expect(container.querySelector('cg-board')?.innerHTML).toBe(before);
+  });
+
+  it('recreates chessground when a viewOnly board turns interactive', async () => {
+    // chessground binds drag end on the document only for interactive boards, at creation
+    const listeners = vi.spyOn(document, 'addEventListener');
+    const { rerender } = render(<Board fen={START} viewOnly />);
+    await frame();
+    expect(listeners.mock.calls.some(([type]) => type === 'mouseup')).toBe(false);
+
+    rerender(<Board fen={START} />);
+    await frame();
+    expect(listeners.mock.calls.some(([type]) => type === 'mouseup')).toBe(true);
+    listeners.mockRestore();
   });
 
   it('rebuilds the board when coordinates change', async () => {

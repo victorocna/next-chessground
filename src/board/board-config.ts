@@ -1,10 +1,15 @@
 import type { Config } from '@lichess-org/chessground/config';
-import type { BoardInput, DrawShape, Key, MoveMetadata, Prefs } from './types';
+import type { BoardInput, Color, DrawShape, Key, MoveMetadata, PlayerColor, Prefs } from './types';
 
 export interface ConfigHandlers {
   after: (orig: Key, dest: Key, meta: MoveMetadata) => void;
   onShapesChange: (shapes: DrawShape[]) => void;
 }
+
+const movableColorOf = (
+  movableColor: PlayerColor | undefined,
+  turnColor: Color
+): Color | undefined => (movableColor === 'both' ? turnColor : movableColor);
 
 /**
  * Translates Board props and preferences into a chessground Config. Keys stay present even
@@ -28,7 +33,7 @@ export const boardConfig = (input: BoardInput, prefs: Prefs, handlers: ConfigHan
   highlight: { check: true, lastMove: prefs.highlight },
   lastMove: input.lastMove ?? undefined,
   movable: {
-    color: input.movableColor,
+    color: movableColorOf(input.movableColor, input.turnColor),
     dests: input.dests,
     events: { after: handlers.after },
     free: false,
